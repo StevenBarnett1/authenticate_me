@@ -28,7 +28,6 @@ const validateSpot = [
       .withMessage('Please provide a valid zip code'),,
     check('hostId')
     .exists({ checkFalsy: true })
-      .isLength({ min: 6 })
       .withMessage('Please provide a valid host id'),,
     check('price')
       .exists({ checkFalsy: true })
