@@ -5,6 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import ExploreNearby from "./components/ExploreNearby";
+import CityPage from "./components/CityPage"
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +21,9 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <ExploreNearby />
+          </Route>
+          <Route path = "/cities">
+            <CityPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
