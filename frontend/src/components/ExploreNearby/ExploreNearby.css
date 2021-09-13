@@ -1,4 +1,4 @@
-img{
+.explore-nearby-image{
     width:65px;
     height:65px;
     border-radius: 12px;
@@ -12,13 +12,13 @@ img{
     font-weight: 600;
 }
 
-#explore-container{
+#explore-nearby-container{
    display:flex;
    flex-wrap:wrap;
    align-items:center;
 }
 
-.individual-container {
+.explore-nearby-individual-container {
     display:flex;
     flex-direction: row;
     width:25%;

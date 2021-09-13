@@ -8,10 +8,10 @@ const ExploreNearby = () => {
     return (
         <>
             <h2 id = "explore-title">Explore nearby</h2>
-            <div id="explore-container">
+            <div id="explore-nearby-container">
                 {cities.map((city,i)=>(
-                    <div className = "individual-container">
-                        <img src = {icons[i]}></img>
+                    <div className = "explore-nearby-individual-container">
+                        <img className = "explore-nearby-image" src = {icons[i]}></img>
                         <div className="city">{city}</div>
                     </div>
                 ))}

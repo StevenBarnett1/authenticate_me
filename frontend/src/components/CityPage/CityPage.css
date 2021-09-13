@@ -1,4 +1,4 @@
-.individual-container{
+.city-page-individual-container{
     box-sizing:border-box;
     display:flex;
     align-items: center;
@@ -9,7 +9,7 @@
 
 }
 
-img {
+.city-page-image {
     box-sizing:border-box;
     width:300px;
     height:200px;
@@ -31,7 +31,7 @@ img {
     justify-content: space-between;
     font-size:20px;
     white-space: nowrap;
-    overflow:hidden
+
 }
 .right-side > * {
     font-family:Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
@@ -46,9 +46,6 @@ img {
 
 #separating-line{
     color:lightgrey;
-}
-.upper-right{
-
 }
 #stays-container{
 width:1000px

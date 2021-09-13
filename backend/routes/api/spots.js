@@ -38,8 +38,15 @@ const validateSpot = [
 router.post("/spots",validateSpot,asyncHandler(async(req,res)=>{
     let {name,description,address,city,state,zipCode,hostId,price} = req.body
     let spot = await Spot.create({name,description,address,city,state,zipCode,hostId,price})
-    res.json(spot)
+    return res.json(spot)
 }))
+
+router.get("/cities/:city",async(req,res)=>{
+  let spots = await Spot.findAll({where:{
+    city:req.params.city
+  }})
+  return res.json(spots)
+})
 
 router.put("/spots/:id",validateSpot,asyncHandler(async(req,res)=>{
     let {id} = req.params
