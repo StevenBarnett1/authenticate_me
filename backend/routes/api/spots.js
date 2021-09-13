@@ -31,7 +31,7 @@ const validateSpot = [
       .withMessage('Please provide a valid host id'),,
     check('price')
       .exists({ checkFalsy: true })
-      .withMessage('Please provide a valid price'),,
+      .withMessage('Please provide a valid price'),
     handleValidationErrors,
   ];
 
