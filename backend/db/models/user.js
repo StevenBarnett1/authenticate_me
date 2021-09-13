@@ -1,7 +1,16 @@
 'use strict';
+const { Validator } = require('sequelize');
 const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    firstName:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+    lastName:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
     username: {
       type:DataTypes.STRING,
       allowNull:false,
@@ -46,11 +55,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.Booking,{foreignKey:"buyerId"})
+    User.hasMany(models.Spot,{foreignKey:"hostId"})
+    User.hasMany(models.Review,{foreignKey:"authorId"})
   };
   User.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
-    const { id, username, email } = this; // context will be the User instance
-    return { id, username, email };
+    const { id, username, email, firstName, lastName } = this; // context will be the User instance
+    return { id, username, email, firstName, lastName };
   };
   User.prototype.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
@@ -72,12 +83,14 @@ module.exports = (sequelize, DataTypes) => {
       return await User.scope('currentUser').findByPk(user.id);
     }
   };
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({ username, email, password, firstName, lastName }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       username,
       email,
       hashedPassword,
+      firstName,
+      lastName
     });
     return await User.scope('currentUser').findByPk(user.id);
   };
