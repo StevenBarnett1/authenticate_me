@@ -12,12 +12,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Spot.belongsTo(models.User,{foreignKey:"hostId"})
       Spot.hasMany(models.Booking,{foreignKey:"spotId"})
+      Spot.hasMany(models.Review,{foreignKey:"spotId"})
     }
   };
   Spot.init({
     name: {
       type:DataTypes.STRING,
       allowNull:false,
+    },
+    description:{
+      type:DataTypes.TEXT,
+      allowNull:false
     },
     address: {
       type:DataTypes.STRING,
