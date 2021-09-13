@@ -3,34 +3,46 @@ const { User, Spot } = require('../../db/models');
 const router = express.Router()
 const asyncHandler = require('express-async-handler');
 const { handleValidationErrors } = require('../../utils/validation');
+const { check } = require("express-validator");
 
 const validateSpot = [
-    check('email')
+    check('name')
       .exists({ checkFalsy: true })
-      .isEmail()
-      .withMessage('Please provide a valid email.'),
-    check('username')
+      .withMessage('Please provide a valid name'),
+    check('description')
       .exists({ checkFalsy: true })
-      .isLength({ min: 4 })
-      .withMessage('Please provide a username with at least 4 characters.'),
-    check('username')
-      .not()
-      .isEmail()
-      .withMessage('Username cannot be an email.'),
-    check('password')
+      .withMessage('Please provide a valid description.'),
+    check('address')
       .exists({ checkFalsy: true })
+      .withMessage('Please provide a valid address'),
+    check('city')
+      .exists({ checkFalsy: true })
+      .withMessage('Please provide a valid city'),
+    check('state')
+    .exists({ checkFalsy: true })
+      .withMessage('Please provide a valid state'),,
+    check('zipCode')
+    .exists({ checkFalsy: true })
+      .isLength({ min: 5 })
+      .isLength({ max: 5 })
+      .withMessage('Please provide a valid zip code'),,
+    check('hostId')
+    .exists({ checkFalsy: true })
       .isLength({ min: 6 })
-      .withMessage('Password must be 6 characters or more.'),
+      .withMessage('Please provide a valid host id'),,
+    check('price')
+      .exists({ checkFalsy: true })
+      .withMessage('Please provide a valid price'),,
     handleValidationErrors,
   ];
 
-router.post("/spots",asyncHandler(async(req,res)=>{
+router.post("/spots",validateSpot,asyncHandler(async(req,res)=>{
     let {name,description,address,city,state,zipCode,hostId,price} = req.body
     let spot = await Spot.create({name,description,address,city,state,zipCode,hostId,price})
     res.json(spot)
 }))
 
-router.put("/spots/:id",asyncHandler(async(req,res)=>{
+router.put("/spots/:id",validateSpot,asyncHandler(async(req,res)=>{
     let {id} = req.params
     let {name,description,address,city,state,zipCode,hostId,price} = req.body
     let spot = await Spot.findByPk(id)
