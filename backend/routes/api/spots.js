@@ -19,16 +19,16 @@ const validateSpot = [
       .exists({ checkFalsy: true })
       .withMessage('Please provide a valid city'),
     check('state')
-    .exists({ checkFalsy: true })
-      .withMessage('Please provide a valid state'),,
+      .exists({ checkFalsy: true })
+      .withMessage('Please provide a valid state'),
     check('zipCode')
-    .exists({ checkFalsy: true })
+      .exists({ checkFalsy: true })
       .isLength({ min: 5 })
       .isLength({ max: 5 })
-      .withMessage('Please provide a valid zip code'),,
+      .withMessage('Please provide a valid zip code'),
     check('hostId')
-    .exists({ checkFalsy: true })
-      .withMessage('Please provide a valid host id'),,
+      .exists({ checkFalsy: true })
+      .withMessage('Please provide a valid host id'),
     check('price')
       .exists({ checkFalsy: true })
       .withMessage('Please provide a valid price'),
