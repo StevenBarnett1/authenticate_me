@@ -4,7 +4,7 @@ import {getSpotByPk} from "../../store/spots"
 import {useDispatch ,useSelector} from "react-redux"
 import usersReducer, { getUserByPk } from "../../store/users"
 
-let Spots = () => {
+let SpotPage = () => {
     let {spotId} = useParams()
     let dispatch = useDispatch()
 
@@ -44,4 +44,4 @@ let Spots = () => {
     )
 }
 
-export default Spots
+export default SpotPage

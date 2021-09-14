@@ -7,6 +7,14 @@
 
 .live-anywhere-inner-container{
     margin: 8px;
+
+}
+
+.live-anywhere-inner-container > * {
+    color:rgb(34, 34, 34);
+    font-family:Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-weight:inherit;
+    font-size:18px;
 }
 
 .live-anywhere-inner-container > img {
