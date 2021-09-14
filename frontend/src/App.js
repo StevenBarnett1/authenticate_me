@@ -22,7 +22,7 @@ function App() {
           <Route exact path='/'>
             <ExploreNearby />
           </Route>
-          <Route path = "/cities">
+          <Route path = "/cities/:city">
             <CityPage />
           </Route>
           <Route path="/signup">

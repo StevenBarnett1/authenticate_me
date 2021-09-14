@@ -55,9 +55,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   User.associate = function(models) {
-    User.hasMany(models.Booking,{foreignKey:"buyerId"})
-    User.hasMany(models.Spot,{foreignKey:"hostId"})
-    User.hasMany(models.Review,{foreignKey:"authorId"})
+    User.hasMany(models.Booking,{foreignKey:"buyerId", onDelete:'CASCADE',hooks:true})
+    User.hasMany(models.Spot,{foreignKey:"hostId", onDelete:'CASCADE',hooks:true})
+    User.hasMany(models.Review,{foreignKey:"authorId", onDelete:'CASCADE',hooks:true})
   };
   User.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
     const { id, username, email, firstName, lastName } = this; // context will be the User instance

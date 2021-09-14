@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Spot.belongsTo(models.User,{foreignKey:"hostId"})
-      Spot.hasMany(models.Booking,{foreignKey:"spotId"})
-      Spot.hasMany(models.Review,{foreignKey:"spotId"})
+      Spot.hasMany(models.Booking,{foreignKey:"spotId", onDelete:'CASCADE',hooks:true})
+      Spot.hasMany(models.Review,{foreignKey:"spotId", onDelete:'CASCADE',hooks:true})
     }
   };
   Spot.init({
@@ -24,10 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.TEXT,
       allowNull:false
     },
-    address: {
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
     city: {
       type:DataTypes.STRING,
       allowNull:false,
@@ -36,13 +32,19 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false,
     },
-    zipCode: {
-      type:DataTypes.INTEGER,
-      allowNull:false,
-    },
     hostId: {
       type:DataTypes.INTEGER,
       allowNull:false,
+    },
+    rating:{
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      defaultValue:5
+    },
+    image:{
+      type:DataTypes.STRING,
+      allowNull:false,
+      unique:true
     },
     price: {
       type:DataTypes.INTEGER,
