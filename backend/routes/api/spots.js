@@ -54,6 +54,11 @@ router.get("/:id",async(req,res)=>{
   return res.json(spot)
 })
 
+router.get("/",async(req,res)=>{
+  let spots = await Spot.findAll()
+  return res.json(spots)
+})
+
 router.put("/:id",validateSpot,asyncHandler(async(req,res)=>{
     let {id} = req.params
     let {name,description,address,city,state,zipCode,hostId,price} = req.body

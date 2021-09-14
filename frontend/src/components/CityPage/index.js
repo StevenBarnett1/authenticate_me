@@ -7,15 +7,13 @@ import mockData from "../../mockData"
 const CityPage = () => {
     let {city} = useParams()
 
-    let dispatch = useDispatch()
-    useEffect(()=>{
-        dispatch(getSpotFromCity(city))
-    },[])
     let spots = useSelector((state)=>state.spots)
     city = city.split("-").join(" ")
+    spots = spots.find(spot => spot.city.toUpperCase() === "CITY")
+
     return (
         <>
-            <h1 id = "city-title">Stays in {city.toUpperCase()}</h1>
+            <h1 id = "city-title">Stays in {city}</h1>
             <div id="stays-container">
                 {spots instanceof Array && spots.map((spot)=>(
                     <Link key = {spot.id} to={`/spots/${spot.id}`}className = "city-page-individual-container" >
