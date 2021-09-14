@@ -1,0 +1,31 @@
+#navbar-ul {
+    height:80px;
+    display:flex;
+    flex-direction: row;
+    z-index:1;
+    list-style-type: none;
+    justify-content: space-between;
+}
+
+#profile-button{
+    width:79px;
+    height:41px;
+    border-radius: 21px;
+    cursor:pointer;
+    background-color: white;
+    border:none;
+}
+
+#profile-button> img{
+    width:27px;
+    height:27px;
+
+}
+
+.profile-dropdown{
+    list-style-type:none;
+    width:240px;
+    background-color:white;
+    position: absolute;
+
+}

@@ -11,6 +11,7 @@ import LiveAnywhere from "./components/LiveAnywhere";
 import ThingsToDo from "./components/ThingsToDo";
 import Splash from "./components/Splash";
 import FutureGetaways from "./components/FutureGetaways";
+import "./App.css"
 
 function App() {
   const dispatch = useDispatch();
