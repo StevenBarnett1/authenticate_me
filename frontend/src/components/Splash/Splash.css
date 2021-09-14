@@ -1,4 +1,7 @@
 #splash{
-    object-fit:contain;
-    overflow-x: hidden;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    object-fit: cover;
 }

@@ -11,10 +11,10 @@
 }
 
 #search-magnifying-glass{
-    background-color: red;
     height:32px;
     width:32px;
     border-radius: 32px;
+    line-height:35px;
 
 }
 
