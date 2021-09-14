@@ -1,0 +1,32 @@
+.explore-nearby-image{
+    width:65px;
+    height:65px;
+    border-radius: 12px;
+}
+
+.city{
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-size: 16px;
+    padding-left: 15px;
+    padding-top:10px;
+    font-weight: 600;
+}
+
+#explore-nearby-container{
+   display:flex;
+   flex-wrap:wrap;
+   align-items:center;
+}
+
+.explore-nearby-individual-container {
+    display:flex;
+    flex-direction: row;
+    width:25%;
+    margin-top:10px;
+    margin-bottom:10px
+}
+
+#explore-title{
+    font-size:32px;
+    font-family:Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}

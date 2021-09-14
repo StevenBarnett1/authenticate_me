@@ -1,0 +1,54 @@
+.city-page-individual-container{
+    box-sizing:border-box;
+    display:flex;
+    align-items: center;
+    border-top: 2px solid lightgrey;
+    height:250px;
+    width:inherit;
+    margin:0px;
+    text-decoration: none;
+    color:inherit
+
+}
+
+.city-page-image {
+    box-sizing:border-box;
+    width:300px;
+    height:200px;
+    border-radius:15px;
+    margin-right:10px;
+}
+
+#city-title{
+    font-family:Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+
+}
+
+.right-side{
+    box-sizing:border-box;
+    width:700px;
+    height:200px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size:20px;
+    white-space: nowrap;
+
+}
+.right-side > * {
+    font-family:Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+    font-weight:300
+}
+.lower-right{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:inherit;
+}
+
+#separating-line{
+    color:lightgrey;
+}
+#stays-container{
+width:1000px
+}

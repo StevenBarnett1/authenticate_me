@@ -12,9 +12,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull:false,
       },
-      address: {
-        type: Sequelize.STRING,
-        allowNull:false,
+      description:{
+        type:Sequelize.TEXT,
+        allowNull:false
       },
       city: {
         type: Sequelize.STRING,
@@ -24,16 +24,22 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull:false,
       },
-      zipCode: {
-        type: Sequelize.INTEGER,
-        allowNull:false,
-      },
       hostId: {
         type: Sequelize.INTEGER,
         allowNull:false,
         references:{
           model:"Users"
         }
+      },
+      rating:{
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        defaultValue:5
+      },
+      image:{
+        type:Sequelize.STRING,
+        allowNull:false,
+        unique:true
       },
       price: {
         type: Sequelize.INTEGER,

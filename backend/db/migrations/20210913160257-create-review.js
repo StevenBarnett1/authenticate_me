@@ -15,6 +15,13 @@ module.exports = {
           model:"Users"
         }
       },
+      spotId: {
+        type: Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+          model:"Spots"
+        }
+      },
       body: {
         type: Sequelize.TEXT,
         allowNull:true
