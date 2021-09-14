@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/StevenBarnett1/authenticate_me/issues"
   },
-  "homepage": "https://github.com/StevenBarnett1/authenticate_me#readme"
+  "homepage": "https://github.com/StevenBarnett1/authenticate_me#readme",
+  "dependencies": {
+    "mapbox-gl": "^2.4.1"
+  }
 }

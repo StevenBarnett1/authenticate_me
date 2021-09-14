@@ -12,7 +12,8 @@ const Search = () => {
     let history = useHistory()
     let spots = useSelector((state)=>state.spots)
     let onSubmit = () => {
-        history.push(`/cities/${location}`)
+        let correctLocation = location.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join(" ")
+        history.push(`/cities/${correctLocation}`)
     }
 
     if(type==="clicked")return (

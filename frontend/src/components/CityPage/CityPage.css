@@ -11,6 +11,14 @@
 
 }
 
+#city-page-container{
+    display:flex;
+    flex-direction: row;
+}
+.map-container {
+    height: 400px;
+    }
+
 .city-page-image {
     box-sizing:border-box;
     width:300px;

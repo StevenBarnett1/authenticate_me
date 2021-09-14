@@ -12,7 +12,9 @@ import ThingsToDo from "./components/ThingsToDo";
 import Splash from "./components/Splash";
 import FutureGetaways from "./components/FutureGetaways";
 import "./App.css"
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { getSpots } from "./store/spots";
+
 
 function App() {
   const dispatch = useDispatch();

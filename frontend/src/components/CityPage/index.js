@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
+import mapboxgl from 'mapbox-gl';
 import {Link, useParams} from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux'
 import { getSpotFromCity } from '../../store/spots'
@@ -12,11 +13,38 @@ const CityPage = () => {
     },[])
     let spots = Object.values(useSelector((state)=>state.spots))
     city = city.split("-").join(" ")
-    console.log("spotsssss: ",spots)
+
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic3RldmVuYmFybmV0dDEiLCJhIjoiY2t0a2w1bDh1MW13cjJvbnh2Nm4xeHg4ZSJ9.tfF8CCQtdVQSCHxliRtaQQ';
+
+    const mapContainer = useRef(null);
+        const map = useRef(null);
+        const [lng, setLng] = useState(-121.88);
+        const [lat, setLat] = useState(37.33);
+        const [zoom, setZoom] = useState(9);
+
+        useEffect(() => {
+            if (map.current) return; // initialize map only once
+            map.current = new mapboxgl.Map({
+                container: mapContainer.current,
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [lng, lat],
+                zoom: zoom
+            });
+        });
+        useEffect(() => {
+            if (!map.current) return; // wait for map to initialize
+            map.current.on('move', () => {
+            setLng(map.current.getCenter().lng.toFixed(4));
+            setLat(map.current.getCenter().lat.toFixed(4));
+            setZoom(map.current.getZoom().toFixed(2));
+            });
+            });
+            
     return (
         <>
-            <h1 id = "city-title">Stays in {city}</h1>
+        <div id = "city-page-container">
             <div id="stays-container">
+            <h1 id = "city-title">Stays in {city}</h1>
                 {spots instanceof Array && spots.map((spot)=>(
                     <Link key = {spot.id} to={`/spots/${spot.id}`}className = "city-page-individual-container" >
                         <img className = "city-page-image" src = {spot.image}></img>
@@ -32,6 +60,10 @@ const CityPage = () => {
                         </div>
                     </Link>
                 ))}
+            </div>
+            <div>
+                <div ref={mapContainer} className="map-container" ></div>
+            </div>
             </div>
         </>
     )
