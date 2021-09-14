@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
@@ -11,6 +11,8 @@ import LiveAnywhere from "./components/LiveAnywhere";
 import ThingsToDo from "./components/ThingsToDo";
 import Splash from "./components/Splash";
 import FutureGetaways from "./components/FutureGetaways";
+import "./App.css"
+import { getSpots } from "./store/spots";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +20,9 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
+  useEffect(()=>{
+    dispatch(getSpots())
+  },[])
 
   return (
     <>

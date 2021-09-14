@@ -10,7 +10,6 @@ const setSpots = (spots) => {
 
 export const getSpotFromCity = (city) => async dispatch => {
     let res = await fetch(`/api/spots/cities/${city}`)
-
     let spots = await res.json()
     dispatch(setSpots(spots))
 }
@@ -21,30 +20,22 @@ export const getSpotByPk = (id) => async dispatch => {
     dispatch(setSpots(spot))
 }
 
+export const getSpots = () => async dispatch =>{
+    let res = await fetch("/api/spots")
+    let spots = await res.json()
 
+    dispatch(setSpots(spots))
+    return spots
 
-// let getInitialState = async () => {
-//     let res = await fetch("/api/spots")
-//     let spots = await res.json()
-//     console.log("SPOTS: ",spots)
-
-//     let state = {}
-//     spots.forEach(spot => {
-//         state[spot.id] = spot
-//     })
-//     console.log("STATE: ",state)
-//     return state
-
-// }
-
-// let initialState = getInitialState()
+}
 
 const spotsReducer = (state = {}, action) => {
     let newState = {}
     switch (action.type){
         case SET_SPOTS:{
-            console.log("PAYLOAD", action.payload)
-            newState = {...action.payload}
+            action.payload.forEach(spot => {
+                newState[spot.id] = spot
+            })
             return newState
         }
         default:
