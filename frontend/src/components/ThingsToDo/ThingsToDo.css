@@ -1,0 +1,15 @@
+#ttd-outer-container{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    width:100%
+}
+
+.ttd-inner-container{
+    margin: 8px;
+}
+
+.ttd-inner-container > img {
+    width:520px;
+    height:520px;
+}
