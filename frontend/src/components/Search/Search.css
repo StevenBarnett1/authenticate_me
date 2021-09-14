@@ -47,3 +47,7 @@
     width:270px;
     border-radius: 32px;
 }
+
+#guests-input:hover,#checkin-input:hover,#checkout-input:hover,#location-input:hover{
+    background-color: lightgrey;
+}

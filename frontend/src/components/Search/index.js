@@ -7,6 +7,10 @@ const Search = () => {
     let [checkout,setCheckout] = useState("")
     let [guests,setGuests] = useState("")
     let [type,setType] = useState("non-clicked")
+
+    let onSubmit = () => {
+        
+    }
     if(type==="clicked")return (
         <>
             <form id = "search-form">
