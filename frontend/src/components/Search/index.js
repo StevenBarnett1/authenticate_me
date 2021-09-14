@@ -1,5 +1,7 @@
 import "./Search.css"
 import {useState} from "react"
+import {useHistory} from "react-router-dom"
+import { useSelector } from "react-redux"
 
 const Search = () => {
     let [location,setLocation] = useState("")
@@ -7,13 +9,15 @@ const Search = () => {
     let [checkout,setCheckout] = useState("")
     let [guests,setGuests] = useState("")
     let [type,setType] = useState("non-clicked")
-
+    let history = useHistory()
+    let spots = useSelector((state)=>state.spots)
     let onSubmit = () => {
-        
+        history.push(`/cities/${location}`)
     }
+
     if(type==="clicked")return (
         <>
-            <form id = "search-form">
+            <form id = "search-form" onSubmit = {onSubmit}>
                 <label htmlFor="location-input">Location</label>
                 <input id = "location-input" type = "text" value = {location} onChange = {e=>setLocation(e.target.value)} placeholder="Where are you going?"/>
                 <label htmlFor="checkin-input">Check in</label>
@@ -22,6 +26,7 @@ const Search = () => {
                 <input id = "checkout-input" type = "text" value = {checkout} onChange = {e=>setCheckout(e.target.value)} placeholder="Add dates"/>
                 <label htmlFor="guests-input">Guests</label>
                 <input id = "guests-input" type = "text" value = {guests} onChange = {e=>setGuests(e.target.value)} placeholder="Add guests"/>
+                <input type = "submit" value = "submit"/>
             </form>
         </>
     )
