@@ -1,21 +1,24 @@
 import React, {useState, useEffect} from 'react'
+import {Link, useParams} from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux'
 import { getSpotFromCity } from '../../store/spots'
 import './CityPage.css'
 import mockData from "../../mockData"
-const CityPage = ({city}) => {
+const CityPage = () => {
+    let {city} = useParams()
+
     let dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getSpotFromCity(city))
     },[])
     let spots = useSelector((state)=>state.spots)
-
+    city = city.split("-").join(" ")
     return (
         <>
-            <h1 id = "city-title">Stays in {city.toUppercase()}</h1>
+            <h1 id = "city-title">Stays in {city.toUpperCase()}</h1>
             <div id="stays-container">
-                {spots.map((spot)=>(
-                    <div className = "city-page-individual-container">
+                {spots instanceof Array && spots.map((spot)=>(
+                    <Link key = {spot.id} to={`/spots/${spot.id}`}className = "city-page-individual-container" >
                         <img className = "city-page-image" src = {spot.image}></img>
                         <div className = "right-side">
                             <div className = "upper-right">
@@ -27,7 +30,7 @@ const CityPage = ({city}) => {
                                 <div><strong>${spot.price}</strong> / night</div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </>

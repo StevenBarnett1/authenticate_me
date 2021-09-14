@@ -35,7 +35,7 @@ const validateSpot = [
     handleValidationErrors,
   ];
 
-router.post("/spots",validateSpot,asyncHandler(async(req,res)=>{
+router.post("/",validateSpot,asyncHandler(async(req,res)=>{
     let {name,description,address,city,state,zipCode,hostId,price} = req.body
     let spot = await Spot.create({name,description,address,city,state,zipCode,hostId,price})
     return res.json(spot)
@@ -43,12 +43,18 @@ router.post("/spots",validateSpot,asyncHandler(async(req,res)=>{
 
 router.get("/cities/:city",async(req,res)=>{
   let spots = await Spot.findAll({where:{
-    city:req.params.city
+    city:req.params.city.split("-").join(" ")
   }})
   return res.json(spots)
 })
 
-router.put("/spots/:id",validateSpot,asyncHandler(async(req,res)=>{
+
+router.get("/:id",async(req,res)=>{
+  let spot = await Spot.findByPk(req.params.id)
+  return res.json(spot)
+})
+
+router.put("/:id",validateSpot,asyncHandler(async(req,res)=>{
     let {id} = req.params
     let {name,description,address,city,state,zipCode,hostId,price} = req.body
     let spot = await Spot.findByPk(id)
@@ -64,7 +70,7 @@ router.put("/spots/:id",validateSpot,asyncHandler(async(req,res)=>{
     res.json(spot)
 }))
 
-router.delete("/spots/:id",asyncHandler(async(req,res)=>{
+router.delete("/:id",asyncHandler(async(req,res)=>{
     let spot = await Spot.findByPk(req.params.id)
     spot.destroy()
     res.send("spot deleted")

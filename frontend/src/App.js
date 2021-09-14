@@ -6,6 +6,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import ExploreNearby from "./components/ExploreNearby";
 import CityPage from "./components/CityPage"
+import Spots from "./components/Spots";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route path = "/cities/:city">
             <CityPage />
+          </Route>
+          <Route path = "/spots/:spotId">
+            <Spots />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
