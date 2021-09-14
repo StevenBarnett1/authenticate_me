@@ -6,11 +6,13 @@ import './CityPage.css'
 import mockData from "../../mockData"
 const CityPage = () => {
     let {city} = useParams()
-
-    let spots = useSelector((state)=>state.spots)
+    let dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(getSpotFromCity(city))
+    },[])
+    let spots = Object.values(useSelector((state)=>state.spots))
     city = city.split("-").join(" ")
-    spots = spots.find(spot => spot.city.toUpperCase() === "CITY")
-
+    console.log("spotsssss: ",spots)
     return (
         <>
             <h1 id = "city-title">Stays in {city}</h1>

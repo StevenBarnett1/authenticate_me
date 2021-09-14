@@ -7,6 +7,10 @@ const helmet = require("helmet")
 const cookieParser = require("cookie-parser")
 const { environment } = require("./config")
 const indexRouter = require("./routes")
+const sessionRouter = require("./routes/api/session")
+const spotsRouter = require("./routes/api/spots")
+const usersRouter = require("./routes/api/users")
+
 const {ValidationError} = require("sequelize")
 let isProduction = environment === "production"
 
@@ -27,7 +31,9 @@ app.use(
       },
     })
 );
-
+app.use("/session",sessionRouter)
+app.use("/users",usersRouter)
+app.use("/spots",spotsRouter)
 app.use("/",indexRouter)
 
 app.use((req,res,next)=>{
