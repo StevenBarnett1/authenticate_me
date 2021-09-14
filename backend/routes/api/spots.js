@@ -43,19 +43,22 @@ router.post("/",validateSpot,asyncHandler(async(req,res)=>{
 
 router.get("/cities/:city",async(req,res)=>{
   let spots = await Spot.findAll({where:{
-    city:req.params.city.split("-").join(" ")
-  }})
+    city:req.params.city.split("-").join(" "),
+  },
+  include:User
+})
   return res.json(spots)
 })
 
 
 router.get("/:id",async(req,res)=>{
-  let spot = await Spot.findByPk(req.params.id)
+  let spot = await Spot.findByPk(req.params.id,{include:User})
+  console.log("SPOT",spot)
   return res.json(spot)
 })
 
 router.get("/",async(req,res)=>{
-  let spots = await Spot.findAll()
+  let spots = await Spot.findAll({include:User})
   return res.json(spots)
 })
 
