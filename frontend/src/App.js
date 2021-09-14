@@ -4,13 +4,9 @@ import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import ExploreNearby from "./components/ExploreNearby";
 import CityPage from "./components/CityPage"
 import Spots from "./components/Spots";
-import LiveAnywhere from "./components/LiveAnywhere";
-import ThingsToDo from "./components/ThingsToDo";
-import Splash from "./components/Splash";
-import FutureGetaways from "./components/FutureGetaways";
+import HomePage from "./components/HomePage"
 import "./App.css"
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getSpots } from "./store/spots";
@@ -32,11 +28,8 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-            <Splash />
-            <ExploreNearby />
-            <LiveAnywhere />
-            <ThingsToDo />
-            <FutureGetaways />
+            <HomePage />
+
           </Route>
           <Route path = "/cities/:city">
             <CityPage />

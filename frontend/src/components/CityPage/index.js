@@ -39,12 +39,12 @@ const CityPage = () => {
             setZoom(map.current.getZoom().toFixed(2));
             });
             });
-            
+
     return (
         <>
         <div id = "city-page-container">
             <div id="stays-container">
-            <h1 id = "city-title">Stays in {city}</h1>
+                <h1 id = "city-title">Stays in {city}</h1>
                 {spots instanceof Array && spots.map((spot)=>(
                     <Link key = {spot.id} to={`/spots/${spot.id}`}className = "city-page-individual-container" >
                         <img className = "city-page-image" src = {spot.image}></img>
@@ -61,9 +61,9 @@ const CityPage = () => {
                     </Link>
                 ))}
             </div>
-            <div>
-                <div ref={mapContainer} className="map-container" ></div>
-            </div>
+            <div id = "map-outer-container">
+                <div ref={mapContainer} className="map-inner-container" />
+                </div>
             </div>
         </>
     )
