@@ -7,6 +7,27 @@ const setReviews = (reviews) => {
     }
 }
 
-const getReviewsWithUsers = () => async dispatch => {
-    let res = await fetch("")
+export const getReviews = (spotId) => async dispatch => {
+    let res = await fetch(`/api/spots/${spotId}/reviews`)
+    res=await res.json()
+    dispatch(setReviews(res))
 }
+
+
+const reviewsReducer = (state = {}, action) => {
+    let newState = {}
+    switch (action.type){
+        case SET_REVIEWS:{
+            action.payload.forEach(review=>{
+                newState[review.id] = review
+            })
+            return newState
+        }
+    default:{
+        return state
+    }
+    }
+}
+
+
+export default reviewsReducer
