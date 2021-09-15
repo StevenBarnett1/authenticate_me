@@ -18,23 +18,30 @@
     border-top:1px solid grey;
 }
 #reservation-container{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width:375px;
+
+    width:100%;
     height:275px;
-    border:1px solid grey;
+    border:1px solid lightgrey;
     border-radius: 10px;
-    box-shadow: 0px 0px 2px black;
+    box-shadow: 0px 0px 5px lightgrey;
     position:sticky
 }
 
-#spot-reservation-buttons{
+#reservation-inner-container{
     width:90%;
+    margin:auto;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#spot-reservation-buttons{
     height:40%;
     border:1px solid grey;
     border-radius:15px;
+    width:100%;
 }
 
 #spot-reservation-date-buttons{
@@ -45,22 +52,22 @@
 }
 
 #reservation-price-rating-container{
-    width:90%;
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    width:100%;
+    align-items:center;
 }
 
 #navbar-ul{
     position:relative;
 }
 
-#reserve-container{
-    height:15%;
+#reserve-button{
+    height:17.5%;
     width:100%;
-}
-#reserve-container > * {
-    height:100%;
-    width:100%;
-    background-color: rgba(218, 46, 97, 0.842);
+    background-color: rgba(212, 27, 83, 0.842);
+    color:white;
+    border-radius: 15px;
+    border:none;
 }

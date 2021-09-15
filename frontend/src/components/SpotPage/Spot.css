@@ -1,7 +1,10 @@
 .spot-top-container{
+    width:40%
+}
+#spot-top-left-container{
     display:flex;
+    justify-content: space-between;
     flex-direction: row;
-    justify-content: left;
 }
 
 #spot-bottom-container{
@@ -11,7 +14,7 @@ flex-direction: row;
 }
 
 .spot-bottom-left{
-    width:50%
+    width:60%
 }
 
 #spot-description-title{
@@ -19,34 +22,62 @@ flex-direction: row;
     justify-content:space-between;
     flex-direction:row;
     border-bottom:1px solid lightgrey;
+    margin-top:10px;
+    padding-bottom:20px;
 }
 
 #spot-profile-image{
     width:60px;
     height:60px;
     border-radius:60px;
+
 }
 
 #spot-details{
     border-bottom:1px solid lightgrey;
     box-sizing: border-box;
+    padding-top:20px;
 }
 
 #spot-description{
     box-sizing: border-box;
     border-bottom:1px solid lightgrey;
+    padding-top:20px;
+    padding-bottom:20px;
+
 }
 
 #spot-container{
-    width:60%;
+    width:55%;
     margin:auto;
 }
 
 #spot-bottom-right{
-    width:35%
+    width:32%
 }
 
 #spot-image-container{
     margin-top:25px;
-    margin-bottom:40px;
+    margin-bottom:30px;
 }
+#spot-image-container > img {
+    object-fit: cover;
+    width:100%;
+    height:560px;
+}
+
+#spot-details p{
+    color:grey;
+    margin-top:2px;
+    font-size:14px;
+}
+
+#spot-items{
+    height:200px;
+    display:grid;
+    grid-template-columns: repeat(2,50%);
+    grid-template-rows: repeat(5,20%);
+    border-bottom: 1px solid grey;
+}
+
+
