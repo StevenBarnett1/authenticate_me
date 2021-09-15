@@ -8,8 +8,14 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
+Date.prototype.addDays = function(days) {
+    let date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
 const Reservation = ({spot}) => {
-    let [available,setAvailable] = useState(false)
+    const [available,setAvailable] = useState(false)
     const [date, setDate] = useState(new Date());
     const [checkin,setCheckin] = useState("")
     const [checkout,setCheckout] = useState("")
@@ -20,17 +26,35 @@ const Reservation = ({spot}) => {
     const [disabledDates,setDisabledDates]= useState([])
 
     let findDisabledDates = (start,end) => {
+        console.log(start,start instanceof Date)
+        console.log(end,end instanceof Date)
+
+        if(typeof start === "string"){
+            start = new Date(start)
+        }
+        if(typeof end === "string"){
+            end = new Date(end)
+        }
         let dates = []
         let currentDate = start
         while (currentDate <= end) {
-            dates.push(new Date (currentDate));
+            dates.push(currentDate);
+            console.log(typeof currentDate)
             currentDate = currentDate.addDays(1);
         }
         setDisabledDates([...disabledDates,...dates])
     }
-    spot.Bookings.forEach(booking=>{
-        findDisabledDates(booking.checkin,booking.checkout)
-    })
+    useEffect(()=>{
+        if(spot){
+            let bookings = Object.values(spot.Bookings)
+            bookings.forEach(booking=>{
+                console.log("BOOOOOOOOKING", booking)
+                console.log(new Date(booking.checkin))
+            findDisabledDates(booking.checkin,booking.checkout)
+        })
+        }
+    },[spot])
+
 
     const dispatch = useDispatch()
     let currentUser = useSelector((state)=>state.session.user)
@@ -42,6 +66,8 @@ const Reservation = ({spot}) => {
             let booking = {checkin,checkout,buyerId:currentUser.id,spotId:spot.id}
             dispatch(postBooking(booking))
             findDisabledDates(checkin,checkout)
+            setAvailable(false)
+
         }
         else setAvailable((current)=>!current)
     }
