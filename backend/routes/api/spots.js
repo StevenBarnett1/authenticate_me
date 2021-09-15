@@ -36,25 +36,33 @@ router.post("/",validateSpot,asyncHandler(async(req,res)=>{
     return res.json(spot)
 }))
 
-router.get("/cities/:city",async(req,res)=>{
+router.get("/cities/:city",asyncHandler(async(req,res)=>{
   let spots = await Spot.findAll({where:{
     city:req.params.city.split("-").join(" "),
   },
   include:[User,Review,Booking]
 })
   return res.json(spots)
+}))
+
+router.get("/:id/reviews",asyncHandler(async (req,res)=>{
+  let id = req.params.id
+  let reviews = await Review.findAll({where:{
+    spotId:id
+  },
+  include:[User]
 })
-
-
-router.get("/:id",async(req,res)=>{
+  res.json(reviews)
+}))
+router.get("/:id",asyncHandler(async(req,res)=>{
   let spot = await Spot.findByPk(req.params.id,{include:[User,Review,Booking]})
   return res.json(spot)
-})
+}))
 
-router.get("/",async(req,res)=>{
+router.get("/",asyncHandler(async(req,res)=>{
   let spots = await Spot.findAll({include:[User,Review,Booking]})
   return res.json(spots)
-})
+}))
 
 router.put("/:id",validateSpot,asyncHandler(async(req,res)=>{
     let {id} = req.params
