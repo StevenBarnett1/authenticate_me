@@ -86,54 +86,56 @@ const Reservation = ({spot}) => {
         }
     },[checkin,checkout])
     return (
-        <>
-        <div>
+        <div id = "reservation-container">
             <div>
                 <div><strong>${spot &&spot.price}</strong> / night</div>
                 <div><strong style={{fontSize:'14px'}}>☆{spot && spot.rating}</strong></div>
             </div>
             <div id = "spot-price"></div>
-            <div id = "spot-checkin" onClick={e=>{
-                toggleCalendar(!calendar)
-                toggleActiveType("checkin")
-                }}>
-                <strong>CHECK-IN</strong>
-                <div>{checkin && `${monthNames[checkin.getMonth()]} ${checkin.getDate()}`}</div>
-            </div>
+            <div id = "spot-reservation-buttons">
+                <div id = "spot-reservation-date-buttons">
+                    <div id = "spot-checkin" onClick={e=>{
+                        toggleCalendar(!calendar)
+                        toggleActiveType("checkin")
+                        }}>
+                        <strong>CHECK-IN</strong>
+                        <div>{checkin ? `${monthNames[checkin.getMonth()]} ${checkin.getDate()}`:"Add-date"}</div>
+                    </div>
 
-            <div id = "spot-checkout"  onClick={e=>{
-                toggleCalendar(!calendar)
-                toggleActiveType("checkout")
-                }}>
-                <strong>CHECKOUT</strong>
-                <div>{checkout && `${monthNames[checkout.getMonth()]} ${checkout.getDate()}`}</div>
-            </div>
+                    <div id = "spot-checkout"  onClick={e=>{
+                        toggleCalendar(!calendar)
+                        toggleActiveType("checkout")
+                        }}>
+                        <strong>CHECKOUT</strong>
+                        <div>{checkout ? `${monthNames[checkout.getMonth()]} ${checkout.getDate()}`:"Add-date"}</div>
+                    </div>
+                </div>
 
-            <div id = "spot-guests" >
-                <strong>GUESTS</strong>
-                <div>{guests}</div>
+                <div id = "spot-guests" >
+                    <strong>GUESTS</strong>
+                    <div>{guests}</div>
+                </div>
             </div>
-
             <button onClick={onClick}>{available ? "Reserve" : "Check Availability"}</button>
+
+            <div id = "reservation-total-price" style = {available ? {display:"block"} : {display:"none"}}>
+                <div>Total</div>
+                <div>${spot && spot.price * (dateDifference)}</div>
+            </div>
+            <div id = "calendar-container" style = {calendar ? {display:"block"} : {display:"none"}}>
+                <Calendar
+                    tileDisabled={({date, view}) =>
+                    (view === 'month') && // Block day tiles only
+                    disabledDates.some(disabledDate =>
+                        date.getFullYear() === disabledDate.getFullYear() &&
+                        date.getMonth() === disabledDate.getMonth() &&
+                        date.getDate() === disabledDate.getDate()
+                    )}
+                    onChange={setDate}
+                    value={date}
+                />
+            </div>
         </div>
-        <div id = "reservation-total-price" style = {available ? {display:"block"} : {display:"none"}}>
-            <div>Total</div>
-            <div>${spot && spot.price * (dateDifference)}</div>
-        </div>
-        <div id = "calendar-container" style = {calendar ? {display:"block"} : {display:"none"}}>
-            <Calendar
-                  tileDisabled={({date, view}) =>
-                  (view === 'month') && // Block day tiles only
-                  disabledDates.some(disabledDate =>
-                    date.getFullYear() === disabledDate.getFullYear() &&
-                    date.getMonth() === disabledDate.getMonth() &&
-                    date.getDate() === disabledDate.getDate()
-                  )}
-                onChange={setDate}
-                value={date}
-            />
-        </div>
-        </>
     )
 }
 

@@ -1,3 +1,28 @@
 #spot-checkin, #spot-checkout, #spot-guests{
     cursor:pointer;
+    border:1px solid lightgrey;
+    font-size:11px;
+}
+
+#spot-checkin, #spot-checkout{
+    width:50%
+}
+#reservation-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width:375px;
+    height:275px;
+}
+
+#spot-reservation-buttons{
+    width:90%;
+    height:113px;
+    border-radius:15px;
+}
+
+#spot-reservation-date-buttons{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
