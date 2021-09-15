@@ -33,9 +33,12 @@ const spotsReducer = (state = {}, action) => {
     let newState = {}
     switch (action.type){
         case SET_SPOTS:{
-            action.payload.forEach(spot => {
-                newState[spot.id] = spot
-            })
+            if(action.payload instanceof Array){
+                action.payload.forEach(spot => {
+                    newState[spot.id] = spot
+                })
+            }
+            else newState[action.payload.id] = action.payload
             return newState
         }
         default:

@@ -1,5 +1,5 @@
 const express = require("express")
-const { User, Spot } = require('../../db/models');
+const { User, Spot, Review, Booking } = require('../../db/models');
 const router = express.Router()
 const asyncHandler = require('express-async-handler');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -66,7 +66,7 @@ router.put("/:id",validateSpot,asyncHandler(async(req,res)=>{
 
 router.delete("/:id",asyncHandler(async(req,res)=>{
     let spot = await Spot.findByPk(req.params.id)
-    
+
     spot.destroy()
     res.send("spot deleted")
 }))

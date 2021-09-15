@@ -5,7 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import CityPage from "./components/CityPage"
-import SpotPage from "./components/Spots";
+import SpotPage from "./components/SpotPage";
 import HomePage from "./components/HomePage"
 import "./App.css"
 import 'mapbox-gl/dist/mapbox-gl.css';

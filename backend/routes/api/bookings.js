@@ -1,10 +1,9 @@
 const express = require("express")
-const { User, Spot, Booking } = require('../../db/models');
+const {User, Spot, Review, Booking } = require('../../db/models');
 const router = express.Router()
 const asyncHandler = require('express-async-handler');
 const { handleValidationErrors } = require('../../utils/validation');
 const { check } = require("express-validator");
-
 
 const validateBookings = [
     check('buyerId')
