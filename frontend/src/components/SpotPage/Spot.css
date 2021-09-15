@@ -26,6 +26,10 @@ flex-direction: row;
     padding-bottom:20px;
 }
 
+#spot-description-title > img{
+    object-fit: contain;
+}
+
 #spot-profile-image{
     width:60px;
     height:60px;
@@ -66,7 +70,7 @@ flex-direction: row;
     height:560px;
 }
 
-#spot-details p{
+#spot-container > p{
     color:grey;
     margin-top:2px;
     font-size:14px;
@@ -79,5 +83,3 @@ flex-direction: row;
     grid-template-rows: repeat(5,20%);
     border-bottom: 1px solid grey;
 }
-
-

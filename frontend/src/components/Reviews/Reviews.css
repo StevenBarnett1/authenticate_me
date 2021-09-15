@@ -1,0 +1,27 @@
+#individual-review-container{
+    padding:20px 0px;
+}
+#individual-review-container-top{
+    display:flex;
+    justify-content: left;
+    flex-direction: row;
+    padding-bottom:10px;
+}
+
+#individual-review-container-top-left{
+    height: 60px;
+    width: 60px;
+}
+
+#individual-review-container-top-right {
+    display:flex;
+    flex-direction: column;
+}
+
+
+#individual-review-container-top-left > img{
+    height:60px;
+    width:60px;
+    object-fit: contain;
+    border-radius: 60px;
+}
