@@ -21,7 +21,6 @@ const validateBookings = [
     handleValidationErrors,
   ];
 
-
   router.post("/",validateBookings,asyncHandler(async(req,res)=>{
     let {checkin, checkout, buyerId,spotId} = req.body
     let booking = await Booking.create({checkin,checkout,buyerId,spotId})

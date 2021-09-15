@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react"
+import {useDispatch, useSelector} from "react-redux"
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import "./Reservation.css"
-
+import { postBooking } from "../../store/bookings";
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
@@ -16,25 +17,26 @@ const Reservation = ({spot}) => {
     const [calendar, toggleCalendar] = useState(true)
     const [activeType,toggleActiveType] = useState("")
 
+    const dispatch = useDispatch()
+    let currentUser = useSelector((state)=>state.session.user)
     let onClick = (e)=>{
         e.preventDefault()
         if(available){
-            //make a post request to post a reservation
+            let booking = {checkin,checkout,buyerId:currentUser.id,spotId:spot.id}
+            dispatch(postBooking(booking))
         }
         else setAvailable((current)=>!current)
     }
 
     useEffect(()=>{
-        let shownDate = `${monthNames[date.getMonth()]} ${date.getDate()}`
-        console.log(date)
-        console.log(date.getDay())
         toggleCalendar(!calendar)
-        if(activeType === "checkin") setCheckin(shownDate)
-        else if(activeType==="checkout") setCheckout(shownDate)
+        if(activeType === "checkin") setCheckin(date)
+        else if(activeType==="checkout") setCheckout(date)
         toggleActiveType("")
 
     },[date])
-    console.log("FDGDFGDFGFDGDFGDFG", date.toString())
+
+
     return (
         <>
         <div>
@@ -48,7 +50,7 @@ const Reservation = ({spot}) => {
                 toggleActiveType("checkin")
                 }}>
                 <strong>CHECK-IN</strong>
-                <div>{checkin}</div>
+                <div>{checkin && `${monthNames[checkin.getMonth()]} ${checkin.getDate()}`}</div>
             </div>
 
             <div id = "spot-checkout"  onClick={e=>{
@@ -56,7 +58,7 @@ const Reservation = ({spot}) => {
                 toggleActiveType("checkout")
                 }}>
                 <strong>CHECKOUT</strong>
-                <div>{checkout}</div>
+                <div>{checkout && `${monthNames[checkout.getMonth()]} ${checkout.getDate()}`}</div>
             </div>
 
             <div id = "spot-guests" >
