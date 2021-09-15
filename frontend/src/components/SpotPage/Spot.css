@@ -1,0 +1,17 @@
+.spot-top-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.spot-bottom-container{
+
+}
+
+.spot-bottom-left{
+    width:50%
+}
+
+#spot-description-title{
+    
+}

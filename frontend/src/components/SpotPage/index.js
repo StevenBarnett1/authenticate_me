@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom"
 import {getSpotByPk} from "../../store/spots"
 import {useDispatch ,useSelector} from "react-redux"
 import Reservation from "../Reservation"
+import "./Spot.css"
 
 let SpotPage = () => {
     let {spotId} = useParams()
@@ -15,7 +16,7 @@ let SpotPage = () => {
     spot = Object.values(spot)[0]
     return (
         <>
-            <h1>{spot && spot.name}</h1>
+            <h1 id = "spot-title">{spot && spot.name}</h1>
 
             <div className = 'spot-top-container'>
                 <div>Superhost</div>
@@ -27,6 +28,10 @@ let SpotPage = () => {
             </div>
             <div className = "spot-bottom-container">
                 <div className = "spot-bottom-left">
+                    <div id = "spot-description-title">
+                        <div>Hosted by {spot && spot.User.firstName}</div>
+                        <img src = {spot.User.image}></img>
+                    </div>
                     <div id = "spot-details">
                         <div>
                             <strong>Entire Home</strong>

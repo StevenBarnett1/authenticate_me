@@ -6,6 +6,7 @@ import LoginFormModal from '../LoginFormModal';
 import Search from "../Search"
 import './Navigation.css';
 
+
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
@@ -24,17 +25,19 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul id = "navbar-ul">
-      <li>
-        <NavLink exact to="/">Airbnb</NavLink>
-      </li>
-      <li>
+    <div id = "navbar-ul">
+      <div id = "airbnb-logo-outer-container">
+        <NavLink exact to="/">
+          <img id = "airbnb-image" src = "https://1000logos.net/wp-content/uploads/2017/08/Airbnb-logo.jpg"></img>
+        </NavLink>
+      </div>
+      <div id = "search-outer-container">
         <Search />
-      </li>
-      <li id ="navbar-user">
+      </div>
+      <div id ="navbar-user-outer-container">
         <div>{isLoaded && sessionLinks}</div>
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
 
