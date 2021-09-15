@@ -11,7 +11,7 @@ flex-direction: row;
 }
 
 .spot-bottom-left{
-    width:60%
+    width:50%
 }
 
 #spot-description-title{
@@ -43,5 +43,10 @@ flex-direction: row;
 }
 
 #spot-bottom-right{
-    width:40%
+    width:35%
+}
+
+#spot-image-container{
+    margin-top:25px;
+    margin-bottom:40px;
 }

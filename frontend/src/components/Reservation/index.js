@@ -87,7 +87,7 @@ const Reservation = ({spot}) => {
     },[checkin,checkout])
     return (
         <div id = "reservation-container">
-            <div>
+            <div id = "reservation-price-rating-container">
                 <div><strong>${spot &&spot.price}</strong> / night</div>
                 <div><strong style={{fontSize:'14px'}}>☆{spot && spot.rating}</strong></div>
             </div>
@@ -116,8 +116,9 @@ const Reservation = ({spot}) => {
                     <div>{guests}</div>
                 </div>
             </div>
-            <button onClick={onClick}>{available ? "Reserve" : "Check Availability"}</button>
-
+            <div id = "reserve-container">
+                <button onClick={onClick}>{available ? "Reserve" : "Check Availability"}</button>
+            </div>
             <div id = "reservation-total-price" style = {available ? {display:"block"} : {display:"none"}}>
                 <div>Total</div>
                 <div>${spot && spot.price * (dateDifference)}</div>

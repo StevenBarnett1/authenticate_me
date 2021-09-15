@@ -22,7 +22,10 @@ let SpotPage = () => {
                 <div>Superhost</div>
                 <div>{spot && `${spot.city},${spot.state},United States`}</div>
             </div>
-            <img src = {spot && spot.image}></img>
+            <div id = "spot-image-container">
+                <img id = "spot-image" src = {spot && spot.image}></img>
+            </div>
+
             <div id = "spot-bottom-container">
                 <div className = "spot-bottom-left">
                     <div id = "spot-description-title">
