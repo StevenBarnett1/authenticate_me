@@ -5,7 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import CityPage from "./components/CityPage"
-import Spots from "./components/Spots";
+import SpotPage from "./components/SpotPage";
 import HomePage from "./components/HomePage"
 import "./App.css"
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -35,7 +35,7 @@ function App() {
             <CityPage />
           </Route>
           <Route path = "/spots/:spotId">
-            <Spots />
+            <SpotPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
