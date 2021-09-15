@@ -1,4 +1,6 @@
+import { csrfFetch } from "./csrf"
 const SET_BOOKINGS = "bookings/SET_BOOKINGS"
+
 
 const setBookings = (bookings) => {
     return {
@@ -9,7 +11,7 @@ const setBookings = (bookings) => {
 
 
 export const postBooking = body =>async dispatch=> {
-    let res = await fetch(`/api/bookings`,{
+    let res = await csrfFetch(`/api/bookings`,{
         method:"POST",
         headers:{
             "Content-Type":"application/json"

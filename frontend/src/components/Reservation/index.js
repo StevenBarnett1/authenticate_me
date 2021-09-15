@@ -16,14 +16,32 @@ const Reservation = ({spot}) => {
     const [guests,setGuests] = useState("")
     const [calendar, toggleCalendar] = useState(true)
     const [activeType,toggleActiveType] = useState("")
+    const [dateDifference,setDateDifference] = useState("")
+    const [disabledDates,setDisabledDates]= useState([])
+
+    let findDisabledDates = (start,end) => {
+        let dates = []
+        let currentDate = start
+        while (currentDate <= end) {
+            dates.push(new Date (currentDate));
+            currentDate = currentDate.addDays(1);
+        }
+        setDisabledDates([...disabledDates,...dates])
+    }
+    spot.Bookings.forEach(booking=>{
+        findDisabledDates(booking.checkin,booking.checkout)
+    })
 
     const dispatch = useDispatch()
     let currentUser = useSelector((state)=>state.session.user)
+
     let onClick = (e)=>{
         e.preventDefault()
         if(available){
+            console.log(typeof spotId, typeof buyerId)
             let booking = {checkin,checkout,buyerId:currentUser.id,spotId:spot.id}
             dispatch(postBooking(booking))
+            findDisabledDates(checkin,checkout)
         }
         else setAvailable((current)=>!current)
     }
@@ -36,7 +54,11 @@ const Reservation = ({spot}) => {
 
     },[date])
 
-
+    useEffect(()=>{
+        if(checkin && checkout){
+            setDateDifference((checkout.getTime() - checkin.getTime())/1000/60/60/24)
+        }
+    },[checkin,checkout])
     return (
         <>
         <div>
@@ -70,11 +92,17 @@ const Reservation = ({spot}) => {
         </div>
         <div id = "reservation-total-price" style = {available ? {display:"block"} : {display:"none"}}>
             <div>Total</div>
-            <div>${spot && spot.price * (Number(checkout.split(" ")[1]) - Number(checkin.split(" ")[1]))}</div>
+            <div>${spot && spot.price * (dateDifference)}</div>
         </div>
         <div id = "calendar-container" style = {calendar ? {display:"block"} : {display:"none"}}>
             <Calendar
-
+                  tileDisabled={({date, view}) =>
+                  (view === 'month') && // Block day tiles only
+                  disabledDates.some(disabledDate =>
+                    date.getFullYear() === disabledDate.getFullYear() &&
+                    date.getMonth() === disabledDate.getMonth() &&
+                    date.getDate() === disabledDate.getDate()
+                  )}
                 onChange={setDate}
                 value={date}
             />
