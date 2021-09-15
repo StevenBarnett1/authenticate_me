@@ -1,3 +1,66 @@
 #spot-checkin, #spot-checkout, #spot-guests{
     cursor:pointer;
+    margin-top: 5px;
+    margin-left:5px;
+    font-size:11px;
+}
+
+#spot-checkin, #spot-checkout{
+    width:50%
+
+}
+#spot-checkin{
+    border-right:1px solid grey;
+
+}
+#spot-guests{
+    height:50%;
+    border-top:1px solid grey;
+}
+#reservation-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width:375px;
+    height:275px;
+    border:1px solid grey;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px black;
+    position:sticky
+}
+
+#spot-reservation-buttons{
+    width:90%;
+    height:40%;
+    border:1px solid grey;
+    border-radius:15px;
+}
+
+#spot-reservation-date-buttons{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height:50%
+}
+
+#reservation-price-rating-container{
+    width:90%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#navbar-ul{
+    position:relative;
+}
+
+#reserve-container{
+    height:15%;
+    width:100%;
+}
+#reserve-container > * {
+    height:100%;
+    width:100%;
+    background-color: rgba(218, 46, 97, 0.842);
 }

@@ -1,14 +1,15 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import Search from "../Search"
 import './Navigation.css';
 
+
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
-
+  const location = useLocation()
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
@@ -24,17 +25,19 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul id = "navbar-ul">
-      <li>
-        <NavLink exact to="/">Airbnb</NavLink>
-      </li>
-      <li>
+    <div id = "navbar" style = {location.pathname.toString().startsWith("/spots/") ? {position:"relative"}: null}>
+      <div id = "airbnb-logo-outer-container">
+        <NavLink exact to="/">
+          <img id = "airbnb-image" src = "https://1000logos.net/wp-content/uploads/2017/08/Airbnb-logo.jpg"></img>
+        </NavLink>
+      </div>
+      <div id = "search-outer-container">
         <Search />
-      </li>
-      <li id ="navbar-user">
+      </div>
+      <div id ="navbar-user-outer-container">
         <div>{isLoaded && sessionLinks}</div>
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
 

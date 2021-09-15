@@ -4,9 +4,18 @@ import {Link, useParams} from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux'
 import { getSpotFromCity } from '../../store/spots'
 import './CityPage.css'
-import mockData from "../../mockData"
 const CityPage = () => {
     let {city} = useParams()
+    const [cities,setCities] = useState(["San Francisco","San Jose","Oakland","Santa Barbara","Santa Monica","Mammoth Lakes","Sacramento","South Lake Tahoe"])
+    const [coordinates,setCoordinates] = useState([[37.7749,-122.4194],[37.3382,-121.8863],[37.8044,-122.2712],[34.4208,-119.6982],[34.0195,-118.4912],[37.6485,-118.9721],[38.5816,-121.4944],[38.9399,-119.9772]])
+    let index
+    for(let i = 0; i<cities.length;i++){
+        if (cities[i] === city.split("-").join(" ")){
+            index = i
+            break
+        }
+    }
+    let currentCoordinates = coordinates[index]
     let dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getSpotFromCity(city))
@@ -18,8 +27,8 @@ const CityPage = () => {
 
     const mapContainer = useRef(null);
         const map = useRef(null);
-        const [lng, setLng] = useState(-121.88);
-        const [lat, setLat] = useState(37.33);
+        const [lng, setLng] = useState(currentCoordinates[1]);
+        const [lat, setLat] = useState(currentCoordinates[0]);
         const [zoom, setZoom] = useState(9);
 
         useEffect(() => {

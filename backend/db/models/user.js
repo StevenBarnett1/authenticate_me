@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
+    image:{
+      type:DataTypes.STRING,
+      allowNull:false,
+      defaultValue:"https://www.cmmhealth.org/custom/images/blank-profile-hi.png",
+    },
     email: {
       type:DataTypes.STRING,
       allowNull:false,

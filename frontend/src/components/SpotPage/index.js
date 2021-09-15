@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom"
 import {getSpotByPk} from "../../store/spots"
 import {useDispatch ,useSelector} from "react-redux"
 import Reservation from "../Reservation"
+import "./Spot.css"
 
 let SpotPage = () => {
     let {spotId} = useParams()
@@ -14,19 +15,23 @@ let SpotPage = () => {
     let spot = useSelector((state)=>state.spots)
     spot = Object.values(spot)[0]
     return (
-        <>
-            <h1>{spot && spot.name}</h1>
+        <div id = "spot-container">
+            <h1 id = "spot-title">{spot && spot.name}</h1>
 
             <div className = 'spot-top-container'>
                 <div>Superhost</div>
                 <div>{spot && `${spot.city},${spot.state},United States`}</div>
             </div>
-            <img src = {spot && spot.image}></img>
-            <div id ="spot-host">
-                {spot && spot.id && spot.User.firstName}
+            <div id = "spot-image-container">
+                <img id = "spot-image" src = {spot && spot.image}></img>
             </div>
-            <div className = "spot-bottom-container">
+
+            <div id = "spot-bottom-container">
                 <div className = "spot-bottom-left">
+                    <div id = "spot-description-title">
+                        <div>Hosted by {spot && spot.User.firstName}</div>
+                        <img id = "spot-profile-image" src = {spot && spot.User.image}></img>
+                    </div>
                     <div id = "spot-details">
                         <div>
                             <strong>Entire Home</strong>
@@ -44,12 +49,12 @@ let SpotPage = () => {
                     <div id = "spot-description">
                         {spot && spot.description}
                     </div>
-                    <div className = "spot-bottom-right">
+                </div>
+                <div id = "spot-bottom-right">
                         <Reservation spot={spot}/>
-                    </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

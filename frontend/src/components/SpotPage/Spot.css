@@ -1,0 +1,52 @@
+.spot-top-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+#spot-bottom-container{
+display:flex;
+justify-content: space-between;
+flex-direction: row;
+}
+
+.spot-bottom-left{
+    width:50%
+}
+
+#spot-description-title{
+    display:flex;
+    justify-content:space-between;
+    flex-direction:row;
+    border-bottom:1px solid lightgrey;
+}
+
+#spot-profile-image{
+    width:60px;
+    height:60px;
+    border-radius:60px;
+}
+
+#spot-details{
+    border-bottom:1px solid lightgrey;
+    box-sizing: border-box;
+}
+
+#spot-description{
+    box-sizing: border-box;
+    border-bottom:1px solid lightgrey;
+}
+
+#spot-container{
+    width:60%;
+    margin:auto;
+}
+
+#spot-bottom-right{
+    width:35%
+}
+
+#spot-image-container{
+    margin-top:25px;
+    margin-bottom:40px;
+}
