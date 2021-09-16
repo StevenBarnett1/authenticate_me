@@ -3,12 +3,16 @@ import mapboxgl from 'mapbox-gl';
 import {Link, useParams} from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux'
 import { getSpotFromCity } from '../../store/spots'
+import { setNavigation } from '../../store/navigation';
 import './CityPage.css'
 const CityPage = () => {
     let {city} = useParams()
     const [cities,setCities] = useState(["San Francisco","San Jose","Oakland","Santa Barbara","Santa Monica","Mammoth Lakes","Sacramento","South Lake Tahoe"])
     const [coordinates,setCoordinates] = useState([[37.7749,-122.4194],[37.3382,-121.8863],[37.8044,-122.2712],[34.4208,-119.6982],[34.0195,-118.4912],[37.6485,-118.9721],[38.5816,-121.4944],[38.9399,-119.9772]])
     let index
+    // useEffect(()=>{
+    //     dispatch(setNavigation(false))
+    // },[])
     for(let i = 0; i<cities.length;i++){
         if (cities[i] === city.split("-").join(" ")){
             index = i

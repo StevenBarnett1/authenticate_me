@@ -40,11 +40,12 @@ const Reservation = ({spot}) => {
         let currentDate = start
         while (currentDate <= end) {
             dates.push(currentDate);
-            console.log(typeof currentDate)
+
             currentDate = currentDate.addDays(1);
         }
         setDisabledDates([...disabledDates,...dates])
     }
+    console.log(disabledDates)
     useEffect(()=>{
         if(spot){
             let bookings = Object.values(spot.Bookings)

@@ -10,7 +10,7 @@ const LiveAnywhere = () => {
             <h1>Live anywhere</h1>
             <div id = "live-anywhere-outer-container">
                 {images && images.map((image,i)=>(
-                    <div className = "live-anywhere-inner-container">
+                    <div key = {image} className = "live-anywhere-inner-container">
                         <img src = {image}></img>
                         <div>{labels[i]}</div>
                     </div>

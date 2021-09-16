@@ -8,7 +8,7 @@ const ThingsToDo = () => {
             <h1>Discover things to do</h1>
             <div id = "ttd-outer-container">
                 {images && images.map((image,i)=>(
-                    <div className = "ttd-inner-container">
+                    <div key = {image} className = "ttd-inner-container">
                         <img src = {image}></img>
                         <p>{labels[i]}</p>
                     </div>

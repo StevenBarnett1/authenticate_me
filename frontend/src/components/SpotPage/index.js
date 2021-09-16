@@ -29,19 +29,23 @@ let SpotPage = () => {
     let reviews = useSelector((state)=>state.reviews)
 
     reviews = Object.values(reviews)
+    reviews = reviews.filter(review=>review.id)
 
     reviews = reviews.map(review => {
-        let date = new Date(review.createdAt)
-        let month = monthNames[date.getMonth()]
-        let day = date.getDate()
+        let createdDate = new Date(review.createdAt)
+        let createdMonth = monthNames[createdDate.getMonth()]
+        let createdDay = createdDate.getDate()
+        let updatedDate = new Date(review.updatedAt)
+        let updatedMonth = monthNames[updatedDate.getMonth()]
+        let updatedDay = updatedDate.getDate()
         let rating = +review.rating
 
-        return {...review,createdAt:`${month} ${day}`,rating}
+        return {...review,createdAt:`${createdMonth} ${createdDay}`,updatedAt:`${updatedMonth} ${updatedDay}`,rating}
     })
 
     let rating
     if(reviews instanceof Array)rating = reviews.reduce((accum,review)=>accum+review.rating,0)/reviews.length
-    spot.rating = rating.toFixed(1)
+    if(spot)spot.rating = rating.toFixed(1)
 
     return (
         <div id = "spot-container">
