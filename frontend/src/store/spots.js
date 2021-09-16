@@ -1,5 +1,6 @@
 
 const SET_SPOTS = "spots/SET_SPOTS"
+const SET_DATES = "spots/SET_DATES"
 
 const setSpots = (spots) => {
     return {
@@ -13,6 +14,16 @@ export const getSpotFromCity = (city) => async dispatch => {
     let res = await fetch(`/api/spots/cities/${city}`)
     let spots = await res.json()
     dispatch(setSpots(spots))
+}
+
+export const setDates= (dates) =>{
+    console.log("HIT DATE ACTION")
+    return(
+        {
+        type:SET_DATES,
+        payload:dates
+        }
+    )
 }
 
 export const getSpotByPk = (id) => async dispatch => {
@@ -41,6 +52,11 @@ const spotsReducer = (state = {}, action) => {
             }
             else newState[action.payload.id] = action.payload
             return newState
+        }
+        case SET_DATES:{
+            newState = {...state}
+            newState.dates = action.payload
+            console.log("HIT DATE REDUCER")
         }
         default:
             return state

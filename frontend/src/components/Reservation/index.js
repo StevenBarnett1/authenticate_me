@@ -40,11 +40,12 @@ const Reservation = ({spot}) => {
         let currentDate = start
         while (currentDate <= end) {
             dates.push(currentDate);
-            console.log(typeof currentDate)
+
             currentDate = currentDate.addDays(1);
         }
         setDisabledDates([...disabledDates,...dates])
     }
+    console.log(disabledDates)
     useEffect(()=>{
         if(spot){
             let bookings = Object.values(spot.Bookings)
@@ -68,7 +69,24 @@ const Reservation = ({spot}) => {
             setAvailable(false)
 
         }
-        else setAvailable((current)=>!current)
+        else {
+            if(checkin && checkout){
+                //if checkout is before checkin
+                //if blacked out dates are between checkin and checkout
+                if(disabledDates.filter(date=>date <= checkout && date >= checkin).length){
+                    window.alert("Sorry overlapping dates")
+                    setCheckout("")
+                    setCheckin("")
+                } else if (checkin >= checkout){
+                    window.alert("You cannot leave before you've arrived!")
+                    setCheckout("")
+                    setCheckin("")
+                }
+                else setAvailable((current)=>!current)
+            }
+
+
+        }
     }
 
     useEffect(()=>{

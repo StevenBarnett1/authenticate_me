@@ -5,14 +5,17 @@
     width:100%
 }
 
+
 .live-anywhere-inner-container > * {
     color:rgb(34, 34, 34);
     font-family:Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-    font-weight:inherit;
+    font-weight:600;
     font-size:18px;
 }
 
 .live-anywhere-inner-container > img {
     width:390px;
     height:390px;
+    border-radius: 10px;
+    padding-bottom:10px;
 }

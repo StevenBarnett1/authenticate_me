@@ -5,8 +5,16 @@
     width:100%
 }
 
+.ttd-inner-container{
+    color:rgb(34, 34, 34);
+    font-family:Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-weight:600;
+    font-size:18px;
+}
 
 .ttd-inner-container > img {
     width:520px;
     height:520px;
+    border-radius: 10px;
+    padding-bottom:10px;
 }

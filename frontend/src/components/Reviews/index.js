@@ -1,11 +1,19 @@
 import { useDispatch, useSelector } from "react-redux"
-
-import {useEffect} from "react"
+import ReviewButtons from "./ReviewButtons"
+import {useEffect, useState} from "react"
 import "./Reviews.css"
+import { setCurrentBody } from "../../store/reviews"
 
 
 const Reviews = ({reviews}) => {
-
+    const edit = useSelector(state=>state.reviews.edit)
+    const user = useSelector(state=>state.session.user)
+    const dispatch = useDispatch()
+    const bodyChange = (body) => {
+        dispatch(setCurrentBody(body))
+    }
+    let body = useSelector(state=>state.reviews.body)
+    console.log("DFDFDFDFDFDF",body)
     return (
         <>
             <div id = "spot-overall-review"></div>
@@ -19,9 +27,13 @@ const Reviews = ({reviews}) => {
                             <div id = "individual-review-container-top-right">
                                 <div>{review.User.firstName}</div>
                                 <p>{review.createdAt}</p>
+
                             </div>
+                            <ReviewButtons review = {review}/>
                         </div>
-                        <div>{review.body}</div>
+                        {/* <div id = "review-body-container"> */}
+                        {edit && user.id === review.authorId ? <textarea onChange={e =>bodyChange(e.target.value)} value = {body ? body : review.body}></textarea>: <div>{review.body}</div> }
+                        {/* </div> */}
                     </div>
                 ))}
             </div>

@@ -39,3 +39,5 @@ router.delete("/:id",asyncHandler(async(req,res)=>{
     review.destroy()
     res.send("review deleted")
 }))
+
+module.exports = router

@@ -25,3 +25,17 @@
     object-fit: contain;
     border-radius: 60px;
 }
+
+#reviews-container textarea{
+    border:none;
+    background-color: transparent;
+    width:100%;
+    font:inherit;
+    height:auto;
+    background-color: rgb(243, 241, 241);
+    min-height: 100px;
+}
+
+#review-body-container {
+
+}
