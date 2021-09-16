@@ -36,11 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.INTEGER,
       allowNull:false,
     },
-    rating:{
-      type:DataTypes.INTEGER,
-      allowNull:false,
-      defaultValue:5
-    },
     image:{
       type:DataTypes.STRING,
       allowNull:false,

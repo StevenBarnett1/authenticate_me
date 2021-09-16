@@ -9,6 +9,7 @@ const setSpots = (spots) => {
 }
 
 export const getSpotFromCity = (city) => async dispatch => {
+    city = city.split(" ").join("-")
     let res = await fetch(`/api/spots/cities/${city}`)
     let spots = await res.json()
     dispatch(setSpots(spots))

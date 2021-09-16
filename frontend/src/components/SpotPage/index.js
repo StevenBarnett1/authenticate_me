@@ -2,9 +2,14 @@ import {useState,useEffect} from "react"
 import {useParams} from "react-router-dom"
 import {getSpotByPk} from "../../store/spots"
 import {useDispatch ,useSelector} from "react-redux"
+import {getReviews} from "../../store/reviews"
 import Reservation from "../Reservation"
 import Reviews from "../Reviews"
 import "./Spot.css"
+
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
 let SpotPage = () => {
     let {spotId} = useParams()
@@ -13,16 +18,37 @@ let SpotPage = () => {
     useEffect(()=>{
         dispatch(getSpotByPk(+spotId))
     },[])
+
     let spot = useSelector((state)=>state.spots)
     spot = Object.values(spot)[0]
-    console.log("SDFDSFDSFDSFS",spot)
+
+    useEffect(() => {
+        if (spot)dispatch(getReviews(spot.id))
+    }, [dispatch,spot])
+
+    let reviews = useSelector((state)=>state.reviews)
+
+    reviews = Object.values(reviews)
+
+    reviews = reviews.map(review => {
+        let date = new Date(review.createdAt)
+        let month = monthNames[date.getMonth()]
+        let day = date.getDate()
+        let rating = +review.rating
+
+        return {...review,createdAt:`${month} ${day}`,rating}
+    })
+
+    let rating
+    if(reviews instanceof Array)rating = reviews.reduce((accum,review)=>accum+review.rating,0)/reviews.length
+    spot.rating = rating.toFixed(1)
+
     return (
         <div id = "spot-container">
             <h1 id = "spot-title">{spot && spot.name}</h1>
-
             <div className = 'spot-top-container'>
                 <div id = "spot-top-left-container">
-                    <div>{spot?.Rating}</div>
+                    <div>{spot && spot.rating}</div>
                     <div style = {{color:"grey"}}>Superhost</div>
                     <strong style = {{color:"grey", textDecoration:"underline"}}>{spot && `${spot.city},${spot.state},United States`}</strong>
                 </div>
@@ -71,7 +97,7 @@ let SpotPage = () => {
                         </div>
                     </div>
                     <div>
-                        <Reviews spot = {spot}/>
+                        <Reviews reviews = {reviews}/>
                     </div>
                 </div>
                 <div id = "spot-bottom-right">
