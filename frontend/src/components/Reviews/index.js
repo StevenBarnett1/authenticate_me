@@ -1,28 +1,11 @@
 import { useDispatch, useSelector } from "react-redux"
-import {getReviews} from "../../store/reviews"
+
 import {useEffect} from "react"
 import "./Reviews.css"
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
 
-const Reviews = ({spot}) => {
-    let dispatch = useDispatch()
 
-    useEffect(() => {
-        if (spot)dispatch(getReviews(spot.id))
-    }, [dispatch,spot])
+const Reviews = ({reviews}) => {
 
-    let reviews = useSelector((state)=>state.reviews)
-    reviews = Object.values(reviews)
-    reviews = reviews.map(review => {
-        let date = new Date(review.createdAt)
-        let month = monthNames[date.getMonth()]
-        let day = date.getDate()
-
-        return {...review,createdAt:`${month} ${day}`}
-    })
-    console.log("REVIEWSSSSSS",reviews)
     return (
         <>
             <div id = "spot-overall-review"></div>

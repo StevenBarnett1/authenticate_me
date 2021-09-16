@@ -49,26 +49,29 @@ const CityPage = () => {
             });
             });
 
+            console.log("FGDFGDFGFDGDFGFDGFDGFDGDFGDFGDFGDFFDGDFG", spots)
     return (
         <>
         <div id = "city-page-container">
             <div id="stays-container">
-                <h1 id = "city-title">Stays in {city}</h1>
-                {spots instanceof Array && spots.map((spot)=>(
-                    <Link key = {spot.id} to={`/spots/${spot.id}`}className = "city-page-individual-container" >
-                        <img className = "city-page-image" src = {spot.image}></img>
-                        <div className = "right-side">
-                            <div className = "upper-right">
-                                {spot.name}
-                                <div id = "separating-line">___</div>
+                <div id = "stays-inner-container">
+                    <h1 id = "city-title">Stays in {city}</h1>
+                    {spots instanceof Array && spots.map((spot)=>(
+                        <Link key = {spot.id} to={`/spots/${spot.id}`}className = "city-page-individual-container" >
+                            <img className = "city-page-image" src = {spot.image}></img>
+                            <div className = "right-side">
+                                <div className = "upper-right">
+                                    {spot.name}
+                                    <div id = "separating-line">___</div>
+                                </div>
+                                <div className = "lower-right">
+                                    {/* <div><strong style={{fontSize:'14px'}}>☆{spot.rating}</strong></div> */}
+                                    <div><strong>${spot.price}</strong> / night</div>
+                                </div>
                             </div>
-                            <div className = "lower-right">
-                                <div><strong style={{fontSize:'14px'}}>☆{spot.rating}</strong></div>
-                                <div><strong>${spot.price}</strong> / night</div>
-                            </div>
-                        </div>
-                    </Link>
-                ))}
+                        </Link>
+                    ))}
+                </div>
             </div>
             <div id = "map-outer-container">
                 <div ref={mapContainer} className="map-inner-container" />

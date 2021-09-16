@@ -24,6 +24,7 @@ const Reservation = ({spot}) => {
     const [activeType,toggleActiveType] = useState("")
     const [dateDifference,setDateDifference] = useState("")
     const [disabledDates,setDisabledDates]= useState([])
+    const [errors,setErrors] = ([])
 
     let findDisabledDates = (start,end) => {
         console.log(start,start instanceof Date)
@@ -48,8 +49,6 @@ const Reservation = ({spot}) => {
         if(spot){
             let bookings = Object.values(spot.Bookings)
             bookings.forEach(booking=>{
-                console.log("BOOOOOOOOKING", booking)
-                console.log(new Date(booking.checkin))
             findDisabledDates(booking.checkin,booking.checkout)
         })
         }

@@ -37,11 +37,13 @@ router.post("/",validateSpot,asyncHandler(async(req,res)=>{
 }))
 
 router.get("/cities/:city",asyncHandler(async(req,res)=>{
+
   let spots = await Spot.findAll({where:{
     city:req.params.city.split("-").join(" "),
   },
   include:[User,Review,Booking]
 })
+console.log("city route")
   return res.json(spots)
 }))
 
@@ -52,6 +54,7 @@ router.get("/:id/reviews",asyncHandler(async (req,res)=>{
   },
   include:[User]
 })
+console.log("city route")
   res.json(reviews)
 }))
 router.get("/:id",asyncHandler(async(req,res)=>{
