@@ -10,7 +10,7 @@ const ThingsToDo = () => {
                 {images && images.map((image,i)=>(
                     <div key = {image} className = "ttd-inner-container">
                         <img src = {image}></img>
-                        <p>{labels[i]}</p>
+                        <div>{labels[i]}</div>
                     </div>
                 ))}
             </div>
