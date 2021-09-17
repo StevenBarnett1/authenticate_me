@@ -22,7 +22,6 @@ const SearchForm= () => {
     const [activeType,toggleActiveType] = useState("")
     const dispatch = useDispatch()
     const history = useHistory()
-
     let onSubmit = (e) => {
         e.preventDefault()
         dispatch(setNavigation(false))

@@ -13,6 +13,8 @@
     box-sizing:border-box;
     border-bottom:1px solid lightgrey;
     box-shadow: 0px 1px 12px lightgrey;
+    transition-property: height;
+    transition-duration: 0.5s;
 }
 
 
@@ -113,5 +115,6 @@
 }
 
 #navbar-lower-container{
-    height:auto;
+    transition-property: visibility;
+    transition-delay: 0.5s;
 }

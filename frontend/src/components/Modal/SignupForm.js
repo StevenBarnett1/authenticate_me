@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import {addModal} from "../../store/session"
 import * as sessionActions from "../../store/session";
-import './SignupForm.css';
+import './UserForm.css';
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -14,8 +15,6 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
-
-  if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,6 +29,11 @@ function SignupFormPage() {
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
+
+  const handleClick = (e) => {
+    e.preventDefault()
+   dispatch(addModal("login"))
+  }
 
   return (
     <div id = "modal-inner-container">
@@ -98,6 +102,7 @@ function SignupFormPage() {
           </div>
           <button type="submit">Sign Up</button>
         </form>
+        <div id = "change-signin-type" onClick = {handleClick}>Already have an account, log in!</div>
     </div>
     </div>
   );

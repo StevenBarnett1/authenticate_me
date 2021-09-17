@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
-import "./LoginForm.css"
+import {addModal, toggleModalView} from "../../store/session"
+import "./UserForm.css"
 
 function LoginForm() {
+
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +14,7 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
+    dispatch(toggleModalView)
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
         const data = await res.json();
@@ -19,6 +22,11 @@ function LoginForm() {
       }
     );
   };
+
+  const handleClick = (e) => {
+    e.preventDefault()
+   dispatch(addModal("signup"))
+  }
 
     return (
       <div id = "modal-inner-container" style = {{height:"350px"}}>
@@ -52,6 +60,7 @@ function LoginForm() {
             </div>
             <button type="submit">Log In</button>
           </form>
+          <div id = "change-signin-type" onClick = {handleClick}>Dont have an account, Sign up instead!</div>
       </div>
       </div>
     );

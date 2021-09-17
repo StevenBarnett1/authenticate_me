@@ -13,28 +13,39 @@ const CityPage = () => {
         if(city)dispatch(getSpotFromCity(city))
         else dispatch(getSpots())
     },[city])
-    if(!city)city = "San-Francisco"
+
     const [cities,setCities] = useState(["San Francisco","San Jose","Oakland","Santa Barbara","Santa Monica","Mammoth Lakes","Sacramento","South Lake Tahoe"])
     const [coordinates,setCoordinates] = useState([[37.7749,-122.4194],[37.3382,-121.8863],[37.8044,-122.2712],[34.4208,-119.6982],[34.0195,-118.4912],[37.6485,-118.9721],[38.5816,-121.4944],[38.9399,-119.9772]])
     let index
-    // useEffect(()=>{
-    //     dispatch(setNavigation(false))
-    // },[])
-    for(let i = 0; i<cities.length;i++){
-        if (cities[i] === city.split("-").join(" ")){
-            index = i
-            break
+    if(city){
+        city = city.split("-").join(" ")
+        for(let i = 0; i<cities.length;i++){
+            if (cities[i] === city){
+                index = i
+                break
+            }
         }
-    }
+    } else index = Math.floor(cities.length * Math.random())
+
+
     let currentCoordinates = coordinates[index]
     let dispatch = useDispatch()
 
     let spots = Object.values(useSelector((state)=>state.spots))
+
+    let shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array
+    }
+    spots = shuffleArray(spots)
+
     let dates
     if(location.state && location.state.dates)dates = location.state.dates
-    // console.log("DATESSSSSSSS",dates)
-
-    city = city.split("-").join(" ")
 
     if(dates){
         spots = spots.filter(spot => {
@@ -82,13 +93,14 @@ const CityPage = () => {
             });
             });
 
-            console.log("FGDFGDFGFDGDFGFDGFDGFDGDFGDFGDFGDFFDGDFG", spots)
+
+            console.log("LOCATION: ",location.state)
     return (
         <>
         <div id = "city-page-container">
             <div id="stays-container">
                 <div id = "stays-inner-container">
-                    <h1 id = "city-title">Stays in {city}</h1>
+                    {city ? (<h1 id = "city-title">Stays in {city}</h1>) : (<h1 id = "city-title">{location.state}</h1>)}
                     {spots instanceof Array && spots.map((spot)=>(
                         <Link key = {spot.id} to={`/spots/${spot.id}`}className = "city-page-individual-container" >
                             <div id = "city-page-image-container">
@@ -100,7 +112,6 @@ const CityPage = () => {
                                     <div id = "separating-line">___</div>
                                 </div>
                                 <div className = "lower-right">
-                                    {/* <div><strong style={{fontSize:'14px'}}>☆{spot.rating}</strong></div> */}
                                     <div><strong>${spot.price}</strong> / night</div>
                                 </div>
                             </div>

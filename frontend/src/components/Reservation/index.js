@@ -1,9 +1,11 @@
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import Calendar from 'react-calendar'
+import {addModal,toggleModalView} from "../../store/session"
 import 'react-calendar/dist/Calendar.css';
 import "./Reservation.css"
 import { postBooking } from "../../store/bookings";
+import FormModal from "../Modal";
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
@@ -24,6 +26,7 @@ const Reservation = ({spot}) => {
     const [activeType,toggleActiveType] = useState("")
     const [dateDifference,setDateDifference] = useState("")
     const [disabledDates,setDisabledDates]= useState([])
+    const [requireSignIn,setRequireSignIn] = useState(false)
     const [errors,setErrors] = ([])
 
     let findDisabledDates = (start,end) => {
@@ -46,8 +49,14 @@ const Reservation = ({spot}) => {
     useEffect(()=>{
         if(spot){
             let bookings = Object.values(spot.Bookings)
+            let start = new Date();
+            let end = new Date()
+            end.setDate(end.getDate()-1)
+            start.setFullYear(start.getFullYear() - 1);
+            findDisabledDates(start,end)
             bookings.forEach(booking=>{
             findDisabledDates(booking.checkin,booking.checkout)
+
         })
         }
     },[spot])
@@ -69,9 +78,14 @@ const Reservation = ({spot}) => {
 
     const dispatch = useDispatch()
     let currentUser = useSelector((state)=>state.session.user)
+    const modalView = useSelector(state=>state.session.modalView)
 
     let onClick = (e)=>{
         e.preventDefault()
+        if(!currentUser){
+            setRequireSignIn(true)
+        }
+        else{
         if(available){
             let booking = {checkin,checkout,buyerId:currentUser.id,spotId:spot.id}
             dispatch(postBooking(booking))
@@ -84,20 +98,34 @@ const Reservation = ({spot}) => {
                     window.alert("Sorry overlapping dates")
                     setCheckout("")
                     setCheckin("")
-                } else if (checkin >= checkout){
+                }
+                else if (checkin === checkout){
+                    window.alert("You cannot leave on the day you arrive!")
+                    setCheckout("")
+                    setCheckin("")
+                }
+                 else if (checkin >= checkout){
                     window.alert("You cannot leave before you've arrived!")
                     setCheckout("")
                     setCheckin("")
                 }
                 else setAvailable((current)=>!current)
             }
-
+            }
 
         }
-    }
+
+        }
 
 
-    console.log("DISABLED",disabledDates)
+        useEffect(()=>{
+            if(requireSignIn){
+                dispatch(addModal("login"))
+                dispatch(toggleModalView(true))
+            }
+        },requireSignIn)
+
+
     return (
         <div id = "reservation-container">
             <div id = "reservation-inner-container">
@@ -149,7 +177,8 @@ const Reservation = ({spot}) => {
                         onChange={setDate}
                         value={date}
                     />
-                </div>
+            </div>
+            <FormModal/>
         </div>
     )
 }

@@ -1,6 +1,5 @@
 #user-form{
     margin:0px;
-    height:100%;
     margin:auto;
     width:100%;
 
@@ -30,8 +29,15 @@
     color:white;
     font-weight:bold;
     border:none;
-    margin-top: 35px;
+    margin-top: 25px;
+    font-size:16px;
+    transition-property: background-color;
+    transition-duration: 2s;
+    cursor:pointer;
+}
 
+#user-form button:hover {
+    background-color: rgb(243, 16, 84);
 }
 
 #form-inputs{
@@ -74,4 +80,17 @@ input:-webkit-autofill{
 #form-outer-container{
     width:90%;
 
+}
+
+#change-signin-type{
+    cursor:pointer;
+    padding:0px;
+    margin:0px;
+    margin-top:10px;
+    font-size: 13px;
+
+}
+
+#change-signin-type:hover{
+    text-decoration: underline;
 }

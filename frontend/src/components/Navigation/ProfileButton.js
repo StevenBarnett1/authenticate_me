@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
 import * as sessionActions from '../../store/session';
 import "./Navigation.css"
-import LoginModal from '../LoginModal';
-import SignupModal from "../SignupModal";
+import FormModal from '../Modal';
+import {addModal,toggleModalView} from "../../store/session"
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  const [loginFormOpen,toggleLoginForm] = useState(false)
-  const [signUpFormOpen,toggleSignupForm] = useState(false)
+
 
   const openMenu = () => {
     if (showMenu) return;
@@ -33,29 +32,7 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  let loginForm
-  let signUpForm
-  console.log("USER EXISTS ? ", user, "LOGIN FORM OPEN? ",loginFormOpen)
-
-  if(!user){
-    if(loginFormOpen){
-      loginForm = (
-        <LoginModal/>
-      )
-    } else if (signUpFormOpen){
-      loginForm = (
-        <SignupModal />
-      )
-    }
-    else {
-    loginForm = null
-    signUpForm = null
-  }
-  }
-
-  console.log("LOGIN FORM: ",loginForm)
-  console.log("USER IMAGE", user && user.image)
-  console.log("user", user)
+  const modalView = useSelector(state=>state.session.modalView)
   if(!user){
     return (
       <>
@@ -72,21 +49,20 @@ function ProfileButton({ user }) {
           <div className="profile-dropdown">
             <div>
               <button onClick = {()=>{
-                toggleLoginForm(true)
-                toggleSignupForm(false)
+                dispatch(toggleModalView(true))
+                dispatch(addModal("login"))
               }}>Log In</button>
             </div>
             <div>
               <button onClick = {()=>{
-                toggleLoginForm(false)
-                toggleSignupForm(true)
+                dispatch(toggleModalView(true))
+                dispatch(addModal("signup"))
               }}>Sign Up</button>
             </div>
           </div>
           </div>
         )}
-        {loginForm}
-        {signUpForm}
+        { modalView ? (<FormModal/>):null}
       </>
     );
   }
