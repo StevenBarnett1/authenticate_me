@@ -27,9 +27,8 @@ const Reservation = ({spot}) => {
     const [errors,setErrors] = ([])
 
     let findDisabledDates = (start,end) => {
-        console.log(start,start instanceof Date)
-        console.log(end,end instanceof Date)
-
+        console.log("START",start,"END",end)
+        console.log("DISABLED DATES",disabledDates.length)
         if(typeof start === "string"){
             start = new Date(start)
         }
@@ -40,12 +39,10 @@ const Reservation = ({spot}) => {
         let currentDate = start
         while (currentDate <= end) {
             dates.push(currentDate);
-
             currentDate = currentDate.addDays(1);
         }
         setDisabledDates([...disabledDates,...dates])
     }
-    console.log(disabledDates)
     useEffect(()=>{
         if(spot){
             let bookings = Object.values(spot.Bookings)
@@ -55,6 +52,20 @@ const Reservation = ({spot}) => {
         }
     },[spot])
 
+    useEffect(()=>{
+        toggleCalendar(!calendar)
+        if(activeType === "checkin") setCheckin(date)
+        else if(activeType==="checkout") setCheckout(date)
+        toggleActiveType("")
+
+    },[date])
+
+    useEffect(()=>{
+        if(checkin && checkout){
+            setDateDifference((checkout.getTime() - checkin.getTime())/1000/60/60/24)
+        }
+    },[checkin,checkout])
+
 
     const dispatch = useDispatch()
     let currentUser = useSelector((state)=>state.session.user)
@@ -62,17 +73,13 @@ const Reservation = ({spot}) => {
     let onClick = (e)=>{
         e.preventDefault()
         if(available){
-            console.log(typeof spotId, typeof buyerId)
             let booking = {checkin,checkout,buyerId:currentUser.id,spotId:spot.id}
             dispatch(postBooking(booking))
             findDisabledDates(checkin,checkout)
             setAvailable(false)
-
         }
         else {
             if(checkin && checkout){
-                //if checkout is before checkin
-                //if blacked out dates are between checkin and checkout
                 if(disabledDates.filter(date=>date <= checkout && date >= checkin).length){
                     window.alert("Sorry overlapping dates")
                     setCheckout("")
@@ -89,19 +96,8 @@ const Reservation = ({spot}) => {
         }
     }
 
-    useEffect(()=>{
-        toggleCalendar(!calendar)
-        if(activeType === "checkin") setCheckin(date)
-        else if(activeType==="checkout") setCheckout(date)
-        toggleActiveType("")
 
-    },[date])
-
-    useEffect(()=>{
-        if(checkin && checkout){
-            setDateDifference((checkout.getTime() - checkin.getTime())/1000/60/60/24)
-        }
-    },[checkin,checkout])
+    console.log("DISABLED",disabledDates)
     return (
         <div id = "reservation-container">
             <div id = "reservation-inner-container">

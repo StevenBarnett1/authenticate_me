@@ -35,11 +35,13 @@ function ProfileButton({ user }) {
         ☰ 👤
       </button>
       {showMenu && (
+        <div id = "profile-dropdown-outer">
         <ul className="profile-dropdown">
           <li>
             <button onClick={logout}>Log Out</button>
           </li>
         </ul>
+        </div>
       )}
     </>
   );

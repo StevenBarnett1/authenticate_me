@@ -12,27 +12,21 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 
 
 const SearchForm= () => {
-    let [location,setLocation] = useState("")
-    let [checkin,setCheckin] = useState("")
-    let [checkout,setCheckout] = useState("")
-    let [guests,setGuests] = useState("")
-    let [checkoutClicked,toggleCheckoutClicked] = useState(false)
-    let [checkinClicked,toggleCheckinClicked] = useState(false)
+    const [location,setLocation] = useState("")
+    const [checkin,setCheckin] = useState("")
+    const [checkout,setCheckout] = useState("")
+    const [guests,setGuests] = useState("")
+    const [checkoutClicked,toggleCheckoutClicked] = useState(false)
+    const [checkinClicked,toggleCheckinClicked] = useState(false)
     const [date, setDate] = useState(new Date());
     const [activeType,toggleActiveType] = useState("")
     const dispatch = useDispatch()
-    let history = useHistory()
+    const history = useHistory()
 
-    function wait(ms) {
-        var start = Date.now(),
-            now = start;
-        while (now - start < ms) {
-          now = Date.now();
-        }
-    }
-
-    let onSubmit = () => {
-        let correctLocation = location.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join("-")
+    let onSubmit = (e) => {
+        e.preventDefault()
+        dispatch(setNavigation(false))
+        const correctLocation = location.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join("-")
 
         if(checkin && checkout){
             history.push({
@@ -45,9 +39,7 @@ const SearchForm= () => {
         )
     }
 
-    let calendarStyle = {
-
-    }
+    const calendarStyle = {}
     if(checkinClicked){
         calendarStyle.display="block"
     }

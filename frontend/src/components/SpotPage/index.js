@@ -30,7 +30,7 @@ let SpotPage = () => {
 
     reviews = Object.values(reviews)
     reviews = reviews.filter(review=>review.id)
-
+    spot && console.log("DSFSDFSDFSDFJNFORNGOIERNGIONGOIERNGOIERGOINERGIOERGNO",spot.Bookings)
     reviews = reviews.map(review => {
         let createdDate = new Date(review.createdAt)
         let createdMonth = monthNames[createdDate.getMonth()]
