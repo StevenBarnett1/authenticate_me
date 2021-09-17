@@ -3,6 +3,7 @@ const SET_USER = "session/SET_USER"
 const REMOVE_USER = "session/REMOVE_USER"
 const ADD_MODAL_TYPE = "session/ADD_MODAL_TYPE"
 const MODAL_VIEW = "session/MODAL_VIEW"
+const MODAL_REQUIRED = "session/MODAL_REQUIRED"
 
 export const setUser = (user) => {
     return {
@@ -28,6 +29,13 @@ export const toggleModalView = (visible) => {
   return {
     type:MODAL_VIEW,
     payload:visible
+  }
+}
+
+export const toggleModalRequired = (required) => {
+  return {
+    type:MODAL_REQUIRED,
+    payload:required
   }
 }
 
@@ -88,6 +96,10 @@ const sessionReducer = (state = initialState, action) => {
       }
       case MODAL_VIEW:{
         newState.modalView=action.payload
+        return newState
+      }
+      case MODAL_REQUIRED:{
+        newState.modalRequired=action.payload
         return newState
       }
       default:

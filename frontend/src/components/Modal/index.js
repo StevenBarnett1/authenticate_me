@@ -10,7 +10,8 @@ function FormModal() {
   const modalType= useSelector((state)=>state.session.modalType)
   const modalView = useSelector(state => state.session.modalView)
   let userForm
-
+  console.log("INSIDE FORM MODAL")
+  console.log("MODAL VIEW: ",modalView)
   if(modalView && modalType==="login"){
     userForm = (<LoginForm/>)
   }

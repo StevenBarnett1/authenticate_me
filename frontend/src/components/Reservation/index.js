@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import Calendar from 'react-calendar'
-import {addModal,toggleModalView} from "../../store/session"
+import {addModal,toggleModalView,toggleModalRequired} from "../../store/session"
 import 'react-calendar/dist/Calendar.css';
 import "./Reservation.css"
 import { postBooking } from "../../store/bookings";
@@ -26,9 +26,8 @@ const Reservation = ({spot}) => {
     const [activeType,toggleActiveType] = useState("")
     const [dateDifference,setDateDifference] = useState("")
     const [disabledDates,setDisabledDates]= useState([])
-    const [requireSignIn,setRequireSignIn] = useState(false)
     const [errors,setErrors] = ([])
-
+    const modalRequired = useSelector(state=>state.session.modalRequired)
     let findDisabledDates = (start,end) => {
         console.log("START",start,"END",end)
         console.log("DISABLED DATES",disabledDates.length)
@@ -75,15 +74,25 @@ const Reservation = ({spot}) => {
         }
     },[checkin,checkout])
 
+    useEffect(()=>{
+        console.log("in use effect")
+        if(modalRequired){
+            dispatch(addModal("login"))
+            dispatch(toggleModalView(true))
+            dispatch(toggleModalRequired(false))
+        }
+    },[modalRequired])
 
     const dispatch = useDispatch()
     let currentUser = useSelector((state)=>state.session.user)
     const modalView = useSelector(state=>state.session.modalView)
-
+    console.log("REQUIRE SIGN IN: ",modalRequired)
     let onClick = (e)=>{
+        console.log("in on click",currentUser)
         e.preventDefault()
         if(!currentUser){
-            setRequireSignIn(true)
+            dispatch(toggleModalView(true))
+            dispatch(addModal("login"))
         }
         else{
         if(available){
@@ -114,16 +123,11 @@ const Reservation = ({spot}) => {
             }
 
         }
-
         }
 
-
-        useEffect(()=>{
-            if(requireSignIn){
-                dispatch(addModal("login"))
-                dispatch(toggleModalView(true))
-            }
-        },requireSignIn)
+        console.log("INSIDE RESERVATION")
+        console.log("MODAL REQUIRED: ",modalRequired)
+        console.log("MODAL VIEW: ",modalView)
 
 
     return (
@@ -178,7 +182,7 @@ const Reservation = ({spot}) => {
                         value={date}
                     />
             </div>
-            <FormModal/>
+            {modalView && !currentUser ? (<FormModal/>): null}
         </div>
     )
 }

@@ -33,6 +33,11 @@ function ProfileButton({ user }) {
   };
 
   const modalView = useSelector(state=>state.session.modalView)
+  const modalRequired = useSelector(state=>state.session.modalRequired)
+  console.log("INSIDE PROFILE BUTTON")
+  console.log("MODAL REQUIRED: ",modalRequired)
+  console.log("MODAL VIEW: ",modalView)
+
   if(!user){
     return (
       <>
