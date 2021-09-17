@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector ,useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import LoginFormModal from '../LoginFormModal';
 import Search from "../Search"
 import SearchForm from "../Search/SearchForm"
 import { setNavigation } from '../../store/navigation';
@@ -15,19 +14,8 @@ function Navigation({ isLoaded }){
   const searchClicked = useSelector(state=>state.navigation.clicked)
   const [searchTypeContainer,setContainer] = useState(document.getElementById("search-type-container"))
   const dispatch = useDispatch()
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = (
-      <ProfileButton user={sessionUser} />
-    );
-  } else {
-    sessionLinks = (
-      <>
-        <LoginFormModal />
-        <NavLink to="/signup">Sign Up</NavLink>
-      </>
-    );
-  }
+
+  console.log("SESSION USER", sessionUser)
 
   const clickOffNavbar = (event=>{
     let navbar = document.getElementById("navbar")
@@ -71,7 +59,7 @@ function Navigation({ isLoaded }){
           </div>
             <Search />
           <div id ="navbar-user-outer-container">
-            <div>{isLoaded && sessionLinks}</div>
+            <ProfileButton user = {sessionUser}/>
           </div>
         </div>
         <div id = "navbar-lower-container" style = {searchClicked ? {display:"block", height: "65%"} : {display:"none"}}>
