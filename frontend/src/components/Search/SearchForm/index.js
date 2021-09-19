@@ -12,42 +12,42 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 
 
 const SearchForm= () => {
-    let [location,setLocation] = useState("")
-    let [checkin,setCheckin] = useState("")
-    let [checkout,setCheckout] = useState("")
-    let [guests,setGuests] = useState("")
-    let [checkoutClicked,toggleCheckoutClicked] = useState(false)
-    let [checkinClicked,toggleCheckinClicked] = useState(false)
+    const [location,setLocation] = useState("")
+    const [checkin,setCheckin] = useState("")
+    const [checkout,setCheckout] = useState("")
+    const [guests,setGuests] = useState("")
+    const [checkoutClicked,toggleCheckoutClicked] = useState(false)
+    const [checkinClicked,toggleCheckinClicked] = useState(false)
     const [date, setDate] = useState(new Date());
     const [activeType,toggleActiveType] = useState("")
     const dispatch = useDispatch()
-    let history = useHistory()
+    const history = useHistory()
+    let onSubmit = (e) => {
+        e.preventDefault()
+        dispatch(setNavigation(false))
+        if(location){
+            const correctLocation = location.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join("-")
 
-    function wait(ms) {
-        var start = Date.now(),
-            now = start;
-        while (now - start < ms) {
-          now = Date.now();
+            if(checkin && checkout){
+                history.push({
+                    pathname:`/cities/${correctLocation}`,
+                    state:{dates:{checkin,checkout}}
+                })
+            }
+            else history.push(`/cities/${correctLocation}`,{state:"TEST"})
+        }
+        else{
+            if(checkin && checkout){
+                history.push({
+                    pathname:`/spots`,
+                    state:{dates:{checkin,checkout}}
+                })
+            }
+            else history.push(`/spots`)
         }
     }
 
-    let onSubmit = () => {
-        let correctLocation = location.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join("-")
-
-        if(checkin && checkout){
-            history.push({
-                pathname:`/cities/${correctLocation}`,
-                state:{dates:{checkin,checkout}}
-            })
-        }
-        else history.push(`/cities/${correctLocation}`,
-            {state:"TEST"}
-        )
-    }
-
-    let calendarStyle = {
-
-    }
+    const calendarStyle = {}
     if(checkinClicked){
         calendarStyle.display="block"
     }
@@ -105,7 +105,7 @@ const SearchForm= () => {
                     <input id = "search-form-submit" type = "submit" value = "🔍 Search"/>
                 </div>
             </form>
-            <div style = {calendarStyle}id = "calendar-container">
+            <div style = {calendarStyle} id = "calendar-container">
             <Calendar onChange={setDate}
                         value={date}
             />

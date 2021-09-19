@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch ,useSelector} from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
+// import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import CityPage from "./components/CityPage"
-import SpotPage from "./components/SpotPage";
 import HomePage from "./components/HomePage"
 import "./App.css"
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getSpots } from "./store/spots";
+import SpotPage from "./components/SpotPage"
+import SpotsPage from "./components/SpotsPage"
 
 
 function App() {
@@ -29,16 +29,15 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <HomePage />
-
           </Route>
           <Route path = "/cities/:city">
-            <CityPage />
+            <SpotsPage />
+          </Route>
+          <Route exact path = "/spots">
+            <SpotsPage />
           </Route>
           <Route path = "/spots/:spotId">
             <SpotPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
           </Route>
         </Switch>
       )}

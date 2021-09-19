@@ -1,12 +1,24 @@
 
 const SET_SPOTS = "spots/SET_SPOTS"
 const SET_DATES = "spots/SET_DATES"
-
+const RANDOMIZE_SPOTS = "spots/RANDOMIZE_SPOTS"
 const setSpots = (spots) => {
     return {
     type:SET_SPOTS,
     payload:spots
     }
+}
+
+const getRandomSpots = (res) => {
+    return {
+        type:RANDOMIZE_SPOTS,
+        payload:res
+    }
+}
+export const randomizeSpots = () => async dispatch => {
+    let res = await fetch("/api/spots/random")
+    res = await res.json()
+    return dispatch(getRandomSpots(res))
 }
 
 export const getSpotFromCity = (city) => async dispatch => {
@@ -57,6 +69,19 @@ const spotsReducer = (state = {}, action) => {
             newState = {...state}
             newState.dates = action.payload
             console.log("HIT DATE REDUCER")
+        }
+        case RANDOMIZE_SPOTS:{
+            console.log("IN RANDOMIZE")
+            if(action.payload instanceof Array){
+                let num = 0
+                action.payload.forEach(spot => {
+                    newState[num] = spot
+                    num++
+                })
+            }
+            else newState[action.payload.id] = action.payload
+            return newState
+
         }
         default:
             return state

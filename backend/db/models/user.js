@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     image:{
       type:DataTypes.STRING,
-      allowNull:false,
+      allowNull:true,
       defaultValue:"https://www.cmmhealth.org/custom/images/blank-profile-hi.png",
     },
     email: {
@@ -65,8 +65,8 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Review,{foreignKey:"authorId", onDelete:'CASCADE',hooks:true})
   };
   User.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
-    const { id, username, email, firstName, lastName } = this; // context will be the User instance
-    return { id, username, email, firstName, lastName };
+    const { id, username, email, firstName, lastName, image } = this; // context will be the User instance
+    return { id, username, email, firstName, lastName, image };
   };
   User.prototype.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
@@ -88,14 +88,15 @@ module.exports = (sequelize, DataTypes) => {
       return await User.scope('currentUser').findByPk(user.id);
     }
   };
-  User.signup = async function ({ username, email, password, firstName, lastName }) {
+  User.signup = async function ({ username, email, password, firstName, lastName, image }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       username,
       email,
       hashedPassword,
       firstName,
-      lastName
+      lastName,
+      image
     });
     return await User.scope('currentUser').findByPk(user.id);
   };

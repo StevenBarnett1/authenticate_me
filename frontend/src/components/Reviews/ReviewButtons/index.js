@@ -25,7 +25,7 @@ const ReviewButtons = ({review}) => {
         review && dispatch(deleteReview(review.id))
     }
 
-    if(session.user.id === review.authorId){
+    if(session.user && session.user.id === review.authorId){
         return (
             <div id = "review-edit-delete-container">
                 <button onClick = {editOnClick}>{editButton}</button>

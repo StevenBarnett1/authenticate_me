@@ -5,6 +5,7 @@ import {useDispatch ,useSelector} from "react-redux"
 import {getReviews} from "../../store/reviews"
 import Reservation from "../Reservation"
 import Reviews from "../Reviews"
+import {Link} from "react-router-dom"
 import "./Spot.css"
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -30,7 +31,7 @@ let SpotPage = () => {
 
     reviews = Object.values(reviews)
     reviews = reviews.filter(review=>review.id)
-
+    spot && console.log("DSFSDFSDFSDFJNFORNGOIERNGIONGOIERNGOIERGOINERGIOERGNO",spot.Bookings)
     reviews = reviews.map(review => {
         let createdDate = new Date(review.createdAt)
         let createdMonth = monthNames[createdDate.getMonth()]
@@ -52,9 +53,9 @@ let SpotPage = () => {
             <h1 id = "spot-title">{spot && spot.name}</h1>
             <div className = 'spot-top-container'>
                 <div id = "spot-top-left-container">
-                    <div>{spot && spot.rating}</div>
+                    <div>☆{spot && spot.rating}</div>
                     <div style = {{color:"grey"}}>Superhost</div>
-                    <strong style = {{color:"grey", textDecoration:"underline"}}>{spot && `${spot.city},${spot.state},United States`}</strong>
+                    <Link to = {spot && `/cities/${spot.city}`}><strong style = {{color:"grey", textDecoration:"underline"}}>{spot && `${spot.city},${spot.state},United States`}</strong></Link>
                 </div>
             </div>
             <div id = "spot-image-container">

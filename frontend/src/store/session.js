@@ -1,6 +1,9 @@
 import { csrfFetch } from "./csrf"
 const SET_USER = "session/SET_USER"
 const REMOVE_USER = "session/REMOVE_USER"
+const ADD_MODAL_TYPE = "session/ADD_MODAL_TYPE"
+const MODAL_VIEW = "session/MODAL_VIEW"
+const MODAL_REQUIRED = "session/MODAL_REQUIRED"
 
 export const setUser = (user) => {
     return {
@@ -13,6 +16,27 @@ export const removeUser = () => {
     return {
     type:REMOVE_USER
     }
+}
+
+export const addModal = (type) => {
+  return {
+    type:ADD_MODAL_TYPE,
+    payload:type
+  }
+}
+
+export const toggleModalView = (visible) => {
+  return {
+    type:MODAL_VIEW,
+    payload:visible
+  }
+}
+
+export const toggleModalRequired = (required) => {
+  return {
+    type:MODAL_REQUIRED,
+    payload:required
+  }
 }
 
 export const restoreUser = () => async dispatch => {
@@ -37,16 +61,10 @@ export const login = (user) => async (dispatch) => {
 }
 
 export const signup = (user) => async (dispatch) => {
-    const { username, email, password, firstName, lastName} = user;
+  console.log("USER IN SIGNUP THUNK: ", user)
     const response = await csrfFetch("/api/users", {
       method: "POST",
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-        firstName,
-        lastName
-      }),
+      body: JSON.stringify(user),
     });
     const data = await response.json();
     dispatch(setUser(data.user));
@@ -61,7 +79,7 @@ export const signup = (user) => async (dispatch) => {
     return response;
   };
 
-const initialState = { user: null };
+const initialState = { user: null,modalView:null,modalType:null };
 
 const sessionReducer = (state = initialState, action) => {
     const newState = {...state};
@@ -72,6 +90,18 @@ const sessionReducer = (state = initialState, action) => {
       case REMOVE_USER:
         newState.user = null;
         return newState;
+      case ADD_MODAL_TYPE:{
+        newState.modalType=action.payload
+        return newState
+      }
+      case MODAL_VIEW:{
+        newState.modalView=action.payload
+        return newState
+      }
+      case MODAL_REQUIRED:{
+        newState.modalRequired=action.payload
+        return newState
+      }
       default:
         return state;
     }

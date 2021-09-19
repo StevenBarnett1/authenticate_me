@@ -16,5 +16,8 @@
     width:520px;
     height:520px;
     border-radius: 10px;
-    padding-bottom:10px;
+}
+
+.photo-labels{
+    padding-top:10px;
 }

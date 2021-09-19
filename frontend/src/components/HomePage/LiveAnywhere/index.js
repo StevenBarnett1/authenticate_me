@@ -11,9 +11,9 @@ const LiveAnywhere = () => {
             <h1>Live anywhere</h1>
             <div id = "live-anywhere-outer-container">
                 {images && images.map((image,i)=>(
-                    <Link key = {image} className = "live-anywhere-inner-container" style = {{textDecoration:"none"}} >
+                    <Link  to = {{pathname:"/spots",state:labels[i]}} key = {image} className = "live-anywhere-inner-container" style = {{textDecoration:"none"}} >
                         <img src = {image}></img>
-                        <div>{labels[i]}</div>
+                        <div className = "photo-labels">{labels[i]}</div>
                     </Link>
                 ))}
             </div>
