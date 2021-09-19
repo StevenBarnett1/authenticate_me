@@ -17,7 +17,7 @@
 }
 
 #search-button{
-    height:50px;
+    height:70%;
     border-radius:40px;
     border:1px solid lightgrey;
     cursor:pointer;
@@ -34,8 +34,8 @@
 }
 
 #search-magnifying-glass{
-    height:32px;
-    width:32px;
+    height:50%;
+    width:10%;
     border-radius: 32px;
     line-height:35px;
 }
@@ -48,7 +48,7 @@
 }
 
 #search-form{
-    height:66px;
+    height:70%;
     width:100%;
     display: flex;
     flex-direction: row;
@@ -133,4 +133,3 @@
 
 
 }
-

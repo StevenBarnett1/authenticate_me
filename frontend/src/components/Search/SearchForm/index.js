@@ -25,17 +25,26 @@ const SearchForm= () => {
     let onSubmit = (e) => {
         e.preventDefault()
         dispatch(setNavigation(false))
-        const correctLocation = location.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join("-")
+        if(location){
+            const correctLocation = location.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join("-")
 
-        if(checkin && checkout){
-            history.push({
-                pathname:`/cities/${correctLocation}`,
-                state:{dates:{checkin,checkout}}
-            })
+            if(checkin && checkout){
+                history.push({
+                    pathname:`/cities/${correctLocation}`,
+                    state:{dates:{checkin,checkout}}
+                })
+            }
+            else history.push(`/cities/${correctLocation}`,{state:"TEST"})
         }
-        else history.push(`/cities/${correctLocation}`,
-            {state:"TEST"}
-        )
+        else{
+            if(checkin && checkout){
+                history.push({
+                    pathname:`/spots`,
+                    state:{dates:{checkin,checkout}}
+                })
+            }
+            else history.push(`/spots`)
+        }
     }
 
     const calendarStyle = {}
@@ -96,7 +105,7 @@ const SearchForm= () => {
                     <input id = "search-form-submit" type = "submit" value = "🔍 Search"/>
                 </div>
             </form>
-            <div style = {calendarStyle}id = "calendar-container">
+            <div style = {calendarStyle} id = "calendar-container">
             <Calendar onChange={setDate}
                         value={date}
             />

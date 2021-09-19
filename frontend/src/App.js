@@ -39,9 +39,6 @@ function App() {
           <Route path = "/spots/:spotId">
             <SpotPage />
           </Route>
-          {/* <Route path="/signup">
-            <SignupFormPage />
-          </Route> */}
         </Switch>
       )}
     </>

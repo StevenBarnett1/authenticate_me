@@ -50,15 +50,15 @@ function ProfileButton({ user }) {
           </div>
         </button>
         {showMenu && (
-          <div id = "profile-dropdown-outer">
+          <div id = "profile-dropdown-outer" style = {{height:"70px"}}>
           <div className="profile-dropdown">
-            <div>
+            <div id = "login-div">
               <button onClick = {()=>{
                 dispatch(toggleModalView(true))
                 dispatch(addModal("login"))
               }}>Log In</button>
             </div>
-            <div>
+            <div style ={{paddingTop:"5px"}}>
               <button onClick = {()=>{
                 dispatch(toggleModalView(true))
                 dispatch(addModal("signup"))
@@ -81,7 +81,7 @@ function ProfileButton({ user }) {
           <img id = "profile-image" src = {user && user.image}></img>
         </button>
         {showMenu && (
-          <div id = "profile-dropdown-outer">
+          <div id = "profile-dropdown-outer" style = {{height:"35px"}}>
           <div className="profile-dropdown">
             <div>
               <button onClick={logout}>Log Out</button>

@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/StevenBarnett1/authenticate_me#readme",
   "dependencies": {
-    "mapbox-gl": "^2.4.1"
+    "mapbox-gl": "^2.4.1",
+    "node": "^16.9.1"
   }
 }

@@ -1,4 +1,4 @@
-.city-page-individual-container{
+.spots-page-individual-container{
     box-sizing:border-box;
     display:flex;
     align-items: center;
@@ -11,7 +11,7 @@
 
 }
 
-#city-page-container{
+#spots-page-container{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
@@ -28,7 +28,7 @@
 
 }
 
-.city-page-image {
+.spots-page-image {
     border-radius:25px;
     object-fit: cover;
     box-sizing:border-box;
@@ -37,7 +37,7 @@
     padding-right:10px;
 }
 
-#city-title{
+#spots-title{
     font-family:Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 
 }
@@ -67,14 +67,15 @@
     color:lightgrey;
 }
 #stays-container{
-    width:45%
+    width:45%;
+    overflow-y:scroll;
 }
 #stays-inner-container{
     width:90%;
     margin:auto;
 }
 
-#city-page-image-container{
+#spots-page-image-container{
     width:40%;
 
     height:200px;

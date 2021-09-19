@@ -62,7 +62,7 @@ function Navigation({ isLoaded }){
             <ProfileButton user = {sessionUser}/>
           </div>
         </div>
-        <div id = "navbar-lower-container"  style = {searchClicked ? {visibility:"visible", height: "65%"} : {visibility:"hidden",width:"0px",height:"0px"}}>
+        <div id = "navbar-lower-container"  style = {searchClicked ? {visibility:"visible", height: "65%"} : {visibility:"hidden",width:"0px",height:"0px",padding:"0px",margin:"0px"}}>
           <SearchForm />
         </div>
       </div>

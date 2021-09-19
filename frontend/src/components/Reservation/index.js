@@ -131,8 +131,8 @@ const Reservation = ({spot}) => {
 
 
     return (
-        <div id = "reservation-container">
-            <div id = "reservation-inner-container">
+        <div id = "reservation-container" style = {available ? {height:"325px"} : {height:"275px"}}>
+            <div id = "reservation-inner-container" >
                 <div id = "reservation-price-rating-container">
                     <div><strong style={{fontSize:'25px',fontWeight:800}}>${spot &&spot.price}</strong> / night</div>
                     <div><strong style={{fontSize:'18px',fontWeight:800}}>☆{spot && spot.rating}</strong></div>
@@ -158,16 +158,16 @@ const Reservation = ({spot}) => {
 
                     <div id = "spot-guests" >
                         <strong>GUESTS</strong>
-                        <div>{guests}</div>
+                        <input type = "text" onChange = {(e)=>setGuests(e.target.value)} value = {guests} style = {{border:"none"}}/>
                     </div>
                 </div>
 
                 <button id = "reserve-button" onClick={onClick}>{available ? "Reserve" : "Check Availability"}</button>
 
-                <div id = "reservation-total-price" style = {available ? {display:"block"} : {display:"none"}}>
-                    <div>Total</div>
+            </div>
+            <div id = "reservation-total-price" style = {available ? {visibility:"visible"} : {visibility:"hidden"}}>
+                    <div>Total:</div>
                     <div>${spot && spot.price * (dateDifference)}</div>
-                </div>
             </div>
             <div id = "calendar-container" style = {calendar ? {display:"block"} : {display:"none"}}>
                     <Calendar

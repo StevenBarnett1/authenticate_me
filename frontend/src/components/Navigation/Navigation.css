@@ -19,8 +19,8 @@
 
 
 #profile-button{
-    width:79px;
-    height:41px;
+    width:75px;
+    height:60%;
     border-radius: 21px;
     cursor:pointer;
     background-color: white;
@@ -29,6 +29,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    background-color: rgb(182, 175, 175);
 }
 
 #profile-button:hover{
@@ -39,13 +40,14 @@
     width:27px;
     height:27px;
 
+
 }
 
 #profile-dropdown-outer{
     width:240px;
     margin:auto;
     position: absolute;
-    right:200px;
+    right:180px;
     border-radius: 35px;
     height:70px;
     background-color: rgb(231, 227, 227);
@@ -62,6 +64,14 @@
     border-radius: 35px;
     height:100%;
     background-color: inherit;
+}
+
+#login-div{
+    /* border-bottom:1px solid black; */
+    padding-bottom:5px;
+}
+#login-div:hover{
+    border-bottom: none;
 }
 
 .profile-dropdown > div {
@@ -116,5 +126,9 @@
 
 #navbar-lower-container{
     transition-property: visibility;
-    transition-delay: 0.5s;
+    transition-delay: 0.16s;
+}
+
+#calendar-container{
+    position:absolute;
 }

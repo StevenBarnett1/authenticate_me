@@ -57,7 +57,7 @@ router.get("/:id/reviews",asyncHandler(async (req,res)=>{
 console.log("city route")
   res.json(reviews)
 }))
-router.get("/:id",asyncHandler(async(req,res)=>{
+router.get("/:id(\\d+)",asyncHandler(async(req,res)=>{
   let spot = await Spot.findByPk(req.params.id,{include:[User,Review,Booking]})
   return res.json(spot)
 }))
@@ -80,6 +80,19 @@ router.delete("/:id",asyncHandler(async(req,res)=>{
 
     spot.destroy()
     res.send("spot deleted")
+}))
+
+router.get("/random",asyncHandler(async(req,res)=>{
+  let spots = await Spot.findAll({include:[Booking,User,Review]})
+  console.log(spots.map(spot=>spot.name))
+    for (let i = spots.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = spots[i];
+        spots[i] = spots[j];
+        spots[j] = temp;
+    }
+  console.log(spots.map(spot=>spot.name))
+  return res.json(spots)
 }))
 
 module.exports = router
