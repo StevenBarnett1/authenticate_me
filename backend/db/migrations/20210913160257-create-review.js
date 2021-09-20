@@ -27,7 +27,7 @@ module.exports = {
         allowNull:true
       },
       rating: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.NUMERIC(3,2),
         allowNull:false,
       },
       createdAt: {
