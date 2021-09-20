@@ -6,6 +6,7 @@ import Search from "../Search"
 import SearchForm from "../Search/SearchForm"
 import { setNavigation } from '../../store/navigation';
 import './Navigation.css';
+import airbnb from "./Airbnb-logo.jpeg"
 
 
 function Navigation({ isLoaded }){
@@ -54,7 +55,7 @@ function Navigation({ isLoaded }){
         <div id = "navbar-top-container" style = {searchClicked ? {height: "80px"} : {height:"80px"}}>
           <div id = "airbnb-logo-outer-container">
             <NavLink exact to="/">
-              <img id = "airbnb-image" src = "https://1000logos.net/wp-content/uploads/2017/08/Airbnb-logo.jpg"></img>
+              <img id = "airbnb-image" src={airbnb} />
             </NavLink>
           </div>
             <Search />
