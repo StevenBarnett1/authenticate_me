@@ -16,7 +16,7 @@ const HomePage = () => {
             <ExploreNearby />
             <LiveAnywhere />
             <ThingsToDo />
-            <FutureGetaways />
+            {/* <FutureGetaways /> */}
         </div>
     )
 }

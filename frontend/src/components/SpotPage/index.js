@@ -54,7 +54,7 @@ let SpotPage = () => {
             <div className = 'spot-top-container'>
                 <div id = "spot-top-left-container">
                     <div>☆{spot && spot.rating}</div>
-                    <div style = {{color:"grey"}}>Superhost</div>
+                    <div style = {{color:"grey"}}>🏅 Superhost</div>
                     <Link to = {spot && `/cities/${spot.city}`}><strong style = {{color:"grey", textDecoration:"underline"}}>{spot && `${spot.city},${spot.state},United States`}</strong></Link>
                 </div>
             </div>

@@ -20,7 +20,7 @@
 
 #profile-button{
     width:75px;
-    height:60%;
+    height:55%;
     border-radius: 21px;
     cursor:pointer;
     background-color: white;
@@ -29,7 +29,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    background-color: rgb(182, 175, 175);
+    background-color: rgb(235, 224, 224);
 }
 
 #profile-button:hover{
@@ -47,10 +47,15 @@
     width:240px;
     margin:auto;
     position: absolute;
+    top:80px;
     right:180px;
-    border-radius: 35px;
+    border-radius: 10px;
     height:70px;
-    background-color: rgb(231, 227, 227);
+    background-color:white;
+    box-shadow: 0px 1px 12px lightgrey;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }
 .profile-dropdown{
     margin:auto;
@@ -60,18 +65,20 @@
     display:flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center;
-    border-radius: 35px;
-    height:100%;
+    align-items: left;
+    border-radius: 10px;
+    height:80%;
     background-color: inherit;
+    align-items: center;
 }
 
 #login-div{
     /* border-bottom:1px solid black; */
     padding-bottom:5px;
+    border-bottom:1px solid lightgrey;
 }
 #login-div:hover{
-    border-bottom: none;
+
 }
 
 .profile-dropdown > div {
@@ -93,12 +100,12 @@
     color:rgb(34, 34, 34);
     font-family:Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
     font-weight:600;
-    font-size:18px;
+    font-size:12px;
 }
 
 .profile-dropdown > div:hover{
     background-color: lightgray;
-    border-radius: 35px;
+    /* border-radius: 35px; */
 }
 #airbnb-image{
     height:50px;
@@ -126,7 +133,7 @@
 
 #navbar-lower-container{
     transition-property: visibility;
-    transition-delay: 0.16s;
+    /* transition-delay: 0.16s; */
 }
 
 #calendar-container{

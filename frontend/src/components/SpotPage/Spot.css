@@ -1,12 +1,17 @@
 .spot-top-container{
-    width:40%
+    width:80%
 }
 #spot-top-left-container{
     display:flex;
-    justify-content: space-between;
+    width:80%;
+    justify-content: left;
+    align-items: center;
     flex-direction: row;
 }
 
+#spot-top-left-container > * {
+    padding-right:9px;
+}
 #spot-bottom-container{
 display:flex;
 justify-content: space-between;
@@ -82,4 +87,8 @@ flex-direction: row;
     grid-template-columns: repeat(2,50%);
     grid-template-rows: repeat(5,20%);
     border-bottom: 1px solid grey;
+}
+
+#spot-title{
+    margin-bottom: 9px;
 }

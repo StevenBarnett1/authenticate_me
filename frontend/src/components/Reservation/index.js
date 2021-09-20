@@ -29,8 +29,7 @@ const Reservation = ({spot}) => {
     const [errors,setErrors] = ([])
     const modalRequired = useSelector(state=>state.session.modalRequired)
     let findDisabledDates = (start,end) => {
-        console.log("START",start,"END",end)
-        console.log("DISABLED DATES",disabledDates.length)
+
         if(typeof start === "string"){
             start = new Date(start)
         }
@@ -43,22 +42,28 @@ const Reservation = ({spot}) => {
             dates.push(currentDate);
             currentDate = currentDate.addDays(1);
         }
+        console.log("disabled dates"
+        )
         setDisabledDates([...disabledDates,...dates])
     }
     useEffect(()=>{
         if(spot){
             let bookings = Object.values(spot.Bookings)
+            console.log("bookings here: ",bookings.length)
             let start = new Date();
             let end = new Date()
             end.setDate(end.getDate()-1)
             start.setFullYear(start.getFullYear() - 1);
             findDisabledDates(start,end)
-            bookings.forEach(booking=>{
-            findDisabledDates(booking.checkin,booking.checkout)
 
-        })
+            bookings.forEach(booking=>{
+                findDisabledDates(booking.checkin,booking.checkout)
+            })
         }
     },[spot])
+
+
+
 
     useEffect(()=>{
         toggleCalendar(!calendar)
@@ -165,7 +170,7 @@ const Reservation = ({spot}) => {
                 <button id = "reserve-button" onClick={onClick}>{available ? "Reserve" : "Check Availability"}</button>
 
             </div>
-            <div id = "reservation-total-price" style = {available ? {visibility:"visible"} : {visibility:"hidden"}}>
+            <div id = "reservation-total-price" style = {available ? {visibility:"visible"} : {fontSize:"0px",visibility:"hidden"}}>
                     <div>Total:</div>
                     <div>${spot && spot.price * (dateDifference)}</div>
             </div>

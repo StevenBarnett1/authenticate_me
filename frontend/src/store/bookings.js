@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf"
 const SET_BOOKINGS = "bookings/SET_BOOKINGS"
 
 
-const setBookings = (bookings) => {
+export const setBookings = (bookings) => {
     return {
         type:SET_BOOKINGS,
         payload:bookings

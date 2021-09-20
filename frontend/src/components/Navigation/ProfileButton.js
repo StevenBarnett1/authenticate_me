@@ -34,9 +34,7 @@ function ProfileButton({ user }) {
 
   const modalView = useSelector(state=>state.session.modalView)
   const modalRequired = useSelector(state=>state.session.modalRequired)
-  console.log("INSIDE PROFILE BUTTON")
-  console.log("MODAL REQUIRED: ",modalRequired)
-  console.log("MODAL VIEW: ",modalView)
+
 
   if(!user){
     return (
@@ -50,15 +48,15 @@ function ProfileButton({ user }) {
           </div>
         </button>
         {showMenu && (
-          <div id = "profile-dropdown-outer" style = {{height:"70px"}}>
+          <div id = "profile-dropdown-outer" style = {{height:"80px"}}>
           <div className="profile-dropdown">
-            <div id = "login-div">
+            <div id = "login-div" >
               <button onClick = {()=>{
                 dispatch(toggleModalView(true))
                 dispatch(addModal("login"))
               }}>Log In</button>
             </div>
-            <div style ={{paddingTop:"5px"}}>
+            <div style ={{paddingTop:"5px",}}>
               <button onClick = {()=>{
                 dispatch(toggleModalView(true))
                 dispatch(addModal("signup"))
