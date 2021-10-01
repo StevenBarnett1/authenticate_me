@@ -86,7 +86,7 @@ flex-direction: row;
     display:grid;
     grid-template-columns: repeat(2,50%);
     grid-template-rows: repeat(5,20%);
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid lightgrey;
 }
 
 #spot-title{

@@ -28,8 +28,8 @@ const ReviewButtons = ({review}) => {
     if(session.user && session.user.id === review.authorId){
         return (
             <div id = "review-edit-delete-container">
-                <button onClick = {editOnClick}>{editButton}</button>
-                <button onClick = {deleteOnClick}>Delete Review</button>
+                <button id = "review-edit-button" onClick = {editOnClick}>{editButton}</button>
+                <button id = "review-delete-button" onClick = {deleteOnClick}>Delete Review</button>
             </div>
         )
     }

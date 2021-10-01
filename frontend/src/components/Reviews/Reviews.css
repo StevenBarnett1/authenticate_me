@@ -16,6 +16,15 @@
 #individual-review-container-top-right {
     display:flex;
     flex-direction: column;
+    justify-content: flex-start;
+}
+
+#individual-review-container-top-right > p{
+    margin-top:0px;
+    font-size:12px;
+    color:lightgrey;
+    font-weight:400;
+    padding-left:3px;
 }
 
 

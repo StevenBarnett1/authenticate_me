@@ -23,13 +23,13 @@
     height:55%;
     border-radius: 21px;
     cursor:pointer;
-    background-color: white;
-    border:1px solid lightgrey;
+    /* border:1px solid lightgrey; */
+    border:none;
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    background-color: rgb(235, 224, 224);
+    background-color: rgb(245, 240, 240);
 }
 
 #profile-button:hover{

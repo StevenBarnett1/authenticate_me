@@ -87,6 +87,7 @@ let SpotPage = () => {
                     </div>
                     <div id = "spot-items-outer-container">
                         <h2>What this place offers</h2>
+                        <div>{spot && spot.User.id}</div>
                         <div id = "spot-items">
                             <div className = "spot-item">🍳 Kitchen</div>
                             <div className = "spot-item">📶 Wifi</div>
