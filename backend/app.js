@@ -4,12 +4,14 @@ const csrf = require("csurf")
 const morgan = require("morgan")
 const cors = require("cors")
 const helmet = require("helmet")
+const path = require("path")
 const cookieParser = require("cookie-parser")
 const { environment } = require("./config")
 const indexRouter = require("./routes")
 const sessionRouter = require("./routes/api/session")
 const spotsRouter = require("./routes/api/spots")
 const usersRouter = require("./routes/api/users")
+const favicon = require("serve-favicon")
 
 const {ValidationError} = require("sequelize")
 let isProduction = environment === "production"
@@ -17,6 +19,7 @@ let isProduction = environment === "production"
 app.use(morgan("dev"))
 app.use(cookieParser())
 app.use(express.json())
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 
 if(!isProduction){
     app.use(cors())
