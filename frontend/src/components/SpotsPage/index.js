@@ -5,6 +5,9 @@ import { useSelector, useDispatch} from 'react-redux'
 import { getSpotFromCity, getSpots, randomizeSpots } from '../../store/spots'
 import { setNavigation } from '../../store/navigation';
 import './SpotsPage.css'
+/* eslint import/no-webpack-loader-syntax: off */
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+mapboxgl.workerClass = MapboxWorker
 const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
