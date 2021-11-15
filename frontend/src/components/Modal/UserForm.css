@@ -105,3 +105,15 @@ input:-webkit-autofill{
     margin-top:10px;
     margin-bottom:10px;
 }
+
+#modal-bookings-header{
+    height:45px;
+    background-color: rgb(228, 50, 103);
+    color:white;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-top-left-radius: 15px;
+    border-top-right-radius:15px;
+}

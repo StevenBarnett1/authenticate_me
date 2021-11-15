@@ -35,10 +35,16 @@ function FormModal() {
     console.log("BOOKINGS HERE: ",spot.Bookings)
     let modalInfo = spot.Bookings.filter(booking=>user.id === booking.buyerId)
     modalInfo.sort((a,b)=>new Date(a.checkin) - new Date(b.checkin))
-
+    if(!modalInfo.length){
+      dispatch(toggleModalView(false))
+      return
+    }
     userForm = (
+      <>
+      <div id = "modal-bookings-header">
+        Your reservations for this stay
+        </div>
       <div id = "modal-bookings-list">
-        {!modalInfo.length && (<div>You have not made any bookings!</div>)}
         {modalInfo.length>0 && modalInfo.map(booking => (
           (<div className = "modal-date-listing" key = {booking.id}>
             <div>{`${monthNames[new Date(booking.checkin).getMonth()]} ${new Date(booking.checkin).getDate()} ${new Date(booking.checkin).getFullYear()} - ${monthNames[new Date(booking.checkout).getMonth()]} ${new Date(booking.checkout).getDate()} ${new Date(booking.checkout).getFullYear()}`}</div>
@@ -46,6 +52,7 @@ function FormModal() {
           </div>)
         ))}
       </div>
+      </>
     )
   }
 

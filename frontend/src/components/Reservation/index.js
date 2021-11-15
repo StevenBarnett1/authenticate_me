@@ -157,7 +157,7 @@ const Reservation = ({spot}) => {
                     setCheckout("")
                     setCheckin("")
                 }
-                else if (new Date(checkin).getDate === new Date(checkout).getDate){
+                else if (new Date(checkin).getDate() === new Date(checkout).getDate()){
                     setErrors(["You cannot leave on the day you arrive!"])
                     setCheckout("")
                     setCheckin("")
@@ -229,7 +229,7 @@ const Reservation = ({spot}) => {
             <div id = "reservation-cancel-link" onClick = {openReservationModal} style = {(selfBookings.length && user) ? {display:"flex"} : {display:"none"} }>
                     Make changes to current reservations
             </div>
-            <div id = "calendar-container" style = {calendar ? {display:"block"} : {display:"none"}}>
+            <div id = "calendar-container" style = {calendar ? {display:"block",marginTop:"10px"} : {display:"none"}}>
                     <Calendar
                         tileDisabled={({date, view}) =>
                         (view === 'month') && // Block day tiles only
