@@ -197,7 +197,7 @@ const Reservation = ({spot}) => {
                     </div>
 
                     <div id = "spot-guests" >
-                        <strong>GUESTS</strong>
+                        <strong style = {{position:"absolute"}}>GUESTS</strong>
                         <input type = "text" onChange = {(e)=>setGuests(e.target.value)} value = {guests} style = {{border:"none"}}/>
                     </div>
                 </div>
