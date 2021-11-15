@@ -79,6 +79,7 @@
     cursor:pointer;
     transition-property: background-color;
     transition-duration: 1s;
+    margin-bottom:0px;
 }
 
 #reserve-button:hover{
@@ -103,4 +104,29 @@
 #spot-guests input:focus{
     outline:none;
     background-color: transparent;
+}
+
+#reservation-cancel-link{
+    margin:0;
+    font-size:13px;
+    margin:auto;
+    margin-top:10px;
+    text-align: center;
+    cursor:pointer;
+    background-color: rgba(212, 27, 83, 0.842);
+    border-radius:15px;
+    color:white;
+    width:88%;
+    height:30px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    transition-property: background-color;
+    transition-duration: 1s;
+
+}
+
+#reservation-cancel-link:hover{
+    /* box-shadow: 2px 2px 6px rgb(158, 157, 157); */
+    background-color: rgba(219, 155, 174, 0.842);
 }

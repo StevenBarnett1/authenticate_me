@@ -27,6 +27,8 @@ const Reservation = ({spot}) => {
     const [dateDifference,setDateDifference] = useState("")
     const [disabledDates,setDisabledDates]= useState([])
     const [errors,setErrors] = ([])
+    const [selfBookings,setSelfBookings] = useState([])
+    const user = useSelector(state => state.session.user)
     const modalRequired = useSelector(state=>state.session.modalRequired)
     let findDisabledDates = (start,end) => {
 
@@ -46,6 +48,7 @@ const Reservation = ({spot}) => {
         )
         setDisabledDates([...disabledDates,...dates])
     }
+    console.log("USER: ",user, spot)
 
     let findDisabledDatesNoUpdate = (start,end) => {
 
@@ -87,6 +90,11 @@ const Reservation = ({spot}) => {
         }
     },[spot])
 
+    useEffect(()=>{
+        if(spot && user){
+            setSelfBookings(spot.Bookings.filter(booking=>Number(booking.buyerId) === Number(user.id)))
+        }
+    },[spot])
 
 
 
@@ -129,6 +137,7 @@ const Reservation = ({spot}) => {
         if(available){
             let booking = {checkin,checkout,buyerId:currentUser.id,spotId:spot.id}
             dispatch(postBooking(booking))
+            setSelfBookings([...selfBookings,booking])
             findDisabledDates(checkin,checkout)
             setAvailable(false)
         }
@@ -194,11 +203,14 @@ const Reservation = ({spot}) => {
                 </div>
 
                 <button id = "reserve-button" onClick={onClick}>{available ? "Reserve" : "Check Availability"}</button>
-
             </div>
-            <div id = "reservation-total-price" style = {available ? {visibility:"visible"} : {fontSize:"0px",visibility:"hidden"}}>
+
+            <div id = "reservation-total-price" style = {available ? {visibility:"visible"} : {fontSize:"0px",visibility:"hidden",height:"10px"}}>
                     <div>Total:</div>
                     <div>${spot && spot.price * (dateDifference)}</div>
+            </div>
+            <div id = "reservation-cancel-link" style = {selfBookings.length ? {display:"flex"} : {display:"none"} }>
+                    Make changes to current reservations
             </div>
             <div id = "calendar-container" style = {calendar ? {display:"block"} : {display:"none"}}>
                     <Calendar

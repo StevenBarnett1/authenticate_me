@@ -19,6 +19,8 @@ function FormModal() {
     userForm = (<SignupForm/>)
   }
 
+  // else if (modalView && modalType ==)
+
   return (
     <>
       {modalView && (
