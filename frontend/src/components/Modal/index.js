@@ -35,9 +35,11 @@ function FormModal() {
     console.log("BOOKINGS HERE: ",spot.Bookings)
     let modalInfo = spot.Bookings.filter(booking=>user.id === booking.buyerId)
     modalInfo.sort((a,b)=>new Date(a.checkin) - new Date(b.checkin))
+
     userForm = (
       <div id = "modal-bookings-list">
-        {modalInfo.map(booking => (
+        {!modalInfo.length && (<div>You have not made any bookings!</div>)}
+        {modalInfo.length>0 && modalInfo.map(booking => (
           (<div className = "modal-date-listing" key = {booking.id}>
             <div>{`${monthNames[new Date(booking.checkin).getMonth()]} ${new Date(booking.checkin).getDate()} ${new Date(booking.checkin).getFullYear()} - ${monthNames[new Date(booking.checkout).getMonth()]} ${new Date(booking.checkout).getDate()} ${new Date(booking.checkout).getFullYear()}`}</div>
             <div onClick = {()=>{deleteReservation(booking)}} style = {{cursor:"pointer"}}>{<BsTrashFill/>}</div>

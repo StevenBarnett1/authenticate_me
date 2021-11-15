@@ -24,7 +24,7 @@ const validateBookings = [
   router.delete("/:id",asyncHandler(async(req,res)=>{
     let booking = await Booking.findByPk(req.params.id)
     let spotId = booking.spotId
-    booking.destroy()
+    await booking.destroy()
     let spot = await Spot.findOne({where:{
       id:spotId
     },
@@ -35,7 +35,12 @@ const validateBookings = [
   router.post("/",validateBookings,asyncHandler(async(req,res)=>{
     let {checkin, checkout, buyerId,spotId} = req.body
     let booking = await Booking.create({checkin,checkout,buyerId,spotId})
-    res.json(booking)
+    let spot = await Spot.findOne({where:{
+      id:spotId
+    },
+    include:[User,Review,Booking]
+  })
+    res.json(spot)
   }))
 
   router.put("/:id",validateBookings,asyncHandler(async(req,res)=>{

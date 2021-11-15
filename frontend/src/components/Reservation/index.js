@@ -4,7 +4,7 @@ import Calendar from 'react-calendar'
 import {addModal,toggleModalView,toggleModalRequired,setModalInfo} from "../../store/session"
 import 'react-calendar/dist/Calendar.css';
 import "./Reservation.css"
-import { postBooking } from "../../store/bookings";
+import { postBooking } from "../../store/spots";
 import FormModal from "../Modal";
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"

@@ -64,6 +64,18 @@ export const deleteBooking = (id) => async dispatch => {
     dispatch(setSpots(res))
 }
 
+export const postBooking = body =>async dispatch=> {
+    let res = await csrfFetch(`/api/bookings`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(body)
+    })
+    res = await res.json()
+    dispatch(setSpots(res))
+}
+
 const spotsReducer = (state = {}, action) => {
     let newState = {}
     switch (action.type){
