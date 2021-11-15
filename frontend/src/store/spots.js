@@ -1,4 +1,4 @@
-
+import { csrfFetch } from "./csrf"
 const SET_SPOTS = "spots/SET_SPOTS"
 const SET_DATES = "spots/SET_DATES"
 const RANDOMIZE_SPOTS = "spots/RANDOMIZE_SPOTS"
@@ -16,14 +16,14 @@ const getRandomSpots = (res) => {
     }
 }
 export const randomizeSpots = () => async dispatch => {
-    let res = await fetch("/api/spots/random")
+    let res = await csrfFetch("/api/spots/random")
     res = await res.json()
     return dispatch(getRandomSpots(res))
 }
 
 export const getSpotFromCity = (city) => async dispatch => {
     city = city.split(" ").join("-")
-    let res = await fetch(`/api/spots/cities/${city}`)
+    let res = await csrfFetch(`/api/spots/cities/${city}`)
     let spots = await res.json()
     dispatch(setSpots(spots))
 }
@@ -39,18 +39,29 @@ export const setDates= (dates) =>{
 }
 
 export const getSpotByPk = (id) => async dispatch => {
-    let res = await fetch(`/api/spots/${id}`)
+    let res = await csrfFetch(`/api/spots/${id}`)
     let spot = await res.json()
     dispatch(setSpots(spot))
 }
 
 export const getSpots = () => async dispatch =>{
-    let res = await fetch("/api/spots")
+    let res = await csrfFetch("/api/spots")
     let spots = await res.json()
 
     dispatch(setSpots(spots))
     return spots
 
+}
+
+export const deleteBooking = (id) => async dispatch => {
+    let res = await csrfFetch(`/api/bookings/${id}`,{
+        method:"DELETE",
+        headers:{
+            "Content-Type":"application/json"
+        },
+    })
+    res = await res.json()
+    dispatch(setSpots(res))
 }
 
 const spotsReducer = (state = {}, action) => {

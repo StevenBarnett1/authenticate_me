@@ -128,9 +128,11 @@ const Reservation = ({spot}) => {
 
     const openReservationModal = () => {
         dispatch(toggleModalView(true))
+        if(!user){
+            dispatch(addModal("login"))
+            return
+        }
         dispatch(addModal("reservations"))
-        dispatch(setModalInfo(selfBookings.sort((a,b)=>new Date(a.checkin) - new Date(b.checkin))))
-        console.log("SORTED BOOKINGS: ",selfBookings.sort((a,b)=>new Date(a.checkin) - new Date(b.checkin)))
     }
 
     let onClick = (e)=>{

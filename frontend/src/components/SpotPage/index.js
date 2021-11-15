@@ -22,9 +22,11 @@ let SpotPage = () => {
 
     let spot = useSelector((state)=>state.spots)
     spot = Object.values(spot)[0]
-
     useEffect(() => {
-        if (spot)dispatch(getReviews(spot.id))
+        if (spot){
+            dispatch(getReviews(spot.id))
+            
+        }
     }, [dispatch,spot])
 
     let reviews = useSelector((state)=>state.reviews)
