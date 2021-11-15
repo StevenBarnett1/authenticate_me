@@ -61,9 +61,7 @@ const Reservation = ({spot}) => {
             dates.push(currentDate);
             currentDate = currentDate.addDays(1);
         }
-        console.log("disabled dates"
-        )
-        setDisabledDates([...disabledDates,...dates])
+        return dates
     }
 
     useEffect(()=>{
@@ -74,11 +72,18 @@ const Reservation = ({spot}) => {
             let end = new Date()
             end.setDate(end.getDate()-1)
             start.setFullYear(start.getFullYear() - 1);
-            findDisabledDates(start,end)
+
+            let finalDates = findDisabledDatesNoUpdate(start,end)
 
             bookings.forEach(booking=>{
-                findDisabledDates(booking.checkin,booking.checkout)
+                finalDates = [...finalDates, ...findDisabledDatesNoUpdate(booking.checkin,booking.checkout)]
+                console.log("NEW DATES: ",...findDisabledDatesNoUpdate(booking.checkin,booking.checkout))
             })
+            for(let date of finalDates){
+                console.log(date instanceof Date)
+            }
+            console.log("FINAL DATES: ",finalDates)
+            setDisabledDates(finalDates)
         }
     },[spot])
 
