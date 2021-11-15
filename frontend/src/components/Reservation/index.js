@@ -26,7 +26,7 @@ const Reservation = ({spot}) => {
     const [activeType,toggleActiveType] = useState("")
     const [dateDifference,setDateDifference] = useState("")
     const [disabledDates,setDisabledDates]= useState([])
-    const [errors,setErrors] = ([])
+    const [errors,setErrors] = useState([])
     const [selfBookings,setSelfBookings] = useState([])
     const user = useSelector(state => state.session.user)
     const modalRequired = useSelector(state=>state.session.modalRequired)
@@ -153,17 +153,17 @@ const Reservation = ({spot}) => {
         else {
             if(checkin && checkout){
                 if(disabledDates.filter(date=>date <= checkout && date >= checkin).length){
-                    window.alert("Sorry overlapping dates")
+                    setErrors(["Sorry overlapping dates"])
                     setCheckout("")
                     setCheckin("")
                 }
-                else if (checkin === checkout){
-                    window.alert("You cannot leave on the day you arrive!")
+                else if (new Date(checkin).getDate === new Date(checkout).getDate){
+                    setErrors(["You cannot leave on the day you arrive!"])
                     setCheckout("")
                     setCheckin("")
                 }
                  else if (checkin >= checkout){
-                    window.alert("You cannot leave before you've arrived!")
+                    setErrors(["You cannot leave before you've arrived!"])
                     setCheckout("")
                     setCheckin("")
                 }
@@ -173,6 +173,11 @@ const Reservation = ({spot}) => {
 
         }
         }
+
+        useEffect(()=>{
+            if(checkin)setErrors([])
+            if(checkout)setErrors([])
+        },[checkin,checkout])
 
         console.log("INSIDE RESERVATION")
         console.log("MODAL REQUIRED: ",modalRequired)
@@ -185,6 +190,9 @@ const Reservation = ({spot}) => {
                 <div id = "reservation-price-rating-container">
                     <div><strong style={{fontSize:'25px',fontWeight:800}}>${spot &&spot.price}</strong> / night</div>
                     <div><strong style={{fontSize:'18px',fontWeight:800}}>☆{spot && spot.rating}</strong></div>
+                </div>
+                <div style = {(errors && errors.length) ? {display:"block",position:"absolute",color:"red",top:"50px"} : {display:"none"}}>
+                    {errors && errors.map((error, idx) => <div key={idx}>{error}</div>)}
                 </div>
                 <div id = "spot-reservation-buttons">
                     <div id = "spot-reservation-date-buttons">
