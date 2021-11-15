@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import Calendar from 'react-calendar'
-import {addModal,toggleModalView,toggleModalRequired} from "../../store/session"
+import {addModal,toggleModalView,toggleModalRequired,setModalInfo} from "../../store/session"
 import 'react-calendar/dist/Calendar.css';
 import "./Reservation.css"
 import { postBooking } from "../../store/bookings";
@@ -88,13 +88,13 @@ const Reservation = ({spot}) => {
             console.log("FINAL DATES: ",finalDates)
             setDisabledDates(finalDates)
         }
-    },[spot])
+    },[spot,user])
 
     useEffect(()=>{
         if(spot && user){
             setSelfBookings(spot.Bookings.filter(booking=>Number(booking.buyerId) === Number(user.id)))
         }
-    },[spot])
+    },[spot,user])
 
 
 
@@ -125,6 +125,13 @@ const Reservation = ({spot}) => {
     let currentUser = useSelector((state)=>state.session.user)
     const modalView = useSelector(state=>state.session.modalView)
     console.log("REQUIRE SIGN IN: ",modalRequired)
+
+    const openReservationModal = () => {
+        dispatch(toggleModalView(true))
+        dispatch(addModal("reservations"))
+        dispatch(setModalInfo(selfBookings.sort((a,b)=>new Date(a.checkin) - new Date(b.checkin))))
+        console.log("SORTED BOOKINGS: ",selfBookings.sort((a,b)=>new Date(a.checkin) - new Date(b.checkin)))
+    }
 
     let onClick = (e)=>{
         console.log("in on click",currentUser)
@@ -209,7 +216,7 @@ const Reservation = ({spot}) => {
                     <div>Total:</div>
                     <div>${spot && spot.price * (dateDifference)}</div>
             </div>
-            <div id = "reservation-cancel-link" style = {selfBookings.length ? {display:"flex"} : {display:"none"} }>
+            <div id = "reservation-cancel-link" onClick = {openReservationModal} style = {(selfBookings.length && user) ? {display:"flex"} : {display:"none"} }>
                     Make changes to current reservations
             </div>
             <div id = "calendar-container" style = {calendar ? {display:"block"} : {display:"none"}}>
@@ -225,7 +232,8 @@ const Reservation = ({spot}) => {
                         value={date}
                     />
             </div>
-            {modalView && !currentUser ? (<FormModal/>): null}
+            {modalView && (<FormModal/>)}
+            {/* {modalView && !currentUser ? (<FormModal/>): null} */}
         </div>
     )
 }

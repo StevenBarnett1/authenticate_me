@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import {addModal} from "../../store/session"
+import {addModal,toggleModalView} from "../../store/session"
 import * as sessionActions from "../../store/session";
 import './UserForm.css';
 
@@ -15,7 +15,7 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
-
+  const user = useSelector(state=>state.session.user)
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -34,6 +34,12 @@ function SignupFormPage() {
     e.preventDefault()
    dispatch(addModal("login"))
   }
+
+  useEffect(()=>{
+    if(user){
+      dispatch(toggleModalView(false))
+    }
+  },[user])
 
   return (
     <div id = "modal-inner-container">
