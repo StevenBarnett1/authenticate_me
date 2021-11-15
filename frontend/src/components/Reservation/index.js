@@ -46,6 +46,26 @@ const Reservation = ({spot}) => {
         )
         setDisabledDates([...disabledDates,...dates])
     }
+
+    let findDisabledDatesNoUpdate = (start,end) => {
+
+        if(typeof start === "string"){
+            start = new Date(start)
+        }
+        if(typeof end === "string"){
+            end = new Date(end)
+        }
+        let dates = []
+        let currentDate = start
+        while (currentDate <= end) {
+            dates.push(currentDate);
+            currentDate = currentDate.addDays(1);
+        }
+        console.log("disabled dates"
+        )
+        setDisabledDates([...disabledDates,...dates])
+    }
+
     useEffect(()=>{
         if(spot){
             let bookings = Object.values(spot.Bookings)
@@ -92,6 +112,7 @@ const Reservation = ({spot}) => {
     let currentUser = useSelector((state)=>state.session.user)
     const modalView = useSelector(state=>state.session.modalView)
     console.log("REQUIRE SIGN IN: ",modalRequired)
+
     let onClick = (e)=>{
         console.log("in on click",currentUser)
         e.preventDefault()

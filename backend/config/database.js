@@ -1,10 +1,10 @@
 const config = require('./index');
 
 const db = config.db;
-const username = db.username;
-const password = db.password;
-const database = db.database;
-const host = db.host;
+const username = 'auth_app';
+const password = 'password';
+const database = 'auth_db';
+const host = 'localhost';
 console.log(db)
 
 module.exports = {
