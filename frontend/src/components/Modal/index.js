@@ -98,8 +98,7 @@ function FormModal() {
                     {errors && errors.map((error, idx) => <div style = {{textAlign:"center"}} key={idx}>{error}</div>)}
                 </div>
           <textarea id = "review-body-input" placeholder = "Write something..." value = {reviewBody} onChange = {e=>reviewChange(e.target.value)} required></textarea>
-          <select id = "rating-select" onChange = {e=>ratingChange(e.target.value)} value = {rating} required>
-            <option value = "" disabled selected hidden>Rating</option>
+          <select id = "rating-select" onChange = {e=>ratingChange(e.target.value)} defaultValue = "rating" value = {rating} required>
             <option value = {0}>0</option>
             <option value = {1}>1</option>
             <option value = {2}>2</option>
