@@ -8,6 +8,7 @@ import Reviews from "../Reviews"
 import {Link} from "react-router-dom"
 import "./Spot.css"
 import {AiOutlinePlusCircle} from "react-icons/ai"
+import { addModal, toggleModalView } from "../../store/session"
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -16,7 +17,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 let SpotPage = () => {
     let {spotId} = useParams()
     let dispatch = useDispatch()
-
+    const user = useSelector(state=>state.session.user)
     useEffect(()=>{
         dispatch(getSpotByPk(+spotId))
     },[])
@@ -32,8 +33,17 @@ let SpotPage = () => {
 
     let reviews = useSelector((state)=>state.reviews)
 
+    console.log("SPOT ",spot)
+    console.log(reviews)
+
     const createReview = () => {
-        
+        dispatch(toggleModalView(true))
+        if(!user){
+            dispatch(addModal("login"))
+            return
+        }
+        dispatch(addModal("review"))
+
     }
 
     reviews = Object.values(reviews)

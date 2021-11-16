@@ -54,8 +54,7 @@ router.get("/:id/reviews",asyncHandler(async (req,res)=>{
   },
   include:[User]
 })
-console.log("city route")
-  res.json(reviews)
+  return res.json(reviews)
 }))
 router.get("/:id(\\d+)",asyncHandler(async(req,res)=>{
   let spot = await Spot.findByPk(req.params.id,{include:[User,Review,Booking]})
