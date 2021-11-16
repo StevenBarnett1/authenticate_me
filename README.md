@@ -12,6 +12,7 @@ Users are able to view stays in different areas, with their general locations di
 
 ![GIF of Lairbnb login](https://i.ibb.co/xHHrgtQ/Lair-Login.gif)
 
+
 ![GIF of Lairbnb splash page](https://i.ibb.co/tptSQSy/Lair-splash.gif)
 
 ### Reservations
