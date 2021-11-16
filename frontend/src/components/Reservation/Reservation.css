@@ -41,6 +41,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    position: relative;
 }
 
 #spot-reservation-buttons{
@@ -48,6 +49,7 @@
     border:1px solid grey;
     border-radius:15px;
     width:100%;
+    position:relative;
 }
 
 #spot-reservation-date-buttons{
@@ -79,11 +81,18 @@
     cursor:pointer;
     transition-property: background-color;
     transition-duration: 1s;
+    margin-bottom:0px;
+    font-weight:bold;
 }
 
 #reserve-button:hover{
     /* box-shadow: 2px 2px 6px rgb(158, 157, 157); */
     background-color: rgba(219, 155, 174, 0.842);
+}
+
+#spot-guests>input{
+    height:85%;
+    border-radius: 20px;
 }
 
 #reservation-total-price{
@@ -103,4 +112,29 @@
 #spot-guests input:focus{
     outline:none;
     background-color: transparent;
+}
+
+/* #reservation-cancel-link{
+    margin:0;
+    font-size:13px;
+    margin:auto;
+    margin-top:10px;
+    text-align: center;
+    cursor:pointer;
+    background-color: rgba(212, 27, 83, 0.842);
+    border-radius:15px;
+    color:white;
+    width:89%;
+    height:25px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    transition-property: background-color;
+    transition-duration: 1s;
+
+} */
+
+#reservation-cancel-link:hover{
+    /* box-shadow: 2px 2px 6px rgb(158, 157, 157); */
+    color: rgba(236, 104, 144, 0.842);
 }

@@ -4,6 +4,7 @@ const DELETE_REVIEW = "reviews/DELETE_REVIEW"
 const TOGGLE_EDIT = "reviews/TOGGLE_EDIT"
 const EDIT_REVIEW = "reviews/EDIT_REVIEW"
 const SET_BODY = "reviews/SET_BODY"
+const ADD_REVIEW = "reviews/ADD_REVIEW"
 
 const setReviews = (reviews) => {
     return {
@@ -40,8 +41,21 @@ const setReviewsAfterDelete = (id) => {
         payload:id
     }
 }
+
+export const postReview = (review) => async dispatch => {
+    let res = await csrfFetch(`/api/reviews`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(review)
+    })
+    res=await res.json()
+    dispatch(setReviews(res))
+}
+
 export const getReviews = (spotId) => async dispatch => {
-    let res = await fetch(`/api/spots/${spotId}/reviews`)
+    let res = await csrfFetch(`/api/spots/${spotId}/reviews`)
     res=await res.json()
     dispatch(setReviews(res))
 }

@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import Calendar from 'react-calendar'
-import {addModal,toggleModalView,toggleModalRequired} from "../../store/session"
+import {addModal,toggleModalView,toggleModalRequired,setModalInfo} from "../../store/session"
 import 'react-calendar/dist/Calendar.css';
 import "./Reservation.css"
-import { postBooking } from "../../store/bookings";
+import { postBooking } from "../../store/spots";
 import FormModal from "../Modal";
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -26,7 +26,9 @@ const Reservation = ({spot}) => {
     const [activeType,toggleActiveType] = useState("")
     const [dateDifference,setDateDifference] = useState("")
     const [disabledDates,setDisabledDates]= useState([])
-    const [errors,setErrors] = ([])
+    const [errors,setErrors] = useState([])
+    const [selfBookings,setSelfBookings] = useState([])
+    const user = useSelector(state => state.session.user)
     const modalRequired = useSelector(state=>state.session.modalRequired)
     let findDisabledDates = (start,end) => {
 
@@ -46,6 +48,7 @@ const Reservation = ({spot}) => {
         )
         setDisabledDates([...disabledDates,...dates])
     }
+    console.log("USER: ",user, spot)
 
     let findDisabledDatesNoUpdate = (start,end) => {
 
@@ -61,9 +64,7 @@ const Reservation = ({spot}) => {
             dates.push(currentDate);
             currentDate = currentDate.addDays(1);
         }
-        console.log("disabled dates"
-        )
-        setDisabledDates([...disabledDates,...dates])
+        return dates
     }
 
     useEffect(()=>{
@@ -74,14 +75,26 @@ const Reservation = ({spot}) => {
             let end = new Date()
             end.setDate(end.getDate()-1)
             start.setFullYear(start.getFullYear() - 1);
-            findDisabledDates(start,end)
+
+            let finalDates = findDisabledDatesNoUpdate(start,end)
 
             bookings.forEach(booking=>{
-                findDisabledDates(booking.checkin,booking.checkout)
+                finalDates = [...finalDates, ...findDisabledDatesNoUpdate(booking.checkin,booking.checkout)]
+                console.log("NEW DATES: ",...findDisabledDatesNoUpdate(booking.checkin,booking.checkout))
             })
+            for(let date of finalDates){
+                console.log(date instanceof Date)
+            }
+            console.log("FINAL DATES: ",finalDates)
+            setDisabledDates(finalDates)
         }
-    },[spot])
+    },[spot,user])
 
+    useEffect(()=>{
+        if(spot && user){
+            setSelfBookings(spot.Bookings.filter(booking=>Number(booking.buyerId) === Number(user.id)))
+        }
+    },[spot,user])
 
 
 
@@ -113,6 +126,15 @@ const Reservation = ({spot}) => {
     const modalView = useSelector(state=>state.session.modalView)
     console.log("REQUIRE SIGN IN: ",modalRequired)
 
+    const openReservationModal = () => {
+        dispatch(toggleModalView(true))
+        if(!user){
+            dispatch(addModal("login"))
+            return
+        }
+        dispatch(addModal("reservations"))
+    }
+
     let onClick = (e)=>{
         console.log("in on click",currentUser)
         e.preventDefault()
@@ -124,23 +146,24 @@ const Reservation = ({spot}) => {
         if(available){
             let booking = {checkin,checkout,buyerId:currentUser.id,spotId:spot.id}
             dispatch(postBooking(booking))
+            setSelfBookings([...selfBookings,booking])
             findDisabledDates(checkin,checkout)
             setAvailable(false)
         }
         else {
             if(checkin && checkout){
                 if(disabledDates.filter(date=>date <= checkout && date >= checkin).length){
-                    window.alert("Sorry overlapping dates")
+                    setErrors(["Sorry overlapping dates"])
                     setCheckout("")
                     setCheckin("")
                 }
-                else if (checkin === checkout){
-                    window.alert("You cannot leave on the day you arrive!")
+                else if (new Date(checkin).getDate() === new Date(checkout).getDate()){
+                    setErrors(["You cannot leave on the day you arrive!"])
                     setCheckout("")
                     setCheckin("")
                 }
                  else if (checkin >= checkout){
-                    window.alert("You cannot leave before you've arrived!")
+                    setErrors(["You cannot leave before you've arrived!"])
                     setCheckout("")
                     setCheckin("")
                 }
@@ -150,6 +173,11 @@ const Reservation = ({spot}) => {
 
         }
         }
+
+        useEffect(()=>{
+            if(checkin)setErrors([])
+            if(checkout)setErrors([])
+        },[checkin,checkout])
 
         console.log("INSIDE RESERVATION")
         console.log("MODAL REQUIRED: ",modalRequired)
@@ -162,6 +190,9 @@ const Reservation = ({spot}) => {
                 <div id = "reservation-price-rating-container">
                     <div><strong style={{fontSize:'25px',fontWeight:800}}>${spot &&spot.price}</strong> / night</div>
                     <div><strong style={{fontSize:'18px',fontWeight:800}}>☆{spot && spot.rating}</strong></div>
+                </div>
+                <div style = {(errors && errors.length) ? {display:"block",position:"absolute",color:"red",top:"50px"} : {display:"none"}}>
+                    {errors && errors.map((error, idx) => <div key={idx}>{error}</div>)}
                 </div>
                 <div id = "spot-reservation-buttons">
                     <div id = "spot-reservation-date-buttons">
@@ -183,19 +214,23 @@ const Reservation = ({spot}) => {
                     </div>
 
                     <div id = "spot-guests" >
-                        <strong>GUESTS</strong>
+                        <strong style = {{position:"absolute"}}>GUESTS</strong>
                         <input type = "text" onChange = {(e)=>setGuests(e.target.value)} value = {guests} style = {{border:"none"}}/>
                     </div>
                 </div>
+                <div id = "reservation-cancel-link" onClick = {openReservationModal} style = {(selfBookings.length && user) ? {display:"flex",position:"absolute",top:"190px",fontWeight:"bold",cursor:"pointer",fontSize:"14px"} : {display:"none"} }>
+                    Current Reservations
+            </div>
 
                 <button id = "reserve-button" onClick={onClick}>{available ? "Reserve" : "Check Availability"}</button>
-
             </div>
-            <div id = "reservation-total-price" style = {available ? {visibility:"visible"} : {fontSize:"0px",visibility:"hidden"}}>
+
+            <div id = "reservation-total-price" style = {available ? {visibility:"visible"} : {fontSize:"0px",visibility:"hidden",height:"10px"}}>
                     <div>Total:</div>
                     <div>${spot && spot.price * (dateDifference)}</div>
             </div>
-            <div id = "calendar-container" style = {calendar ? {display:"block"} : {display:"none"}}>
+
+            <div id = "calendar-container" style = {calendar ? {display:"block",marginTop:"10px"} : {display:"none"}}>
                     <Calendar
                         tileDisabled={({date, view}) =>
                         (view === 'month') && // Block day tiles only
@@ -208,7 +243,8 @@ const Reservation = ({spot}) => {
                         value={date}
                     />
             </div>
-            {modalView && !currentUser ? (<FormModal/>): null}
+            {modalView && (<FormModal/>)}
+            {/* {modalView && !currentUser ? (<FormModal/>): null} */}
         </div>
     )
 }

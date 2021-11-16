@@ -21,10 +21,26 @@ const validateBookings = [
     handleValidationErrors,
   ];
 
+  router.delete("/:id",asyncHandler(async(req,res)=>{
+    let booking = await Booking.findByPk(req.params.id)
+    let spotId = booking.spotId
+    await booking.destroy()
+    let spot = await Spot.findOne({where:{
+      id:spotId
+    },
+    include:[User,Review,Booking]
+  })
+    res.json(spot)
+  }))
   router.post("/",validateBookings,asyncHandler(async(req,res)=>{
     let {checkin, checkout, buyerId,spotId} = req.body
     let booking = await Booking.create({checkin,checkout,buyerId,spotId})
-    res.json(booking)
+    let spot = await Spot.findOne({where:{
+      id:spotId
+    },
+    include:[User,Review,Booking]
+  })
+    res.json(spot)
   }))
 
   router.put("/:id",validateBookings,asyncHandler(async(req,res)=>{
@@ -34,11 +50,6 @@ const validateBookings = [
     res.json(booking)
   }))
 
-  router.delete("/:id",asyncHandler(async(req,res)=>{
-    let booking = await Booking.findByPk(req.params.id)
-    booking.destroy()
-    res.json()
-  }))
 
 
 module.exports = router

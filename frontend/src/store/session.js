@@ -4,6 +4,7 @@ const REMOVE_USER = "session/REMOVE_USER"
 const ADD_MODAL_TYPE = "session/ADD_MODAL_TYPE"
 const MODAL_VIEW = "session/MODAL_VIEW"
 const MODAL_REQUIRED = "session/MODAL_REQUIRED"
+const MODAL_INFO = "session/MODAL_INFO"
 
 export const setUser = (user) => {
     return {
@@ -79,7 +80,14 @@ export const signup = (user) => async (dispatch) => {
     return response;
   };
 
-const initialState = { user: null,modalView:null,modalType:null };
+  export const setModalInfo = (info) => {
+    return {
+      type:MODAL_INFO,
+      payload:info
+    }
+  }
+
+const initialState = { user: null,modalView:null,modalType:null,modalInfo:null };
 
 const sessionReducer = (state = initialState, action) => {
     const newState = {...state};
@@ -100,6 +108,10 @@ const sessionReducer = (state = initialState, action) => {
       }
       case MODAL_REQUIRED:{
         newState.modalRequired=action.payload
+        return newState
+      }
+      case MODAL_INFO:{
+        newState.modalInfo=action.payload
         return newState
       }
       default:

@@ -7,6 +7,7 @@ import Reservation from "../Reservation"
 import Reviews from "../Reviews"
 import {Link} from "react-router-dom"
 import "./Spot.css"
+import {AiOutlinePlusCircle} from "react-icons/ai"
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -22,12 +23,18 @@ let SpotPage = () => {
 
     let spot = useSelector((state)=>state.spots)
     spot = Object.values(spot)[0]
-
     useEffect(() => {
-        if (spot)dispatch(getReviews(spot.id))
+        if (spot){
+            dispatch(getReviews(spot.id))
+
+        }
     }, [dispatch,spot])
 
     let reviews = useSelector((state)=>state.reviews)
+
+    const createReview = () => {
+        
+    }
 
     reviews = Object.values(reviews)
     reviews = reviews.filter(review=>review.id)
@@ -101,7 +108,8 @@ let SpotPage = () => {
 
                         </div>
                     </div>
-                    <div>
+                    <div style = {{position:"relative"}}>
+                        <div onClick = {createReview} id = "create-review-button">Create Review <AiOutlinePlusCircle style = {{fontSize:"22px"}}/></div>
                         <Reviews reviews = {reviews}/>
                     </div>
                 </div>

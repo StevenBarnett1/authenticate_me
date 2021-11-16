@@ -10,17 +10,7 @@ export const setBookings = (bookings) => {
 }
 
 
-export const postBooking = body =>async dispatch=> {
-    let res = await csrfFetch(`/api/bookings`,{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify(body)
-    })
-    res = await res.json()
-    dispatch(setBookings(res))
-}
+
 
 
 const bookingsReducer = (state = {}, action) => {

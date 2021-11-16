@@ -94,3 +94,26 @@ input:-webkit-autofill{
 #change-signin-type:hover{
     text-decoration: underline;
 }
+
+#modal-bookings-list{
+    width:400px;
+}
+
+.modal-date-listing{
+    display:flex;
+    justify-content: space-around;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#modal-bookings-header{
+    height:45px;
+    background-color: rgb(228, 50, 103);
+    color:white;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-top-left-radius: 15px;
+    border-top-right-radius:15px;
+}
