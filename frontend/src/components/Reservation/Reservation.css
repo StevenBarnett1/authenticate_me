@@ -113,7 +113,7 @@
     background-color: transparent;
 }
 
-#reservation-cancel-link{
+/* #reservation-cancel-link{
     margin:0;
     font-size:13px;
     margin:auto;
@@ -131,9 +131,9 @@
     transition-property: background-color;
     transition-duration: 1s;
 
-}
+} */
 
 #reservation-cancel-link:hover{
     /* box-shadow: 2px 2px 6px rgb(158, 157, 157); */
-    background-color: rgba(219, 155, 174, 0.842);
+    color: rgba(236, 104, 144, 0.842);
 }

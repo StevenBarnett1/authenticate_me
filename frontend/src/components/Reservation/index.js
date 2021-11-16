@@ -218,6 +218,9 @@ const Reservation = ({spot}) => {
                         <input type = "text" onChange = {(e)=>setGuests(e.target.value)} value = {guests} style = {{border:"none"}}/>
                     </div>
                 </div>
+                <div id = "reservation-cancel-link" onClick = {openReservationModal} style = {(selfBookings.length && user) ? {display:"flex",position:"absolute",top:"190px",fontWeight:"bold",cursor:"pointer"} : {display:"none"} }>
+                    Current Reservations
+            </div>
 
                 <button id = "reserve-button" onClick={onClick}>{available ? "Reserve" : "Check Availability"}</button>
             </div>
@@ -226,9 +229,7 @@ const Reservation = ({spot}) => {
                     <div>Total:</div>
                     <div>${spot && spot.price * (dateDifference)}</div>
             </div>
-            <div id = "reservation-cancel-link" onClick = {openReservationModal} style = {(selfBookings.length && user) ? {display:"flex"} : {display:"none"} }>
-                    Make changes to current reservations
-            </div>
+
             <div id = "calendar-container" style = {calendar ? {display:"block",marginTop:"10px"} : {display:"none"}}>
                     <Calendar
                         tileDisabled={({date, view}) =>
