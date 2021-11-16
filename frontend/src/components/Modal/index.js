@@ -37,8 +37,8 @@ function FormModal() {
       if(user && spot){
         let review = {authorId:user.id,spotId:spot.id,rating:rating,body:reviewBody}
         dispatch(postReview(review))
+        dispatch(toggleModalView(false))
       }
-
 
     }
   }

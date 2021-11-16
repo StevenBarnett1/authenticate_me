@@ -22,7 +22,13 @@ const validateReview = [
 router.post("/",validateReview,asyncHandler(async(req,res)=>{
     let {authorId,spotId,rating,body} = req.body
     let review = await Review.create({authorId,spotId,rating,body})
-    return res.json(review)
+
+    let reviews = await Review.findAll({where:{
+      spotId:spotId
+      },
+    include:[User]
+    })
+  return res.json(reviews)
 }))
 
 
