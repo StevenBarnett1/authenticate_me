@@ -14,6 +14,7 @@ Users are able to view stays in different areas, with their general locations di
 
 
 ![GIF of Lairbnb splash page](https://i.ibb.co/tptSQSy/Lair-splash.gif)
+https://i.ibb.co/tptSQSy/Lair-splash.gif
 
 ### Reservations
 
@@ -32,6 +33,7 @@ Logged in users are able to read, create, edit, and delete reviews and ratings f
 Users can filter stays by location and available check-in and check-out dates.
 
 ![GIF of search feature](https://i.ibb.co/Vw2kw77/Lair-search.gif)
+https://i.ibb.co/Vw2kw77/Lair-search.gif
 
 ## Application Architecture
 
