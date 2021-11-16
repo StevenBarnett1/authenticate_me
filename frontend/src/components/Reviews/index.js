@@ -13,7 +13,6 @@ const Reviews = ({reviews}) => {
         dispatch(setCurrentBody(body))
     }
     let body = useSelector(state=>state.reviews.body)
-    console.log("DFDFDFDFDFDF",body)
     return (
         <>
             <div id = "spot-overall-review"></div>

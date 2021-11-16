@@ -21,7 +21,6 @@ function FormModal() {
 ];
   const user = useSelector(state=>state.session.user)
   const deleteReservation = (booking) => {
-    console.log("BOOKING ID: ",booking.id)
     dispatch(deleteBooking(Number(booking.id)))
   }
 
@@ -58,8 +57,6 @@ function FormModal() {
 
 
   let userForm
-  console.log("INSIDE FORM MODAL")
-  console.log("MODAL VIEW: ",modalView)
   if(modalView && modalType==="login"){
     userForm = (<LoginForm/>)
   }

@@ -16,8 +16,6 @@ function Navigation({ isLoaded }){
   const [searchTypeContainer,setContainer] = useState(document.getElementById("search-type-container"))
   const dispatch = useDispatch()
 
-  console.log("SESSION USER", sessionUser)
-
   const clickOffNavbar = (event=>{
     let navbar = document.getElementById("navbar")
     let clickedInside
@@ -25,7 +23,6 @@ function Navigation({ isLoaded }){
     if(node === navbar) clickedInside = true
     while(node){
       node=node.parentNode
-      console.log(node)
       if(node===navbar)clickedInside=true
     }
     if(!clickedInside){dispatch(setNavigation(false))
@@ -36,7 +33,6 @@ function Navigation({ isLoaded }){
   useEffect(() => {
 
     setContainer(document.getElementById("search-type-container"))
-    console.log(searchClicked,searchTypeContainer)
     if(searchClicked && searchTypeContainer){
       document.addEventListener("click",clickOffNavbar)
     }
@@ -47,8 +43,6 @@ function Navigation({ isLoaded }){
   location.pathname.toString().startsWith("/spots/") ? navBarStyle.position = "relative" : navBarStyle.position = "sticky"
   searchClicked ? navBarStyle.height = "180px" : navBarStyle.height = "80px"
 
-
-  console.log("HEREEEE: ",searchClicked)
   return (
     <div id = "navbar" tabIndex = "0" onBlur = {()=>setNavigation(false)} style = {navBarStyle}>
       <div id = "navbar-inner-container">

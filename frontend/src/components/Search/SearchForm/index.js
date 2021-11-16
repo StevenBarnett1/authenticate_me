@@ -66,7 +66,6 @@ const SearchForm= () => {
 
     },[date])
 
-    console.log("DFSFGFGFDGFDG",checkinClicked)
     return (
         <div id = "search-form-calendar-container">
             <form id = "search-form" onSubmit = {onSubmit}>

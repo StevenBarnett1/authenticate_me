@@ -33,9 +33,6 @@ let SpotPage = () => {
 
     let reviews = useSelector((state)=>state.reviews)
 
-    console.log("SPOT ",spot)
-    console.log(reviews)
-
     const createReview = () => {
         dispatch(toggleModalView(true))
         if(!user){
@@ -48,7 +45,6 @@ let SpotPage = () => {
 
     reviews = Object.values(reviews)
     reviews = reviews.filter(review=>review.id)
-    spot && console.log("DSFSDFSDFSDFJNFORNGOIERNGIONGOIERNGOIERGOINERGIOERGNO",spot.Bookings)
     reviews = reviews.map(review => {
         let createdDate = new Date(review.createdAt)
         let createdMonth = monthNames[createdDate.getMonth()]

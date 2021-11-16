@@ -17,7 +17,6 @@ const SpotsPage = () => {
     let history = useHistory()
     let location = useLocation()
     useEffect(()=>{
-        console.log(1)
         if(city)dispatch(getSpotFromCity(city))
         else dispatch(randomizeSpots())
     },[city])
@@ -41,7 +40,6 @@ const SpotsPage = () => {
 
     let dates
     if(location.state && location.state.dates)dates = location.state.dates
-    console.log("SPOTS LENGTH BEFORE: ",spots.length)
     if(dates){
         spots = spots.filter(spot => {
             if(spot.Bookings.filter(booking => {
@@ -51,25 +49,18 @@ const SpotsPage = () => {
                 const dateCheckout = new Date(dates.checkout)
 
                 if(dateCheckin > bookingCheckin && dateCheckin < bookingCheckout){//not okay
-                    console.log(1)
                     return true
                 } else if (dateCheckout > bookingCheckin && dateCheckout < bookingCheckout){//not okay
-                    console.log(2)
                     return true
                 } else if (dateCheckin < bookingCheckin && dateCheckout > bookingCheckout){// not okay
-                    console.log(3)
                     return true
                 } else {
-                    console.log(4)
                     return false
                 }
             }).length){
-                console.log(1)
                 return false
             }
-
            else {
-            console.log(5)
                return true
            }
         })
@@ -77,13 +68,6 @@ const SpotsPage = () => {
 
     let currentCoordinates = coordinates[index]
     let dispatch = useDispatch()
-
-    console.log("A")
-
-
-
-    console.log("SPOTS LENGTH AFTER: ",spots.length)
-
 
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3RldmVuYmFybmV0dDEiLCJhIjoiY2t0a2w1bDh1MW13cjJvbnh2Nm4xeHg4ZSJ9.tfF8CCQtdVQSCHxliRtaQQ';
 
@@ -101,7 +85,6 @@ const SpotsPage = () => {
                 center: [lng, lat],
                 zoom: zoom
             });
-            console.log(2)
         });
         useEffect(() => {
             if (!map.current) return; // wait for map to initialize
@@ -110,7 +93,6 @@ const SpotsPage = () => {
             setLat(map.current.getCenter().lat.toFixed(4));
             setZoom(map.current.getZoom().toFixed(2));
             });
-            console.log(3)
             });
 
             useEffect(()=>{

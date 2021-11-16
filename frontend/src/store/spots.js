@@ -29,7 +29,6 @@ export const getSpotFromCity = (city) => async dispatch => {
 }
 
 export const setDates= (dates) =>{
-    console.log("HIT DATE ACTION")
     return(
         {
         type:SET_DATES,
@@ -91,10 +90,8 @@ const spotsReducer = (state = {}, action) => {
         case SET_DATES:{
             newState = {...state}
             newState.dates = action.payload
-            console.log("HIT DATE REDUCER")
         }
         case RANDOMIZE_SPOTS:{
-            console.log("IN RANDOMIZE")
             if(action.payload instanceof Array){
                 let num = 0
                 action.payload.forEach(spot => {

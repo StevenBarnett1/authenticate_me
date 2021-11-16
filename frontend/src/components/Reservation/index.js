@@ -44,11 +44,8 @@ const Reservation = ({spot}) => {
             dates.push(currentDate);
             currentDate = currentDate.addDays(1);
         }
-        console.log("disabled dates"
-        )
         setDisabledDates([...disabledDates,...dates])
     }
-    console.log("USER: ",user, spot)
 
     let findDisabledDatesNoUpdate = (start,end) => {
 
@@ -70,7 +67,6 @@ const Reservation = ({spot}) => {
     useEffect(()=>{
         if(spot){
             let bookings = Object.values(spot.Bookings)
-            console.log("bookings here: ",bookings.length)
             let start = new Date();
             let end = new Date()
             end.setDate(end.getDate()-1)
@@ -80,12 +76,9 @@ const Reservation = ({spot}) => {
 
             bookings.forEach(booking=>{
                 finalDates = [...finalDates, ...findDisabledDatesNoUpdate(booking.checkin,booking.checkout)]
-                console.log("NEW DATES: ",...findDisabledDatesNoUpdate(booking.checkin,booking.checkout))
             })
             for(let date of finalDates){
-                console.log(date instanceof Date)
             }
-            console.log("FINAL DATES: ",finalDates)
             setDisabledDates(finalDates)
         }
     },[spot,user])
@@ -113,7 +106,6 @@ const Reservation = ({spot}) => {
     },[checkin,checkout])
 
     useEffect(()=>{
-        console.log("in use effect")
         if(modalRequired){
             dispatch(addModal("login"))
             dispatch(toggleModalView(true))
@@ -124,7 +116,6 @@ const Reservation = ({spot}) => {
     const dispatch = useDispatch()
     let currentUser = useSelector((state)=>state.session.user)
     const modalView = useSelector(state=>state.session.modalView)
-    console.log("REQUIRE SIGN IN: ",modalRequired)
 
     const openReservationModal = () => {
         dispatch(toggleModalView(true))
@@ -136,7 +127,6 @@ const Reservation = ({spot}) => {
     }
 
     let onClick = (e)=>{
-        console.log("in on click",currentUser)
         e.preventDefault()
         if(!currentUser){
             dispatch(toggleModalView(true))
@@ -178,11 +168,6 @@ const Reservation = ({spot}) => {
             if(checkin)setErrors([])
             if(checkout)setErrors([])
         },[checkin,checkout])
-
-        console.log("INSIDE RESERVATION")
-        console.log("MODAL REQUIRED: ",modalRequired)
-        console.log("MODAL VIEW: ",modalView)
-
 
     return (
         <div id = "reservation-container" style = {available ? {height:"325px"} : {height:"275px"}}>
