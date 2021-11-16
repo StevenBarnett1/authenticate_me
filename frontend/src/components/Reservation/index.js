@@ -218,7 +218,7 @@ const Reservation = ({spot}) => {
                         <input type = "text" onChange = {(e)=>setGuests(e.target.value)} value = {guests} style = {{border:"none"}}/>
                     </div>
                 </div>
-                <div id = "reservation-cancel-link" onClick = {openReservationModal} style = {(selfBookings.length && user) ? {display:"flex",position:"absolute",top:"190px",fontWeight:"bold",cursor:"pointer"} : {display:"none"} }>
+                <div id = "reservation-cancel-link" onClick = {openReservationModal} style = {(selfBookings.length && user) ? {display:"flex",position:"absolute",top:"190px",fontWeight:"bold",cursor:"pointer",fontSize:"14px"} : {display:"none"} }>
                     Current Reservations
             </div>
 

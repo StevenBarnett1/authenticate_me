@@ -82,6 +82,7 @@
     transition-property: background-color;
     transition-duration: 1s;
     margin-bottom:0px;
+    font-weight:bold;
 }
 
 #reserve-button:hover{
