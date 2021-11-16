@@ -79,6 +79,7 @@ input:-webkit-autofill{
 
 #form-outer-container{
     width:90%;
+    position:relative;
 
 }
 

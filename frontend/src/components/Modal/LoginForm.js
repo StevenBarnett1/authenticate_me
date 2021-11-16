@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {addModal, toggleModalView} from "../../store/session"
 import "./UserForm.css"
 
@@ -10,11 +10,11 @@ function LoginForm() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const user = useSelector(state=>state.session.user)
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    dispatch(toggleModalView(false))
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
         const data = await res.json();
@@ -23,19 +23,29 @@ function LoginForm() {
     );
   };
 
+  useEffect(()=>{
+    setErrors([])
+  },[credential,password])
+
   const handleClick = (e) => {
     e.preventDefault()
    dispatch(addModal("signup"))
   }
+
+  useEffect(()=>{
+    if(user){
+      dispatch(toggleModalView(false))
+    }
+  },[user])
 
     return (
       <div id = "modal-inner-container" style = {{height:"350px"}}>
         <h4 id = "signup-title">Log In</h4>
         <div id = "form-outer-container">
           <h2 id = "welcome-title">Welcome to Lairbnb</h2>
-          <ul style = {errors.length ? {display:"block"} : {display:"none"}}>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+          <div style = {(errors && errors.length) ? {display:"block",position:"absolute",color:"red",top:"50px"} : {display:"none"}}>
+                    {errors && errors.map((error, idx) => <div key={idx}>{error}</div>)}
+                </div>
           <form id = "user-form" onSubmit={handleSubmit}>
 
             <div id = "form-inputs">

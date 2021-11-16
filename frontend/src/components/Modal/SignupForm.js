@@ -16,6 +16,10 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const user = useSelector(state=>state.session.user)
+
+  useEffect(()=>{
+    setErrors([])
+  },[email,username,firstName,lastName,password,confirmPassword])
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -46,14 +50,14 @@ function SignupFormPage() {
       <h4 id = "signup-title">Sign Up</h4>
       <div id = "form-outer-container">
         <h2 id = "welcome-title">Welcome to Lairbnb</h2>
-        <ul style = {errors.length ? {display:"block"} : {display:"none"}}>
-              {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-          </ul>
+        <div style = {(errors && errors.length) ? {display:"block",position:"absolute",color:"red",top:"50px"} : {display:"none"}}>
+                    {errors && errors.map((error, idx) => <div key={idx}>{error}</div>)}
+                </div>
         <form id = "user-form" onSubmit={handleSubmit}>
 
           <div id = "form-inputs">
               <input
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete = "off"
