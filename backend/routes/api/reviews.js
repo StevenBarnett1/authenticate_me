@@ -20,8 +20,8 @@ const validateReview = [
   ];
 
 router.post("/",validateReview,asyncHandler(async(req,res)=>{
-    let {authorId,spotId,rating} = req.body
-    let review = await Review.create({authorId,spotId,rating})
+    let {authorId,spotId,rating,body} = req.body
+    let review = await Review.create({authorId,spotId,rating,body})
     return res.json(review)
 }))
 
