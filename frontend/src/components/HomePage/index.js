@@ -6,6 +6,7 @@ import ExploreNearby from "./ExploreNearby";
 import FutureGetaways from "./FutureGetaways";
 import LiveAnywhere from "./LiveAnywhere";
 import ThingsToDo from "./ThingsToDo";
+import Footer from "./Footer"
 import "./HomePage.css"
 
 const HomePage = () => {
@@ -16,7 +17,7 @@ const HomePage = () => {
             <ExploreNearby />
             <LiveAnywhere />
             <ThingsToDo />
-            {/* <FutureGetaways /> */}
+            <Footer/>
         </div>
     )
 }

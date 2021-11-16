@@ -1,0 +1,21 @@
+#footer-outer{
+    height:100px;
+    background-color: rgb(163, 163, 163);
+    width:100%;
+    position:absolute;
+    right:0;
+    left:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+
+}
+
+#footer-outer > * {
+    margin-right:100px;
+}
+
+#github-navlink{
+    margin-left:80px;
+}
