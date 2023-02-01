@@ -2,7 +2,7 @@
 
 ## What is Lairbnb?
 
-[Lairbnb]() is a full stack app utilizing PostgreSQL, Express, SQLAlchemy and React/Redux. Lairbnb allows users to view stays in the bay area and logged in users to create reservations and reviews for different stays.
+[Lairbnb](https://lairbnb-web-app.herokuapp.com) is a full stack app utilizing PostgreSQL, Express, SQLAlchemy and React/Redux. Lairbnb allows users to view stays in the bay area and logged in users to create reservations and reviews for different stays.
 
 ## Features
 
