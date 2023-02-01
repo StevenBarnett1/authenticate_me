@@ -1,3 +1,6 @@
+require('dotenv').config()
+
+
 module.exports = {
     environment: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 5000,
@@ -6,6 +9,8 @@ module.exports = {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       host: process.env.DB_HOST,
+      dialect: 'postgres',
+      seederStorage: 'sequelize',
     },
     jwtConfig: {
       secret: process.env.JWT_SECRET,

@@ -120,7 +120,7 @@
 }
 
 
-#search-form input {
+#search-form div,input,label {
     cursor:pointer;
 }
 
