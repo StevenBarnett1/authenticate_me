@@ -1,0 +1,541 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.6 (Homebrew)
+-- Dumped by pg_dump version 14.6 (Homebrew)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: Bookings; Type: TABLE; Schema: public; Owner: steven
+--
+
+CREATE TABLE public."Bookings" (
+    id integer NOT NULL,
+    "buyerId" integer NOT NULL,
+    "spotId" integer NOT NULL,
+    checkin timestamp with time zone NOT NULL,
+    checkout timestamp with time zone NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."Bookings" OWNER TO steven;
+
+--
+-- Name: Bookings_id_seq; Type: SEQUENCE; Schema: public; Owner: steven
+--
+
+CREATE SEQUENCE public."Bookings_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Bookings_id_seq" OWNER TO steven;
+
+--
+-- Name: Bookings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: steven
+--
+
+ALTER SEQUENCE public."Bookings_id_seq" OWNED BY public."Bookings".id;
+
+
+--
+-- Name: Reviews; Type: TABLE; Schema: public; Owner: steven
+--
+
+CREATE TABLE public."Reviews" (
+    id integer NOT NULL,
+    "authorId" integer NOT NULL,
+    "spotId" integer NOT NULL,
+    body text,
+    rating numeric(3,2) NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."Reviews" OWNER TO steven;
+
+--
+-- Name: Reviews_id_seq; Type: SEQUENCE; Schema: public; Owner: steven
+--
+
+CREATE SEQUENCE public."Reviews_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Reviews_id_seq" OWNER TO steven;
+
+--
+-- Name: Reviews_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: steven
+--
+
+ALTER SEQUENCE public."Reviews_id_seq" OWNED BY public."Reviews".id;
+
+
+--
+-- Name: SequelizeData; Type: TABLE; Schema: public; Owner: steven
+--
+
+CREATE TABLE public."SequelizeData" (
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public."SequelizeData" OWNER TO steven;
+
+--
+-- Name: SequelizeMeta; Type: TABLE; Schema: public; Owner: steven
+--
+
+CREATE TABLE public."SequelizeMeta" (
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public."SequelizeMeta" OWNER TO steven;
+
+--
+-- Name: Spots; Type: TABLE; Schema: public; Owner: steven
+--
+
+CREATE TABLE public."Spots" (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    description text NOT NULL,
+    city character varying(255) NOT NULL,
+    state character varying(255) NOT NULL,
+    "hostId" integer NOT NULL,
+    image character varying(255) NOT NULL,
+    price integer NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."Spots" OWNER TO steven;
+
+--
+-- Name: Spots_id_seq; Type: SEQUENCE; Schema: public; Owner: steven
+--
+
+CREATE SEQUENCE public."Spots_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Spots_id_seq" OWNER TO steven;
+
+--
+-- Name: Spots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: steven
+--
+
+ALTER SEQUENCE public."Spots_id_seq" OWNED BY public."Spots".id;
+
+
+--
+-- Name: Users; Type: TABLE; Schema: public; Owner: steven
+--
+
+CREATE TABLE public."Users" (
+    id integer NOT NULL,
+    username character varying(30) NOT NULL,
+    email character varying(256) NOT NULL,
+    "hashedPassword" character varying(255) NOT NULL,
+    "createdAt" timestamp with time zone DEFAULT now() NOT NULL,
+    "updatedAt" timestamp with time zone DEFAULT now() NOT NULL,
+    "firstName" character varying(255) NOT NULL,
+    "lastName" character varying(255) NOT NULL,
+    image character varying(255) DEFAULT 'https://www.cmmhealth.org/custom/images/blank-profile-hi.png'::character varying NOT NULL
+);
+
+
+ALTER TABLE public."Users" OWNER TO steven;
+
+--
+-- Name: Users_id_seq; Type: SEQUENCE; Schema: public; Owner: steven
+--
+
+CREATE SEQUENCE public."Users_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Users_id_seq" OWNER TO steven;
+
+--
+-- Name: Users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: steven
+--
+
+ALTER SEQUENCE public."Users_id_seq" OWNED BY public."Users".id;
+
+
+--
+-- Name: Bookings id; Type: DEFAULT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Bookings" ALTER COLUMN id SET DEFAULT nextval('public."Bookings_id_seq"'::regclass);
+
+
+--
+-- Name: Reviews id; Type: DEFAULT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Reviews" ALTER COLUMN id SET DEFAULT nextval('public."Reviews_id_seq"'::regclass);
+
+
+--
+-- Name: Spots id; Type: DEFAULT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Spots" ALTER COLUMN id SET DEFAULT nextval('public."Spots_id_seq"'::regclass);
+
+
+--
+-- Name: Users id; Type: DEFAULT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Users" ALTER COLUMN id SET DEFAULT nextval('public."Users_id_seq"'::regclass);
+
+
+--
+-- Data for Name: Bookings; Type: TABLE DATA; Schema: public; Owner: steven
+--
+
+COPY public."Bookings" (id, "buyerId", "spotId", checkin, checkout, "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- Data for Name: Reviews; Type: TABLE DATA; Schema: public; Owner: steven
+--
+
+COPY public."Reviews" (id, "authorId", "spotId", body, rating, "createdAt", "updatedAt") FROM stdin;
+1	5	1	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+2	5	2	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.80	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+3	5	3	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.70	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+4	5	4	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.60	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+5	5	5	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.50	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+6	5	6	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.40	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+7	5	7	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.40	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+8	5	8	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.70	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+9	5	9	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.90	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+10	5	10	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.20	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+11	5	11	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.30	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+12	5	12	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.90	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+13	5	13	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+14	5	14	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+15	5	15	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+16	5	16	Great location and comfortable place for up to two visitors! Dennis is a great communicator. During my stay, there were issues with the TV and Wifi connection being slow that we ended up not using them as amenities but otherwise, a good stay.	4.90	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+17	1	1	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+18	1	2	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+19	1	3	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+20	1	4	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.50	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+21	1	5	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.90	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+22	1	6	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.60	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+42	2	10	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.40	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+23	1	7	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.20	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+24	1	8	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.30	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+25	1	9	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.40	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+26	1	10	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.50	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+27	1	11	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.40	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+28	1	12	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.70	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+29	1	13	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.40	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+30	1	14	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.80	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+31	1	15	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	4.10	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+32	1	16	Clean place, very communicative host who is professional and always on top of everything. Has all the amenities you need on a stay (I was there for 1 week). Parking space is a plus. Bed is comfortable. Ceiling fan was perfect. Outdoor space was sublime. Safe neighborhood, very close to Target, Walgreens, highway, Ed Levin park, and gas stations. Well located. You will enjoy your stay!	3.90	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+33	2	1	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.60	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+34	2	2	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+35	2	3	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.90	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+36	2	4	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.80	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+37	2	5	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.20	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+38	2	6	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.70	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+39	2	7	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+40	2	8	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.10	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+41	2	9	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.30	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+65	4	1	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+43	2	11	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+44	2	12	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+45	2	13	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	3.90	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+46	2	14	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	3.80	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+47	2	15	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.70	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+48	2	16	Love the place! It’s really clean and makes you feel like home...I highly recommend booking this place. It was conveniently located (not far from the Great Mall, a couple blocks from Target). In a very quiet neighborhood. Check in was a breeze. Although interaction was not part of the process.	4.80	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+49	3	1	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.50	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+50	3	2	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.20	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+51	3	3	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.80	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+52	3	4	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.10	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+53	3	5	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+54	3	6	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.60	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+55	3	7	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.80	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+56	3	8	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.90	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+57	3	9	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.30	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+58	3	10	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.10	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+59	3	11	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.40	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+60	3	12	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.50	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+61	3	13	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.70	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+62	3	14	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.80	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+63	3	15	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.70	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+64	3	16	The internet was slow and not stable. And we found a few bedbugs and got bitten on the feet. So we left one day early. Although we took pictures and short video of bedbugs, it seems we cannot show them in the review. Other descriptions are accurate and it would be a nice place if there is no bug.	2.10	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+66	4	2	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+67	4	3	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+68	4	4	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+69	4	5	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+70	4	6	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+71	4	7	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+72	4	8	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+73	4	9	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+74	4	10	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+75	4	11	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+76	4	12	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+77	4	13	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+78	4	14	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+79	4	15	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+80	4	16	This spot is perfect and priced well for anyone looking for a nice cozy spot to stay. The bed was immaculate and comfortable, was hard to get out of that bed, it will be missed.	5.00	2023-02-01 11:00:54.148-08	2023-02-01 11:00:54.148-08
+81	1	12	test	5.00	2023-02-01 11:00:54.167-08	2023-02-01 11:00:54.167-08
+\.
+
+
+--
+-- Data for Name: SequelizeData; Type: TABLE DATA; Schema: public; Owner: steven
+--
+
+COPY public."SequelizeData" (name) FROM stdin;
+20210913231737-create-users.js
+20210913233504-adding-all-spots.js
+20210915210522-seed-reviews.js
+20210915235828-add-reviews-with-float-type.js
+20210916191034-create-test-review.js
+\.
+
+
+--
+-- Data for Name: SequelizeMeta; Type: TABLE DATA; Schema: public; Owner: steven
+--
+
+COPY public."SequelizeMeta" (name) FROM stdin;
+20210908233433-create-user.js
+20210913153514-add-first-and-last-name-to-users.js
+20210913155927-create-spot.js
+20210913160203-create-booking.js
+20210913160257-create-review.js
+20210915171225-add-image-column-to-users.js
+20210916001713-remove-spot-rating.js
+20210920043908-change-integer-to-numeric.js
+\.
+
+
+--
+-- Data for Name: Spots; Type: TABLE DATA; Schema: public; Owner: steven
+--
+
+COPY public."Spots" (id, name, description, city, state, "hostId", image, price, "createdAt", "updatedAt") FROM stdin;
+1	Civic Center Studio With Parking	This modern studio is located in one of SF's newer buildings. It has light brown floors, brand new furniture, and includes wifi and a 39-inch flat-screen TV that streams Roku, Amazon Prime, Netflix, and over 60 local channels. In addition to the everyday essentials expected in a modern home (heating, oven, fridge, etc), a dishwasher, microwave, coffee maker, iron, blow dryer, and a washer/dryer are included for your convenience. Our unit is extremely quiet; excellent for getting a good night's rest on a cozy queen size bed. The building's common areas are monitored around the clock for your security.	San Francisco	California	1	https://a0.muscache.com/im/pictures/0f291676-216f-4ab5-b6ef-a9cf0be6e99d.jpg?im_w=960	26	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+2	Charming Garden Apartment, Steps From The Beach	Private in-law apartment offering 2 beautifully decorated, clean and comfortable rooms. The bedroom includes a queen bed with crisp linens a down comforter, warm wool rug, beautiful art and closet and dresser for your belongings. The second room is a living space with a couch that converts to a full bed, a separate comfortable reading chair and lamp.	San Francisco	California	2	https://a0.muscache.com/im/pictures/c6cbf264-ec62-4b5e-9084-3fe0672e0780.jpg?im_w=960	157	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+3	Silicon Valley Studio Apartment	Enjoy your privacy in this private studio apartment with private entrance. No need to interact with anyone -- not even the host. This studio apartment has a completely private heating and air conditioning system. Newly remodeled with 24 new wall outlets - including 6 USB wall outlets, a new furnace, new bathroom fixtures, and new security lighting	San Jose	California	3	https://a0.muscache.com/im/pictures/d6706d62-21cb-44bd-b5a1-c4c53d28c103.jpg?im_w=960	69	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+4	Modern Junior One Bedroom Near Downtown San Jose	Located a half mile from the heart of Downtown this property offers convenience and flexibility to all of Silicon Valley. Efficiently designed, modern and spacious, this junior one bedroom has an open kitchen and beautiful sliding glass doors. Walk in bedroom closet as well as coat closet/pantry. In unit washer and dryer. Pets allowed. One reserved parking space conveniently located just below the home in the gated underground garage is included.	San Jose	California	4	https://a0.muscache.com/im/pictures/21d9ec30-9047-494b-a91a-23c5b4b99039.jpg?im_w=960	90	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+5	Garden cottage in convenient Oakland location.	You’ll love my place because of the good location, convenience to public transport, the friendly neighborhood, the ambiance.. My place is good for couples, solo adventurers, business travelers, and families (with kids). Although there is just one bedroom, the couch folds down for extra sleeping space. Please be aware that the property is in a hilly area and that there are stairs to navigate which can be challenging if you have large luggage or mobility issues	Oakland	California	5	https://a0.muscache.com/im/pictures/9a834283-e25f-43e7-a4a0-07b028353b9f.jpg?im_w=720	80	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+6	Bright Elmwood 1 BR Apt ~ 12 min from Campus	This second floor 1-bedroom apartment is in a renovated 1911 Elmwood building, convenient and close to the UC Berkeley campus, restaurants, stores, and transportation.	Oakland	California	1	https://a0.muscache.com/im/pictures/db15d89e-9d15-49fd-bcee-e9da7e05f6b1.jpg?im_w=960	121	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+7	West Beach Oasis	Brand new listing! The dining table and more art will be in place March 26th. This spacious 1 Br with high ceilings is outfitted with a Casper Cal King bed and Parachute linens + towels. Gigabit internet service w/ wifi-6 router make this a perfect monthly rental for a co-working couple. Common areas include a BBQ for grilling, a spot to lock up bikes, as well as a dedicated outdoor parking spot.	Santa Barbara	California	2	https://a0.muscache.com/im/pictures/72958eba-94e0-480b-9907-d72487c96fd8.jpg?im_w=960	135	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+8	Cozy 2bed in wooded area near beach!	Private apartment. Queen size bed in first bedroom. Second bedroom is a full-size pull out sofa with a soft mattress topper. We are located in a wooded area very close to the beach. You will have a reserved parking spot. Wifi Internet is available.	Santa Barbara	California	3	https://a0.muscache.com/im/pictures/87279625/9bf18cf7_original.jpg?im_w=960	135	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+9	Fun, Sun and Amazing Location	Across from the ocean and Pier Set just 100 feet from the sand and the water's edge, the property offers contemporary design & decor in a furnished studio Queen bed Full bath Has a kitchenette, includes small refrigerator, microwave, coffeemaker, hotplate, dishes and kitchen utensils.	Santa Monica	California	4	https://a0.muscache.com/im/pictures/31821632/6d06776e_original.jpg?im_w=960	68	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+10	Old World Townhouse in SM, Full of Charm	• Absolutely adorable 2 bedroom/ 1 bathroom townhouse. Tons of natural light, A/C, Washer/dryer in unit, Beautiful landscaping/lots of green, Located on 6th & Montana	Santa Monica	California	5	https://a0.muscache.com/im/pictures/a8f9dd1d-383b-4987-b08a-78938bc923f1.jpg?im_w=960	175	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+11	Mammoth Lakes Chalet- Home w/spa & More, 30+ Days	The Mammoth Lakes Chalet is an upscale, well appointed home in a quiet, cul-de-sac, located in the heart of town. Bike (on our complimentary bikes) or walk most anywhere, seasonally. W/a well stocked Chef's kitchen, enjoy fab amenities: hot tub, FP,+wood, steam shower, snowshoes, Fitness area, HS Wi-Fi & Office w/twin futon not listed	Mammoth Lakes	California	1	https://a0.muscache.com/im/pictures/e6967ac6-0fd5-4423-b6da-e990b200f19b.jpg?im_w=960	180	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+12	Long Valley Escape~	The Long Valley Escape is a destination location in of itself. With its very own trout pond, streams and fresh mountain spring it’s the perfect place to relax and recharge. Just minutes from Mammoth Yosemite Airport, and a short drive to the Town of Mammoth Lakes it can also serve as a conveniently located hub for the various activities and events in our area.	Mammoth Lakes	California	2	https://a0.muscache.com/im/pictures/dab6542b-efdd-41e9-9970-76edfa16c6a2.jpg?im_w=960	149	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+13	Modern Bright Studio with private yard! 819B	Great modern studio with its own private yard. Full size washer and dryer. 14 high ceilings, close to everything 819 B we have two	Sacramento	California	3	https://a0.muscache.com/im/pictures/d7f859bc-ba42-4dc8-984f-f772a60a5f4f.jpg?im_w=1200	99	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+14	charming East Sac 1920's home with modern touches	Beautiful home at the border of East Sac and Midtown! Many restaurants, coffee shops, bars, and shops within 5 min walk. 5 min walk to east side of Midtown (20 min walk to center) 8 min walk to Safeway grocery store, 11 min to Sacramento Natural Foods Coop 12 min walk to lovely McKinley park	Sacramento	California	4	https://a0.muscache.com/im/pictures/e0af79ed-4e2f-4961-984a-333fc94ec3e2.jpg?im_w=960	140	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+15	South Lake Tahoe lake front 2 bedroom apartment	This is the perfect place for your Tahoe retreat. It comes with everything you will need for weeks long stay, including fresh linens, towels, toiletry and kitchenware. Highspeed internet available throughout the apartment.	South Lake Tahoe	California	5	https://a0.muscache.com/im/pictures/8472911a-f84b-429a-ac87-d4ced0600bf2.jpg?im_w=960	110	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+16	Rustic Tahoe home with modern touches	Our Comfortable 3BR Home offers a beautiful space for your family & friends to stay and play in Tahoe! We are located in a quiet neighborhood close to restaurants, Heavenly, and the Lake! Enjoy your evenings in a fully equipped kitchen or cooking on the outdoor BBQ. Relax peacefully outside on the house's deck while watching a game on the outside TV or staying warm by the gas fire-pit. Our home offers comfortable furnishings, TV's in all rooms, games for the kids and other family fun.	South Lake Tahoe	California	1	https://a0.muscache.com/im/pictures/92e9248d-b4a4-4985-a9ce-5a61e5dc276f.jpg?im_w=960	106	2023-02-01 11:00:54.138-08	2023-02-01 11:00:54.138-08
+\.
+
+
+--
+-- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: steven
+--
+
+COPY public."Users" (id, username, email, "hashedPassword", "createdAt", "updatedAt", "firstName", "lastName", image) FROM stdin;
+1	Kanye	kanyewest@gmail.com	$2a$10$7MpMwJMFde9Foi3VQrncm.tiy66DG8y1uGl1NEnjp9xM8DSDl1H96	2023-02-01 11:00:53.854-08	2023-02-01 11:00:53.854-08	Kanye	West	https://pyxis.nymag.com/v1/imgs/ff6/0bb/0a83100bb574e271d0b6054ccd251b223a-08-kanye-west.rsquare.w1200.jpg
+2	Will	willsmith@gmail.com	$2a$10$nfB/F9baTa/fA8mlEaoM5eAd5iYQ.2BUMIgQsfsyNMnyzzDni0Qq6	2023-02-01 11:00:53.922-08	2023-02-01 11:00:53.922-08	Will	Smith	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLBgFKidk4cMvkjQjqhznsLV0v3DWORFhPyf6dDpY0qbU3aoMsbDombGPb1EkZbR_TcPo&usqp=CAU
+3	Dwayne	dwaynejohnson@gmail.com	$2a$10$CpzXZ6HbPy.JHgOyRnOY6umyhYP7MZO/yBO/FqF.CN1nMwiWZz/jy	2023-02-01 11:00:53.989-08	2023-02-01 11:00:53.989-08	Dwayne	Johnson	https://media.vanityfair.com/photos/5b46274a6520f70b78e5cfe5/4:3/w_1280,h_960,c_limit/The-Rock-2020-Potential-Run.jpg
+4	Jennifer	jenniferaniston@gmail.com	$2a$10$nsckq5wwSZNMI9v2DzOwN.MRPVe5wFBWj6bEBnpVH60xCbqPELdSq	2023-02-01 11:00:54.057-08	2023-02-01 11:00:54.057-08	Jennifer	Aniston	https://www.hellomagazine.com/imagenes/fashion/celebrity-style/20210909121322/jennifer-aniston-wows-never-ending-legs-tiny-shorts-lolavie-haircare/0-585-927/jennifer-aniston-hair-t.jpg
+5	Tom	tomcruise@gmail.com	$2a$10$l61I4FpAQBhfhdCt.5WzBOSi77yrI09tlRO2I3DumrpinUxrmaG82	2023-02-01 11:00:54.125-08	2023-02-01 11:00:54.125-08	Tom	Cruise	https://www.hellomagazine.com/imagenes/fashion/celebrity-style/20210909121322/jennifer-aniston-wows-never-ending-legs-tiny-shorts-lolavie-haircare/0-585-927/jennifer-aniston-hair-t.jpg
+6	stevenba	test@test.com	$2a$10$gDcJnYTsaoAjYLMnZeXH.eogBCN7gxeA21LxRrMylbAEoSYjrilHC	2023-02-01 11:11:39.502-08	2023-02-01 11:11:39.502-08	steven	barnett	https://www.cmmhealth.org/custom/images/blank-profile-hi.png
+\.
+
+
+--
+-- Name: Bookings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: steven
+--
+
+SELECT pg_catalog.setval('public."Bookings_id_seq"', 1, false);
+
+
+--
+-- Name: Reviews_id_seq; Type: SEQUENCE SET; Schema: public; Owner: steven
+--
+
+SELECT pg_catalog.setval('public."Reviews_id_seq"', 81, true);
+
+
+--
+-- Name: Spots_id_seq; Type: SEQUENCE SET; Schema: public; Owner: steven
+--
+
+SELECT pg_catalog.setval('public."Spots_id_seq"', 16, true);
+
+
+--
+-- Name: Users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: steven
+--
+
+SELECT pg_catalog.setval('public."Users_id_seq"', 6, true);
+
+
+--
+-- Name: Bookings Bookings_pkey; Type: CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Bookings"
+    ADD CONSTRAINT "Bookings_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Reviews Reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Reviews"
+    ADD CONSTRAINT "Reviews_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: SequelizeData SequelizeData_pkey; Type: CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."SequelizeData"
+    ADD CONSTRAINT "SequelizeData_pkey" PRIMARY KEY (name);
+
+
+--
+-- Name: SequelizeMeta SequelizeMeta_pkey; Type: CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."SequelizeMeta"
+    ADD CONSTRAINT "SequelizeMeta_pkey" PRIMARY KEY (name);
+
+
+--
+-- Name: Spots Spots_image_key; Type: CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Spots"
+    ADD CONSTRAINT "Spots_image_key" UNIQUE (image);
+
+
+--
+-- Name: Spots Spots_pkey; Type: CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Spots"
+    ADD CONSTRAINT "Spots_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Users Users_email_key; Type: CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT "Users_email_key" UNIQUE (email);
+
+
+--
+-- Name: Users Users_pkey; Type: CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT "Users_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Users Users_username_key; Type: CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT "Users_username_key" UNIQUE (username);
+
+
+--
+-- Name: Bookings Bookings_buyerId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Bookings"
+    ADD CONSTRAINT "Bookings_buyerId_fkey" FOREIGN KEY ("buyerId") REFERENCES public."Users"(id);
+
+
+--
+-- Name: Bookings Bookings_spotId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Bookings"
+    ADD CONSTRAINT "Bookings_spotId_fkey" FOREIGN KEY ("spotId") REFERENCES public."Spots"(id);
+
+
+--
+-- Name: Reviews Reviews_authorId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Reviews"
+    ADD CONSTRAINT "Reviews_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES public."Users"(id);
+
+
+--
+-- Name: Reviews Reviews_spotId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Reviews"
+    ADD CONSTRAINT "Reviews_spotId_fkey" FOREIGN KEY ("spotId") REFERENCES public."Spots"(id);
+
+
+--
+-- Name: Spots Spots_hostId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: steven
+--
+
+ALTER TABLE ONLY public."Spots"
+    ADD CONSTRAINT "Spots_hostId_fkey" FOREIGN KEY ("hostId") REFERENCES public."Users"(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

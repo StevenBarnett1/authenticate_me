@@ -1,5 +1,5 @@
 {
-  "name": "authenticate-me",
+  "name": "lairbnb",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/StevenBarnett1/authenticate_me.git"
+    "url": "git+https://github.com/StevenBarnett1/lair_bnb.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/StevenBarnett1/authenticate_me/issues"
+    "url": "https://github.com/StevenBarnett1/lair_bnb/issues"
   },
-  "homepage": "https://github.com/StevenBarnett1/authenticate_me#readme",
+  "homepage": "https://github.com/StevenBarnett1/lair_bnb#readme",
   "dependencies": {
     "mapbox-gl": "^2.4.1",
     "node": "^16.9.1"
